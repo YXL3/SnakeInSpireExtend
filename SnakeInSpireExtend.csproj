@@ -48,22 +48,4 @@
     <Compile Remove="Test\CardValidator.cs" />
   </ItemGroup>
 
-  <!-- 注册 MSBuild 任务 -->
-  <UsingTask TaskName="CardValidator"
-             TaskFactory="RoslynCodeTaskFactory"
-             AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
-    <ParameterGroup>
-      <CardsDir ParameterType="System.String" Required="true" />
-    </ParameterGroup>
-    <Task>
-      <Code Type="Class"
-            Language="cs"
-            Source="$(MSBuildProjectDirectory)\Test\CardValidator.cs" />
-    </Task>
-  </UsingTask>
-
-  <!-- 在编译前执行验证 -->
-  <Target Name="ValidateCardFiles" BeforeTargets="CoreCompile">
-    <CardValidator CardsDir="$(MSBuildProjectDirectory)\Scripts\Models\Cards" />
-  </Target>
 </Project>

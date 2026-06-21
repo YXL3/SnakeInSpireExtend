@@ -3,7 +3,6 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Localization;
 using STS2RitsuLib.Patching.Models;
-using MegaCrit.Sts2.Core.Logging;
 using System.Reflection;
 
 namespace SnakeInSpireExtend.Scripts.Extension.Patch;

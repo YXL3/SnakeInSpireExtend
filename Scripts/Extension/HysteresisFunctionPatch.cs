@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Patching.Models;
 
 namespace SnakeInSpireExtend.Scripts.Extension.Patch;
+
 public class HysteresisFunctionPatch : IPatchMethod
 {
     public static string PatchId => "hysteresis_function";
@@ -18,13 +19,8 @@ public class HysteresisFunctionPatch : IPatchMethod
 
     public static void Postfix(CardModel __instance, ref PileType __result)
     {
-        if (__result != PileType.Discard) return;
-        
-        if ((!__instance.DynamicVars.ContainsKey("Hysteresis")) || __instance.DynamicVars["Hysteresis"].BaseValue <= 0)
-        {
-            return;
+        if (__result == PileType.Discard && Helper.HasCustomDynamic(__instance, "Hysteresis")){
+            __result = PileType.Hand;
         }
-
-        __result = PileType.Hand;
     }
 }

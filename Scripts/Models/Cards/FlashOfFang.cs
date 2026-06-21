@@ -7,13 +7,12 @@ using MegaCrit.Sts2.Core.ValueProps;
 using SnakeInSpireExtend.Scripts.CardPools;
 using SnakeInSpireExtend.Scripts.Extension;
 using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
 [RegisterCharacterStarterCard(typeof(Snake),1,Order = 2)]
-public class FlashOfFang : ModCardTemplate
+public class FlashOfFang : DualEffectCardTemplate
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -29,13 +28,6 @@ public class FlashOfFang : ModCardTemplate
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
         
-    }
-
-    protected override PileType GetResultPileTypeForCardPlay()
-    {
-        PileType result = base.GetResultPileTypeForCardPlay();
-        if (result != PileType.Discard || !Helper.HasCustomDynamic(this, "Haste"))return result;
-        return PileType.Hand;
     }
     
     protected override void OnUpgrade(){
