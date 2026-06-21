@@ -1,0 +1,5 @@
+{
+    "SNAKE_IN_SPIRE_EXTEND_AFFLICTION_WEIGHTED.title":"沉重",
+    "SNAKE_IN_SPIRE_EXTEND_AFFLICTION_WEIGHTED.description":"打出这张牌时，失去{Amount:energyIcons()}。",
+    "SNAKE_IN_SPIRE_EXTEND_AFFLICTION_WEIGHTED.extraCardText":"[red]失去[/red]{Amount:energyIcons()}。"
+}

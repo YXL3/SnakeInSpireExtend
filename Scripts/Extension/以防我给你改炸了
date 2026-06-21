@@ -1,0 +1,109 @@
+// using MegaCrit.Sts2.Core.Commands;
+// using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+// using MegaCrit.Sts2.Core.Models;
+// using MegaCrit.Sts2.Core.Runs;
+// using SnakeInSpireExtend.Scripts.Cards;
+// using SnakeInSpireExtend.Scripts.Powers;
+// using STS2RitsuLib.Patching.Models;
+
+// namespace SnakeInSpireExtend.Scripts.Extension.Patch;
+
+// public class HasteFunctionPatch : IPatchMethod
+// {
+//     public static string PatchId => "haste_function";
+
+//     public static string Description => "Haste function";
+
+//     public static bool IsCritical => true;
+
+//     public static ModPatchTarget[] GetTargets()
+//     {
+//         // OnPlay 是 protected virtual，子类重写后 Harmony patch 不会对重写方法生效。
+//         // OnPlayWrapper 是 public 且非 virtual，所有卡牌打出时必定走这里。
+//         return [new(typeof(CardModel), "OnPlayWrapper")];
+//     }
+
+//     /// <summary>
+//     ///     Harmony Postfix on async methods fires when the Task is <em>returned</em> (first await),
+//     ///     not when it <em>completes</em>. This means DoHaste could run and clear Haste before
+//     ///     OnPlay has a chance to read it (e.g. TailWhip's HasteReplayCount).
+//     ///
+//     ///     To fix this, we capture the returned Task and schedule a continuation that runs
+//     ///     after OnPlayWrapper fully completes. This guarantees OnPlay has consumed Haste
+//     ///     before we try to clear or propagate it.
+//     ///
+//     ///     We replace __result (via ref) with the continuation Task so that the PlayCardAction
+//     ///     execution does not complete until all Haste processing finishes. This keeps
+//     ///     ActionExecutor.CurrentlyRunningAction valid throughout the auto-play chain,
+//     ///     preventing "Tried to interrupt shared queue action" errors when a Keen card's
+//     ///     OnPlay calls CardSelectCmd.FromHand.
+//     /// </summary>
+//     public static void Postfix(CardModel __instance, PlayerChoiceContext choiceContext, ref Task __result)
+//     {
+//         // onPlayTask may be null if the async method threw synchronously before yielding
+//         Task onPlayTask = __result;
+//         if (onPlayTask != null)
+//         {
+//             __result = DoHasteAfterOnPlay(__instance, choiceContext, onPlayTask);
+//         }
+
+//         // Hysteresis decrement must also wait for OnPlay to finish,
+//         // so it's moved into the continuation below.
+//     }
+
+//     private static async Task DoHasteAfterOnPlay(CardModel card, PlayerChoiceContext choiceContext, Task onPlayTask)
+//     {
+//         // Wait for OnPlayWrapper to truly complete (all awaits, including OnPlay).
+//         // Do NOT catch exceptions here — let them propagate to the caller through
+//         // the replaced __result Task. If OnPlayWrapper threw, we naturally skip
+//         // Haste/Hysteresis processing because this method faults at the await.
+//         await onPlayTask;
+
+//         // OnPlay is fully done. It is now safe to read/clear Haste.
+//         await DoHaste(card, choiceContext);
+
+//         if (card.GetType() == typeof(FlashOfFang) || card.GetType() == typeof(Gleam))
+//         {
+//             await DoHaste(card, choiceContext, "Hysteresis");
+//         }
+
+//         if (card.DynamicVars.ContainsKey("Hysteresis") && card.DynamicVars["Hysteresis"].BaseValue > 0)
+//         {
+//             card.DynamicVars["Hysteresis"].UpgradeValueBy(-1m);
+//         }
+//     }
+
+//     private static async Task DoHaste(CardModel card, PlayerChoiceContext choiceContext, string functionalHaste = "Haste")
+//     {
+//         if (!SnakeInSpireExtention.HasCustomDynamic(card, functionalHaste))
+//         {
+//             return;
+//         }
+//         IEnumerable<CardModel> cards = await CardPileCmd.Draw(choiceContext, SneakyPhantomAmount(card) + 1m, card.Owner);
+//         if (!cards.Any())
+//         {
+//             return;
+//         }
+//         if (functionalHaste == "Haste")
+//         {
+//             foreach (CardModel drawn in cards){
+//                 if (drawn.Keywords.Contains(SnakeInSpireExtendCardKeywords.Keen))
+//                 {
+//                     await CardCmd.AutoPlay(choiceContext, drawn, null);
+//                 }
+//                 SnakeInSpireExtention.Haste(drawn, card.DynamicVars[functionalHaste].BaseValue - 1m);
+//             }
+//             card.DynamicVars[functionalHaste].BaseValue = 0m;
+//         }
+//     }
+
+
+//     private static decimal SneakyPhantomAmount(CardModel card)
+//     {
+//         if ((!card.IsMutable) || card.Owner == null || !card.Owner.Creature.HasPower<SneakyPhantomPower>())
+//         {
+//             return 0m;
+//         }
+//         return card.Owner.Creature.GetPower<SneakyPhantomPower>().Amount;
+//     }
+// }

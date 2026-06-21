@@ -1,0 +1,69 @@
+<Project Sdk="Godot.NET.Sdk/4.5.1">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>true</ImplicitUsings>
+    <LangVersion>12.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <Sts2Dir>D:\Games\Slay the Spire II</Sts2Dir>
+    <Sts2DataDir>$(Sts2Dir)\data_sts2_windows_x86_64</Sts2DataDir>
+    <GodotExe>D:\Godot_v4.5.1-stable_mono_win64\Godot_v4.5.1-stable_mono_win64.exe</GodotExe>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="sts2">
+      <HintPath>$(Sts2DataDir)\sts2.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <Reference Include="0Harmony">
+      <HintPath>$(Sts2DataDir)\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <Reference Include="STS2-RitsuLib">
+      <HintPath>$(Sts2Dir)\mods\STS2-RitsuLib\STS2-RitsuLib.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  <!-- NuGet获取，注意版本是否一致，不一致手动更改Version -->
+  </ItemGroup>
+
+  <!-- 自动复制dll和json -->
+  <Target Name="Copy Mod" AfterTargets="PostBuildEvent">
+    <Message Text="Copying mod to Slay the Spire 2 mods folder..." Importance="high" />
+    <MakeDir Directories="$(Sts2Dir)\mods\" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(Sts2Dir)\mods\$(MSBuildProjectName)\" />
+    <Copy SourceFiles="$(MSBuildProjectName).json" DestinationFolder="$(Sts2Dir)/mods/$(MSBuildProjectName)/" />
+  </Target>
+
+  <Target Name="ExportPck" AfterTargets="Copy Mod">
+    <Message Text="Copying PCK to Slay the Spire 2 mods folder..." Importance="high" />
+    <Exec Command="&quot;$(GodotExe)&quot; --headless --export-pack &quot;Windows Desktop&quot; &quot;$(Sts2Dir)/mods/$(MSBuildProjectName)/$(MSBuildProjectName).pck&quot;"
+      EnvironmentVariables="IsInnerGodotExport=true;MSBUILDDISABLENODEREUSE=1"
+      ContinueOnError="WarnAndContinue" />
+  </Target>
+
+  <ItemGroup>
+    <Compile Remove="Test\CardValidator.cs" />
+  </ItemGroup>
+
+  <!-- 注册 MSBuild 任务 -->
+  <UsingTask TaskName="CardValidator"
+             TaskFactory="RoslynCodeTaskFactory"
+             AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <CardsDir ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Class"
+            Language="cs"
+            Source="$(MSBuildProjectDirectory)\Test\CardValidator.cs" />
+    </Task>
+  </UsingTask>
+
+  <!-- 在编译前执行验证 -->
+  <Target Name="ValidateCardFiles" BeforeTargets="CoreCompile">
+    <CardValidator CardsDir="$(MSBuildProjectDirectory)\Scripts\Models\Cards" />
+  </Target>
+</Project>

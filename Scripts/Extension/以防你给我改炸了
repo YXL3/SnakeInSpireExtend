@@ -1,0 +1,67 @@
+// using MegaCrit.Sts2.Core.Commands;
+// using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+// using MegaCrit.Sts2.Core.Helpers;
+// using MegaCrit.Sts2.Core.Models;
+// using SnakeInSpireExtend.Scripts.Cards;
+// using SnakeInSpireExtend.Scripts.Powers;
+// using STS2RitsuLib.Patching.Models;
+
+// namespace SnakeInSpireExtend.Scripts.Extension.Patch;
+
+// public class HasteFunctionPatch : IPatchMethod
+// {    
+//     public static string PatchId => "haste_function";
+
+//     public static string Description => "Haste function";
+
+//     public static bool IsCritical => true;
+
+//     public static ModPatchTarget[] GetTargets()
+//     {
+//         // OnPlay 是 protected virtual，子类重写后 Harmony patch 不会对重写方法生效。
+//         // OnPlayWrapper 是 public 且非 virtual，所有卡牌打出时必定走这里。
+//         return [new(typeof(CardModel), "OnPlayWrapper")];
+//     }
+
+//     public static void Postfix(CardModel __instance, PlayerChoiceContext choiceContext)
+//     {
+//         TaskHelper.RunSafely(DoHaste(__instance, choiceContext));
+//         if(__instance.GetType() == typeof(FlashOfFang) || __instance.GetType() == typeof(Gleam))
+//         {
+//             TaskHelper.RunSafely(DoHaste(__instance, choiceContext, "Hysteresis"));
+//         }
+//         if (__instance.DynamicVars.ContainsKey("Hysteresis") && __instance.DynamicVars["Hysteresis"].BaseValue > 0)
+//         {
+//             __instance.DynamicVars["Hysteresis"].UpgradeValueBy(-1m);
+//         }
+//     }
+
+//     private static async Task DoHaste(CardModel card, PlayerChoiceContext choiceContext, string functionalHaste = "Haste")
+//     {
+//         if (!card.DynamicVars.ContainsKey(functionalHaste) || card.DynamicVars[functionalHaste].BaseValue <= 0)
+//         {
+//             return;
+//         }
+//         IEnumerable<CardModel> cards = await CardPileCmd.Draw(choiceContext, SneakyPhantomAmount(card) + 1m, card.Owner);
+//         if (!cards.Any())
+//         {
+//             return;
+//         }
+//         if (functionalHaste == "Haste")
+//         {
+//             foreach(CardModel drawn in cards){
+//                 SnakeInSpireExtention.Haste(drawn, card.DynamicVars[functionalHaste].BaseValue - 1m);
+//             }
+//             card.DynamicVars[functionalHaste].BaseValue = 0m;//经过测试,如果注释掉这一行,TailWhip就可以完成连击了,似乎说明在TailWhip.cs的OnPlay前,这里就将Haste置零.
+//         }
+//     }
+
+//     private static decimal SneakyPhantomAmount(CardModel card)
+//     {
+//         if ((!card.IsMutable) || card.Owner == null || !card.Owner.Creature.HasPower<SneakyPhantomPower>())
+//         {
+//             return 0m;
+//         }
+//         return card.Owner.Creature.GetPower<SneakyPhantomPower>().Amount;
+//     }
+// }

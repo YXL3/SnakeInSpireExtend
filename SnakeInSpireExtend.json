@@ -1,0 +1,13 @@
+{
+  "id": "SnakeInSpireExtend",
+  "name": "SnakeInSpireExtend",   
+  "author": "SomeOne",
+  "description": "SnakeInSpire wiv ritsulib",
+  "version": "0.0",
+  "has_pck": true,     
+  "has_dll": true,   
+  "dependencies": [
+    { "id": "STS2-RitsuLib", "min_version": "0.2.27" }
+  ],    
+  "affects_gameplay": true 
+}

@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://birxgwrpormbi"]
+
+[ext_resource type="Texture2D" uid="uid://dvi4qq63hp6ll" path="res://SnakeInSpireExtend/images/monsters/crow_flesh_pile.png" id="1_2ty4k"]
+[ext_resource type="Script" uid="uid://fubgfdg2wni" path="res://SnakeInSpireExtend/scenes/CustomCreatureVisuals.cs" id="1_mf03s"]
+
+[node name="CrowFleshPile" type="Node2D"]
+script = ExtResource("1_mf03s")
+metadata/_edit_vertical_guides_ = [-6292.0]
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(3, -173)
+texture = ExtResource("1_2ty4k")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -232.0
+offset_top = -337.0
+offset_right = 242.0
+offset_bottom = -2.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -437)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(2, -166)
