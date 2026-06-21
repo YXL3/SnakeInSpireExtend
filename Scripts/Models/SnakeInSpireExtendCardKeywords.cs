@@ -3,7 +3,7 @@ using STS2RitsuLib.Content;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
 
-namespace SnakeInSpireExtend.Scripts;
+namespace SnakeInSpireExtend.Scripts.Models;
 
 [RegisterOwnedCardKeyword(nameof(Keen), CardDescriptionPlacement = ModKeywordCardDescriptionPlacement.BeforeCardDescription)]
 // [RegisterOwnedCardKeyword(nameof(Unique2), IconPath = "res://icon.svg")] // 如果要加更多关键词，添加特性

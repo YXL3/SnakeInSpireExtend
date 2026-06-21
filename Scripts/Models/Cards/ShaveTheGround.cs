@@ -7,12 +7,11 @@ using MegaCrit.Sts2.Core.ValueProps;
 using SnakeInSpireExtend.Scripts.CardPools;
 using SnakeInSpireExtend.Scripts.Extension;
 using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class ShaveTheGround : ModCardTemplate
+public class ShaveTheGround : DualEffectCardTemplate
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -34,14 +33,7 @@ public class ShaveTheGround : ModCardTemplate
     {
         base.DynamicVars.Block.UpgradeValueBy(3m);
     }
-    
-    protected override PileType GetResultPileTypeForCardPlay()
-    {
-        PileType result = base.GetResultPileTypeForCardPlay();
-        if (result != PileType.Discard || !Helper.HasCustomDynamic(this, "Haste"))return result;
-        return PileType.Hand;
-    }
-    
+
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
         Helper.HysteresisHoverTip(),
         Helper.HasteHoverTip(this)

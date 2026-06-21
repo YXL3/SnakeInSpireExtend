@@ -1,8 +1,8 @@
 // using MegaCrit.Sts2.Core.Commands;
 // using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 // using MegaCrit.Sts2.Core.Models;
-// using MegaCrit.Sts2.Core.Runs;
 // using SnakeInSpireExtend.Scripts.Cards;
+// using SnakeInSpireExtend.Scripts.Models;
 // using SnakeInSpireExtend.Scripts.Powers;
 // using STS2RitsuLib.Patching.Models;
 
@@ -62,7 +62,7 @@
 //         // OnPlay is fully done. It is now safe to read/clear Haste.
 //         await DoHaste(card, choiceContext);
 
-//         if (card.GetType() == typeof(FlashOfFang) || card.GetType() == typeof(Gleam))
+//         if (CardTypesOfDualEffect.Contains(card.GetType()))
 //         {
 //             await DoHaste(card, choiceContext, "Hysteresis");
 //         }
@@ -72,38 +72,50 @@
 //             card.DynamicVars["Hysteresis"].UpgradeValueBy(-1m);
 //         }
 //     }
+    
+//     private static readonly HashSet<Type> CardTypesOfDualEffect = new()
+//     {
+//         typeof(FlashOfFang),
+//         typeof(Gleam),
+//         typeof(ShaveTheGround)
+//     };
 
 //     private static async Task DoHaste(CardModel card, PlayerChoiceContext choiceContext, string functionalHaste = "Haste")
 //     {
-//         if (!SnakeInSpireExtention.HasCustomDynamic(card, functionalHaste))
+//         if (!Helper.HasCustomDynamic(card, functionalHaste))
 //         {
 //             return;
 //         }
-//         IEnumerable<CardModel> cards = await CardPileCmd.Draw(choiceContext, SneakyPhantomAmount(card) + 1m, card.Owner);
+//         IEnumerable<CardModel> cards = await CardPileCmd.Draw(choiceContext, Helper.HasteDrawingAmount(card), card.Owner);
 //         if (!cards.Any())
 //         {
 //             return;
 //         }
+//         decimal snakeFury = Helper.GetOwnerPowerAmount<SnakeFuryPower>(card);
 //         if (functionalHaste == "Haste")
 //         {
-//             foreach (CardModel drawn in cards){
-//                 if (drawn.Keywords.Contains(SnakeInSpireExtendCardKeywords.Keen))
-//                 {
-//                     await CardCmd.AutoPlay(choiceContext, drawn, null);
-//                 }
-//                 SnakeInSpireExtention.Haste(drawn, card.DynamicVars[functionalHaste].BaseValue - 1m);
-//             }
+//             decimal hastePassed = Helper.HastePassingAmount(card);
 //             card.DynamicVars[functionalHaste].BaseValue = 0m;
+//             foreach (CardModel item in cards){
+//                 if (item.Keywords.Contains(SnakeInSpireExtendCardKeywords.Keen) && item != card)
+//                 {
+//                     // ICombatState? combatState = drawn.CombatState ?? drawn.Owner.Creature.CombatState;
+//                     // Creature? target = drawn.Owner.RunState.Rng.CombatTargets.NextItem(combatState.HittableEnemies);
+//                     // RunManager.Instance.ActionQueueSynchronizer.RequestEnqueue(new PlayCardAction(drawn, target));
+//                     Helper.Haste(item, hastePassed);
+//                     if(snakeFury != 0)
+//                     {
+//                         item.GiveSingleTurnRetain();
+//                         Helper.Hysteresis(item, snakeFury);
+//                     }
+//                     else
+//                     {
+//                         await CardCmd.AutoPlay(choiceContext, item, null);
+//                     }
+//                     continue;
+//                 }
+//                 Helper.Haste(item, hastePassed);
+//             }
 //         }
-//     }
-
-
-//     private static decimal SneakyPhantomAmount(CardModel card)
-//     {
-//         if ((!card.IsMutable) || card.Owner == null || !card.Owner.Creature.HasPower<SneakyPhantomPower>())
-//         {
-//             return 0m;
-//         }
-//         return card.Owner.Creature.GetPower<SneakyPhantomPower>().Amount;
 //     }
 // }

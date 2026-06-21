@@ -7,12 +7,11 @@ using MegaCrit.Sts2.Core.ValueProps;
 using SnakeInSpireExtend.Scripts.CardPools;
 using SnakeInSpireExtend.Scripts.Extension;
 using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class Gleam : ModCardTemplate
+public class Gleam : DualEffectCardTemplate
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -40,16 +39,6 @@ public class Gleam : ModCardTemplate
         
     }
 
-    protected override PileType GetResultPileTypeForCardPlay()
-    {
-        PileType resultPileType = base.GetResultPileTypeForCardPlay();
-        if (resultPileType != PileType.Discard) return resultPileType;
-        if ((!base.DynamicVars.ContainsKey("Haste")) || base.DynamicVars["Haste"].BaseValue <= 0)
-        {
-            return resultPileType;
-        }
-        return PileType.Hand;
-    }
     protected override void OnUpgrade()
     {
         base.DynamicVars.Damage.UpgradeValueBy(1m);

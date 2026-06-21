@@ -1,6 +1,7 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
+using SnakeInSpireExtend.Scripts.Models;
 using SnakeInSpireExtend.Scripts.Powers;
 using STS2RitsuLib.Patching.Models;
 

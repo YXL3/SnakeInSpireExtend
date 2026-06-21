@@ -26,13 +26,11 @@ public class Entry
 
         var patcher = RitsuLibFramework.CreatePatcher(ModId, "patches");
         patcher.RegisterPatch<HysteresisFunctionPatch>();
-        patcher.RegisterPatch<HasteFunctionPatch>();
         patcher.RegisterPatch<GetDescriptionForPilePatch>();
         patcher.RegisterPatch<HoverTipsPatch>();
         patcher.RegisterPatch<KeywordsPatch>();
         if (!patcher.PatchAll())
             throw new InvalidOperationException("Critical patches failed.");
-
         SnakeModRewardRegister.TransformRegister();
     }
 }
