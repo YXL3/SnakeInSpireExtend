@@ -1,13 +1,16 @@
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Cards;
 using SnakeInSpireExtend.Scripts.CardPools;
 using SnakeInSpireExtend.Scripts.Extension;
 using SnakeInSpireExtend.Scripts.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
+using STS2RitsuLib.Scaffolding.Characters;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
@@ -18,34 +21,26 @@ public class Unload : ModCardTemplate
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
     // );
+    protected override bool HasEnergyCostX => true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new EnergyVar(3),
-        new DynamicVar("HysteresisVar", 1m)
-    ];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("EnergyXOnPlay", 0)];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [
-        CardKeyword.Retain
-    ];
-
-    public Unload() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self){}
+    public Unload() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PlayerCmd.GainEnergy(base.DynamicVars.Energy.IntValue, base.Owner);
-        foreach(CardModel card in PileType.Hand.GetPile(base.Owner).Cards.Where(card => card.Type == CardType.Attack))
-        {
-            Helper.Hysteresis(card, base.DynamicVars["HysteresisVar"].BaseValue);
-        }
-        await PowerCmd.Apply<NoSkillPlayPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
-    }
-
-    protected override void OnUpgrade()
-    {
-        base.EnergyCost.UpgradeBy(-1);
+        int x = ResolveEnergyXValue();
+        DynamicVars["EnergyXOnPlay"].BaseValue = x;
+        await PlayerCmd.GainEnergy(IsUpgraded? x+1 : x, Owner);
+        CardModel? card = (await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(SelectionScreenPrompt, 1), null, this)).FirstOrDefault();
+        if(card == null)return;
+        Helper.Hysteresis(card, x);
+        Helper.Haste(card, x);
+        await CardCmd.Discard(choiceContext, PileType.Hand.GetPile(Owner).Cards.Where(c => c is not null && c != card).ToList());
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HysteresisHoverTip()
+        Helper.HysteresisHoverTip(),
+        Helper.HasteHoverTip(this),
     ];
 }

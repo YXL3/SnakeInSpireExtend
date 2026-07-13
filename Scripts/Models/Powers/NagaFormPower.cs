@@ -23,15 +23,15 @@ public class NagaFormPower : ModPowerTemplate
     
     public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (!participants.Contains(base.Owner))
+        if (!participants.Contains(Owner))
         {
             return;
         }
-        Creature creature = base.Owner.Player.RunState.Rng.CombatTargets.NextItem(base.Owner.CombatState.HittableEnemies);
+        Creature? creature = Owner.Player.RunState.Rng.CombatTargets.NextItem(Owner.CombatState.HittableEnemies);
         if (creature != null)
         {
             Flash();
-            await PowerCmd.Apply<PoisonPower>(new ThrowingPlayerChoiceContext(), creature, base.Amount, base.Owner, null);
+            await PowerCmd.Apply<PoisonPower>(new ThrowingPlayerChoiceContext(), creature, Amount, Owner, null);
         }
     }
 }

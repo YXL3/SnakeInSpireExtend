@@ -29,18 +29,18 @@ public class Sidewinder : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
-        foreach (CardModel item in await CardSelectCmd.FromHand(choiceContext, base.Owner, new CardSelectorPrefs(base.SelectionScreenPrompt, 1), null, this))
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
+        foreach (CardModel item in await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(SelectionScreenPrompt, 1), null, this))
         {
-            Helper.Hysteresis(item, base.DynamicVars["HysteresisVar"].BaseValue);
+            Helper.Hysteresis(item, DynamicVars["HysteresisVar"].BaseValue);
             if (IsUpgraded)
             {
-                Helper.Haste(item, base.DynamicVars["HasteVar"].BaseValue);
+                Helper.Haste(item, DynamicVars["HasteVar"].BaseValue);
             }
         }
     }
 
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => base.IsUpgraded
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => IsUpgraded
         ? [Helper.HysteresisHoverTip(), Helper.HasteHoverTip(this)]
         : [Helper.HysteresisHoverTip()];
 }

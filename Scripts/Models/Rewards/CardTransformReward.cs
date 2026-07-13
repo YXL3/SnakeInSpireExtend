@@ -1,10 +1,11 @@
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using STS2RitsuLib.Combat.Rewards;
@@ -16,18 +17,14 @@ public class CardTransformReward : ModCustomReward
 {
     private CardModel? _targetCard;
 
-    private bool hasTarget;
-
     public CardTransformReward(Player player, CardModel target) : base(player) 
     { 
         _targetCard = target;
-        hasTarget = true;
     }
 
     public CardTransformReward(Player player) : base(player) 
     {
         _targetCard = null;
-        hasTarget = false;
     }
 
     public override void MarkContentAsSeen()
@@ -47,7 +44,7 @@ public class CardTransformReward : ModCustomReward
         get
         {
             LocString locString;
-            if (hasTarget && _targetCard != null)
+            if (_targetCard != null)
             {
                 locString = new LocString("gameplay_ui", "COMBAT_REWARD_TRANSFORM_CARD_TO_CERTAIN");
                 locString.Add("Card", _targetCard.Title);
@@ -62,34 +59,32 @@ public class CardTransformReward : ModCustomReward
 
     protected override async Task<bool> OnSelect()
     {
-        CardSelectorPrefs cardSelectorPrefs = new CardSelectorPrefs(new LocString("gameplay_ui", "COMBAT_REWARD_TRANSFORM_CARD.selectionScreenPrompt"), 1)
+        if (_targetCard != null)
         {
-            Cancelable = true,
-            RequireManualConfirmation = true
-        };
-        CardModel card = (await CardSelectCmd.FromDeckForTransformation(base.Player, cardSelectorPrefs)).FirstOrDefault();
-        if (card != null)
-        {
-            if (hasTarget && _targetCard != null)
+            CardSelectorPrefs cardSelectorPrefs = new CardSelectorPrefs(new LocString("gameplay_ui", "COMBAT_REWARD_TRANSFORM_CARD_TO_CERTAIN.selectionScreenPrompt"), 1)
             {
-                // Log.Info($"Original Owner: {(card.Owner != null ? $"{card.Owner.NetId} (ID: {card.Owner.GetHashCode()})" : "null")}");
-                // Log.Info($"Replacement Owner: {(_targetCard.Owner != null ? $"{_targetCard.Owner.NetId} (ID: {_targetCard.Owner.GetHashCode()})" : "null")}");
-                // Log.Info($"Are references equal? {object.ReferenceEquals(card.Owner, _targetCard.Owner)}");
-                if(_targetCard.Owner == null)
-                {
-                    _targetCard.Owner = card.Owner;
-                }
-                await CardCmd.Transform(card, _targetCard);
-                Log.Info($"Player {base.Player.NetId} transformed {card.Id} to {_targetCard.Id} from deck");
-            }
-            else
+                Cancelable = true,
+                RequireManualConfirmation = true
+            };
+            if(_targetCard.Owner == null)
             {
-                await CardCmd.TransformToRandom(card, base.Player.RunState.Rng.Niche);
-                Log.Debug($"Player {base.Player.NetId} transformed {card.Id} to random from deck");
+                _targetCard.Owner = Player;
             }
-            return true;
+            List<CardTransformation> transformations = (await CardSelectCmd.FromDeckForTransformation(Player, cardSelectorPrefs,
+            (CardModel c) => new CardTransformation(c, _targetCard)))
+            .Select((CardModel original) => new CardTransformation(original, _targetCard)).ToList();
+            await CardCmd.Transform(transformations, Player.PlayerRng.Transformations);
         }
-        return false;
+        else
+        {
+            CardModel? card = (await CardSelectCmd.FromDeckForTransformation(Player, new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, 1))).FirstOrDefault();
+            if (card == null)
+            {
+                return false;
+            }
+            await CardCmd.TransformToRandom(card, Player.PlayerRng.Transformations);
+        }
+        return true;
     }
     public override SerializableReward ToSerializable()
     {

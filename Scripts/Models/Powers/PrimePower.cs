@@ -22,11 +22,11 @@ public class PrimePower : ModPowerTemplate
 
     public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
     {
-        if (card.Owner.Creature == base.Owner 
+        if (card.Owner.Creature == Owner 
             && card.Owner.Creature.CombatState.CurrentSide == card.Owner.Creature.Side
             && PileType.Hand.GetPile(card.Owner).Cards.Count >= CardPile.MaxCardsInHand)
         {
-            await PlayerCmd.GainEnergy(base.Amount, card.Owner);
+            await PlayerCmd.GainEnergy(Amount, card.Owner);
             await PowerCmd.Remove(this);
         }
     }

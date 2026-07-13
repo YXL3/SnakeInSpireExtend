@@ -32,29 +32,29 @@ public class Purge : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        AbstractRoom currentRoom = base.CombatState.RunState.CurrentRoom;
+        AbstractRoom currentRoom = CombatState.RunState.CurrentRoom;
         if (currentRoom is CombatRoom combatRoom)
         {
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             bool shouldTriggerFatal = cardPlay.Target.Powers.All((PowerModel p) => p.ShouldOwnerDeathTriggerFatal());
-            AttackCommand attackCommand = await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
+            AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
             if (shouldTriggerFatal && attackCommand.Results.SelectMany((List<DamageResult> r) => r).Any((DamageResult r) => r.WasTargetKilled))
             {
-                CardModel cardModel = base.CombatState.CreateCard<Purge>(base.Owner);
-                if (base.IsUpgraded)
+                CardModel cardModel = CombatState.CreateCard<Purge>(Owner);
+                if (IsUpgraded)
                 {
                     CardCmd.Upgrade(cardModel);
                 }
-                combatRoom.AddExtraReward(base.Owner, new CardTransformReward(base.Owner, cardModel));
+                combatRoom.AddExtraReward(Owner, new CardTransformReward(Owner, cardModel));
             }
         }
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.Static(StaticHoverTip.Fatal)];
 }

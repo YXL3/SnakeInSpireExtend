@@ -30,14 +30,14 @@ public class Puncture : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_bloody_impact")
             .Execute(choiceContext);
-        await PowerCmd.Apply<FreeHysteresisPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
+        await PowerCmd.Apply<FreeHysteresisPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }
 
     protected override void OnUpgrade(){
-        base.DynamicVars.Damage.UpgradeValueBy(8m);
+        DynamicVars.Damage.UpgradeValueBy(8m);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [Helper.HysteresisHoverTip()];

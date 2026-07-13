@@ -44,8 +44,4 @@
       ContinueOnError="WarnAndContinue" />
   </Target>
 
-  <ItemGroup>
-    <Compile Remove="Test\CardValidator.cs" />
-  </ItemGroup>
-
 </Project>

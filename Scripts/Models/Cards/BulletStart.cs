@@ -28,15 +28,15 @@ public class BulletStart : ModCardTemplate
 
     public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
-        if (player == base.Owner && base.Owner.Creature.CombatState.RoundNumber == 1)
+        if (player == Owner && Owner.Creature.CombatState.RoundNumber == 1)
         {
-            Helper.Haste(this, base.DynamicVars["HasteVar"].BaseValue);
+            Helper.Haste(this, DynamicVars["HasteVar"].BaseValue);
         }
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["HasteVar"].UpgradeValueBy(2m);
+        DynamicVars["HasteVar"].UpgradeValueBy(2m);
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [Helper.HasteHoverTip(this)];

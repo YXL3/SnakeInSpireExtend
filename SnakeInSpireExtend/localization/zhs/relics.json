@@ -1,14 +1,8 @@
 {
-    "SNAKE_IN_SPIRE_EXTEND_RELIC_TEST_RELIC.title": "测试遗物",
-    "SNAKE_IN_SPIRE_EXTEND_RELIC_TEST_RELIC.description": "每回合开始时，抽[blue]{Cards}[/blue]张牌。",
-    "SNAKE_IN_SPIRE_EXTEND_RELIC_TEST_RELIC.flavor": "测试遗物",
-    "SNAKE_IN_SPIRE_EXTEND_RELIC_MARK_A.title": "灾殃之眼",
-    "SNAKE_IN_SPIRE_EXTEND_RELIC_MARK_A.description": "你看到了[gold]{NextMonster}[/gold]和[gold]{NextElite}[/gold]。",
-    "SNAKE_IN_SPIRE_EXTEND_RELIC_MARK_A.flavor": "蛇的直觉能看到下一个威胁...或者牺牲品。",
     "SNAKE_IN_SPIRE_EXTEND_RELIC_SNAKE_EYE.title": "真蛇之眼",
-    "SNAKE_IN_SPIRE_EXTEND_RELIC_SNAKE_EYE.description": "给予你每场战斗回合内抽到的第1张牌[gold]迟滞[/gold]{HysteresisVar:diff()}和[gold]急促[/gold]{HasteVar:diff()}。",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_SNAKE_EYE.description": "每场战斗第一次因[gold]急促[/gold]抽牌时，多抽2张。",
     "SNAKE_IN_SPIRE_EXTEND_RELIC_SNAKE_EYE.flavor": "蛇的直觉能看到下一个威胁...或者牺牲品。",
     "SNAKE_IN_SPIRE_EXTEND_RELIC_CALAMITY_EYE.title": "灾殃之眼",
-    "SNAKE_IN_SPIRE_EXTEND_RELIC_CALAMITY_EYE.description": "给予你回合内抽到的第1张牌[gold]迟滞[/gold]{HysteresisVar:diff()}和[gold]急促[/gold]{HasteVar:diff()}。",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_CALAMITY_EYE.description": "每场战斗第一次因[gold]急促[/gold]抽牌时，多抽3张并获得2。",
     "SNAKE_IN_SPIRE_EXTEND_RELIC_CALAMITY_EYE.flavor": "你为高塔留下的所有痕迹。"
 }

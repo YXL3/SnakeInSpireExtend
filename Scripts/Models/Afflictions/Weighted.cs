@@ -11,10 +11,10 @@ public class Weighted : ModAfflictionTemplate
     
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-		if (cardPlay.Card != base.Card)
+		if (cardPlay.Card != Card)
 		{
 			return;
 		}
-        await PlayerCmd.LoseEnergy(1, base.Card.Owner);
+        await PlayerCmd.LoseEnergy(1, Card.Owner);
     }
 }

@@ -19,18 +19,16 @@ public class Psychokinesis : ModCardTemplate
     // );
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new CardsVar(3)
+        new CardsVar(1)
     ];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
-
-    public Psychokinesis(): base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self){}
+    public Psychokinesis(): base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
-        // await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
-        CardModel? card = (await CardSelectCmd.FromHand(choiceContext, base.Owner, new CardSelectorPrefs(base.SelectionScreenPrompt, 1), null, this)).FirstOrDefault();
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
+        // await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        CardModel? card = (await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(SelectionScreenPrompt, 1), null, this)).FirstOrDefault();
         if(card == null)
         {
             return;
@@ -41,7 +39,7 @@ public class Psychokinesis : ModCardTemplate
 
     protected override void OnUpgrade()
     {
-        base.EnergyCost.UpgradeBy(-1);
+        DynamicVars.Cards.UpgradeValueBy(1m);
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => HoverTipFactory.FromAffliction<Weighted>(1);

@@ -29,16 +29,16 @@ public class Slide : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
-        foreach (CardModel item in await CardSelectCmd.FromHand(choiceContext, base.Owner, new CardSelectorPrefs(base.SelectionScreenPrompt, 1), null, this))
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        foreach (CardModel item in await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(SelectionScreenPrompt, 1), null, this))
         {
-            Helper.Haste(item, base.DynamicVars["HasteVar"].BaseValue);
+            Helper.Haste(item, DynamicVars["HasteVar"].BaseValue);
         }
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["HasteVar"].UpgradeValueBy(1m);
+        DynamicVars["HasteVar"].UpgradeValueBy(1m);
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [Helper.HasteHoverTip(this)];

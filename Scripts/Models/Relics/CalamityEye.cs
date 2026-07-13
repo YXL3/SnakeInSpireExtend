@@ -48,18 +48,18 @@ public class CalamityEye : ModRelicTemplate
 
     public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
     {
-        if (CombatManager.Instance.IsInProgress && !fromHandDraw && card.Owner == base.Owner && card.Owner.Creature.CombatState.CurrentSide == card.Owner.Creature.Side && !WasUsedThisTurn)
+        if (CombatManager.Instance.IsInProgress && !fromHandDraw && card.Owner == Owner && card.Owner.Creature.CombatState.CurrentSide == card.Owner.Creature.Side && !WasUsedThisTurn)
         {
             Flash();
             WasUsedThisTurn = true;
-            Helper.Hysteresis(card, base.DynamicVars["HysteresisVar"].BaseValue);
-            Helper.Haste(card, base.DynamicVars["HasteVar"].BaseValue);
+            Helper.Hysteresis(card, DynamicVars["HysteresisVar"].BaseValue);
+            Helper.Haste(card, DynamicVars["HasteVar"].BaseValue);
         }
     }
 
     public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
-        if (!participants.Contains(base.Owner.Creature))
+        if (!participants.Contains(Owner.Creature))
         {
             return Task.CompletedTask;
         }

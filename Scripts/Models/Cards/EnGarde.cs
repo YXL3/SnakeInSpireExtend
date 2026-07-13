@@ -26,11 +26,11 @@ public class EnGarde : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PlayerCmd.GainEnergy(base.DynamicVars.Energy.IntValue, base.Owner);
+        await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
     }
 
     protected override void OnUpgrade()
     {
-        base.EnergyCost.UpgradeBy(-1);
+        DynamicVars.Energy.UpgradeValueBy(1);
     }
 }

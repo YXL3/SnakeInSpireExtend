@@ -27,14 +27,14 @@ public class NagaForm : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
-        await PowerCmd.Apply<NagaFormPower>(choiceContext, base.Owner.Creature, base.DynamicVars["NagaFormPower"].BaseValue, base.Owner.Creature, this);
-        await PowerCmd.Apply<WellLaidPlansPower>(choiceContext, base.Owner.Creature, base.DynamicVars["WellLaidPlansPower"].BaseValue, base.Owner.Creature, this);
+        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        await PowerCmd.Apply<NagaFormPower>(choiceContext, Owner.Creature, DynamicVars["NagaFormPower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<WellLaidPlansPower>(choiceContext, Owner.Creature, DynamicVars["WellLaidPlansPower"].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["NagaFormPower"].UpgradeValueBy(3m);
+        DynamicVars["NagaFormPower"].UpgradeValueBy(3m);
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<PoisonPower>()];

@@ -30,17 +30,17 @@ public class Ouroboros : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
-        foreach (CardModel item in await CardSelectCmd.FromHand(choiceContext, base.Owner, new CardSelectorPrefs(base.SelectionScreenPrompt, 1), null, this))
+        // await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        foreach (CardModel item in await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(SelectionScreenPrompt, 1), null, this))
         {
-            Helper.Haste(item, base.DynamicVars["HasteVar"].BaseValue);
+            Helper.Haste(item, DynamicVars["HasteVar"].BaseValue);
         }
-        await PowerCmd.Apply<OuroborosPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
+        await PowerCmd.Apply<OuroborosPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["HasteVar"].UpgradeValueBy(2m);
+        DynamicVars["HasteVar"].UpgradeValueBy(2m);
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [

@@ -24,16 +24,16 @@ public class IneluctablePower : ModPowerTemplate
     
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        if (player != base.Owner.Player)
+        if (player != Owner.Player)
         {
             return;
         }
         Flash();
-        CardSelectorPrefs prefs = new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, base.Amount);
+        CardSelectorPrefs prefs = new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, Amount);
         List<CardModel> list = (await CardSelectCmd.FromHand(choiceContext, player, prefs, null, this)).ToList();
         foreach (CardModel item in list)
         {
-            CardModel cardModel2 = base.CombatState.CreateCard<Ineluctable>(player);
+            CardModel cardModel2 = CombatState.CreateCard<Ineluctable>(player);
             await CardCmd.Transform(item, cardModel2);
         }
     }

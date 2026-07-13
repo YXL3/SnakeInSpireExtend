@@ -20,7 +20,7 @@ public class Weave : ModCardTemplate
     public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(9m, ValueProp.Move)
+        new BlockVar(8m, ValueProp.Move)
     ];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
         SnakeInSpireExtendCardKeywords.Keen
@@ -30,16 +30,16 @@ public class Weave : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
-        if (!base.Keywords.Contains(CardKeyword.Exhaust) && !base.ExhaustOnNextPlay)
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        if (!Keywords.Contains(CardKeyword.Exhaust) && !ExhaustOnNextPlay)
         {
-            await CardPileCmd.Add(this, PileType.Draw, CardPilePosition.Top);
+            await CardPileCmd.Add(this, PileType.Draw, CardPilePosition.Bottom);
         }
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars.Block.UpgradeValueBy(3m);
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [];

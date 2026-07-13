@@ -32,7 +32,7 @@ public class SwiftStrike : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
@@ -40,8 +40,8 @@ public class SwiftStrike : ModCardTemplate
     }
 
     protected override void OnUpgrade(){
-        base.DynamicVars.Damage.UpgradeValueBy(2m);
-        base.DynamicVars["HasteDrawingAmount"].UpgradeValueBy(1m);
+        DynamicVars.Damage.UpgradeValueBy(2m);
+        DynamicVars["HasteDrawingAmount"].UpgradeValueBy(1m);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [Helper.HasteHoverTip(this)];

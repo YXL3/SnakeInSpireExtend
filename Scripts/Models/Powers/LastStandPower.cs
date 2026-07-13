@@ -4,7 +4,6 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 using SnakeInSpireExtend.Scripts.Extension;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -25,18 +24,18 @@ public class LastStandPower : ModPowerTemplate
 
     public override async Task AfterAutoPostPlayPhaseEntered(PlayerChoiceContext choiceContext, Player player)
     {
-        if (player != base.Owner.Player)
+        if (player != Owner.Player)
         {
             return;
         }
-        List<CardModel> items = PileType.Hand.GetPile(base.Owner.Player).Cards.Where((CardModel c) => Helper.HasCustomDynamic(c, "Hysteresis")).ToList();
+        List<CardModel> items = PileType.Hand.GetPile(Owner.Player).Cards.Where((CardModel c) => Helper.HasCustomDynamic(c, "Hysteresis")).ToList();
         if (!items.Any())
         {
             return;
         }
         decimal maxValue = items.Max(c => c.DynamicVars["Hysteresis"].BaseValue);
         items = items.Where(c => c.DynamicVars["Hysteresis"].BaseValue == maxValue).ToList();
-        CardModel cardModel = base.Owner.Player.RunState.Rng.Shuffle.NextItem(items);
+        CardModel? cardModel = Owner.Player.RunState.Rng.Shuffle.NextItem(items);
         if (cardModel != null)
         {
             Flash();

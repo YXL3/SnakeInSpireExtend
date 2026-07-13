@@ -52,12 +52,12 @@ public class SnakeEye : ModRelicTemplate
 
     public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
     {
-        if (CombatManager.Instance.IsInProgress && !fromHandDraw && card.Owner == base.Owner && card.Owner.Creature.CombatState.CurrentSide == card.Owner.Creature.Side && !UsedThisCombat)
+        if (CombatManager.Instance.IsInProgress && !fromHandDraw && card.Owner == Owner && card.Owner.Creature.CombatState.CurrentSide == card.Owner.Creature.Side && !UsedThisCombat)
         {
             Flash();
             UsedThisCombat = true;
-            Helper.Hysteresis(card, base.DynamicVars["HysteresisVar"].BaseValue);
-            Helper.Haste(card, base.DynamicVars["HasteVar"].BaseValue);
+            Helper.Hysteresis(card, DynamicVars["HysteresisVar"].BaseValue);
+            Helper.Haste(card, DynamicVars["HasteVar"].BaseValue);
         }
     }
 

@@ -23,26 +23,25 @@ public class Shed : ModCardTemplate
         new DynamicVar("HasteVar", 2m)
     ];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
-
     public Shed(): base(0, CardType.Skill, CardRarity.Common, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        CardModel card = base.CombatState.CreateCard<DefendSnake>(base.Owner);
-        if (base.IsUpgraded)
+        CardModel card = CombatState.CreateCard<DefendSnake>(Owner);
+        if (IsUpgraded)
         {
             CardCmd.Upgrade(card);
         }
-        Helper.Hysteresis(card, base.DynamicVars["HysteresisVar"].BaseValue);
-        Helper.Haste(card, base.DynamicVars["HasteVar"].BaseValue);
+        Helper.Hysteresis(card, DynamicVars["HysteresisVar"].BaseValue);
+        Helper.Haste(card, DynamicVars["HasteVar"].BaseValue);
         CardCmd.ApplyKeyword(card, CardKeyword.Retain);
-        await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, base.Owner);
+        await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, Owner);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        HoverTipFactory.FromCard<DefendSnake>(base.IsUpgraded),
+        HoverTipFactory.FromCard<DefendSnake>(IsUpgraded),
         Helper.HysteresisHoverTip(),
-        Helper.HasteHoverTip(this)
+        Helper.HasteHoverTip(this),
+        HoverTipFactory.FromKeyword(CardKeyword.Retain)
     ];
 }

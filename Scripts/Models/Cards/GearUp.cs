@@ -30,20 +30,20 @@ public class GearUp : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
-        CardSelectorPrefs prefs = new CardSelectorPrefs(base.SelectionScreenPrompt, 1);
-        IReadOnlyList<CardModel> cards = PileType.Discard.GetPile(base.Owner).Cards.Where(card => Helper.HasCustomDynamic(card, "Haste")).ToList();
-        CardModel cardModel = (await CardSelectCmd.FromSimpleGrid(choiceContext, cards, base.Owner, prefs)).FirstOrDefault();
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
+        IReadOnlyList<CardModel> cards = PileType.Discard.GetPile(Owner).Cards.Where(card => Helper.HasCustomDynamic(card, "Haste")).ToList();
+        CardModel cardModel = (await CardSelectCmd.FromSimpleGrid(choiceContext, cards, Owner, prefs)).FirstOrDefault();
         if (cardModel != null)
         {
             await CardPileCmd.Add(cardModel, PileType.Hand);
-            Helper.Hysteresis(cardModel, base.DynamicVars["HysteresisVar"].BaseValue);
+            Helper.Hysteresis(cardModel, DynamicVars["HysteresisVar"].BaseValue);
         }
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["HysteresisVar"].UpgradeValueBy(1m);
+        DynamicVars["HysteresisVar"].UpgradeValueBy(1m);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [

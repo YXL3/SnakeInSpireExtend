@@ -23,7 +23,7 @@ public class FreeHysteresisPower : ModPowerTemplate
     public override bool TryModifyEnergyCostInCombatLate(CardModel card, decimal originalCost, out decimal modifiedCost)
     {
         modifiedCost = originalCost;
-        if (card.Owner.Creature != base.Owner)
+        if (card.Owner.Creature != Owner)
         {
             return false;
         }
@@ -56,7 +56,7 @@ public class FreeHysteresisPower : ModPowerTemplate
 
     public override async Task BeforeCardPlayed(CardPlay cardPlay)
     {
-        if (cardPlay.Card.Owner.Creature == base.Owner && cardPlay.Card.Type == CardType.Skill)
+        if (cardPlay.Card.Owner.Creature == Owner && cardPlay.Card.Type == CardType.Skill)
         {
             bool flag;
             switch (cardPlay.Card.Pile?.Type)

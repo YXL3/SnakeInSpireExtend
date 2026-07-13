@@ -25,7 +25,7 @@ public class TailWhip : ModCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(10m, ValueProp.Move),
         new PowerVar<VulnerablePower>(2m),
-        new PowerVar<WeakPower>(0m),
+        new PowerVar<WeakPower>(2m),
         new CalculationBaseVar(1),
         new CalculationExtraVar(1),
         new CalculatedVar("CalculatedHits").WithMultiplier((CardModel card, Creature? _) => CalculateHasteCount(card))
@@ -44,29 +44,15 @@ public class TailWhip : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-        int repeats = (int)((CalculatedVar)base.DynamicVars["CalculatedHits"]).Calculate(cardPlay.Target);
-        for(int i = 0; i < repeats; i++)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
+            .WithHitCount((int)((CalculatedVar)DynamicVars["CalculatedHits"]).Calculate(cardPlay.Target))
+            .WithHitFx("vfx/vfx_attack_blunt")
+            .Execute(choiceContext);
+        await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target, DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
+        if(IsUpgraded)
         {
-            await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
-                .Targeting(cardPlay.Target)
-                .WithHitFx("vfx/vfx_attack_blunt")
-                .Execute(choiceContext);
-            await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target, base.DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
-            if(base.DynamicVars.Weak.BaseValue != 0m)
-            {
-                await PowerCmd.Apply<WeakPower>(choiceContext, cardPlay.Target, base.DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
-            }
+            await PowerCmd.Apply<WeakPower>(choiceContext, cardPlay.Target, DynamicVars.Weak.BaseValue, Owner.Creature, this);
         }
-        if(CalculateHasteCount(this) != 0)
-        {
-            base.DynamicVars["Haste"].BaseValue = 0;
-        }
-    }
-
-
-    protected override void OnUpgrade(){
-        base.DynamicVars.Weak.UpgradeValueBy(2m);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips
@@ -74,7 +60,7 @@ public class TailWhip : ModCardTemplate
         get
         {
             List<IHoverTip> result = [Helper.HasteHoverTip(this), HoverTipFactory.FromPower<VulnerablePower>()];
-            if (base.IsUpgraded)
+            if (IsUpgraded)
             {
                 result.Add(HoverTipFactory.FromPower<WeakPower>());
             }

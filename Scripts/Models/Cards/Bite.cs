@@ -40,20 +40,14 @@ public class Bite : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .WithHitCount((int)((CalculatedVar)base.DynamicVars["CalculatedHits"]).Calculate(cardPlay.Target))
-            .FromCard(this)
-            .Targeting(cardPlay.Target)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
+            .WithHitCount((int)((CalculatedVar)DynamicVars["CalculatedHits"]).Calculate(cardPlay.Target))
             .WithHitFx("vfx/vfx_bite")
             .Execute(choiceContext);
-        if(CalculateHysteresisCount(this) != 0)
-        {
-            base.DynamicVars["Hysteresis"].BaseValue = 0;
-        }
     }
 
     protected override void OnUpgrade(){
-        base.DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.Damage.UpgradeValueBy(3m);
         AddKeyword(CardKeyword.Retain);
     }
 

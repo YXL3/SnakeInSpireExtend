@@ -28,17 +28,17 @@ public class LastStand : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
-        foreach (CardModel item in await CardSelectCmd.FromHand(choiceContext, base.Owner, new CardSelectorPrefs(base.SelectionScreenPrompt, 1), null, this))
+        // await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        foreach (CardModel item in await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(SelectionScreenPrompt, 1), null, this))
         {
-            Helper.Hysteresis(item, base.DynamicVars["HysteresisVar"].BaseValue);
+            Helper.Hysteresis(item, DynamicVars["HysteresisVar"].BaseValue);
         }
-        await PowerCmd.Apply<LastStandPower>(choiceContext, base.Owner.Creature, 1, base.Owner.Creature, this);
+        await PowerCmd.Apply<LastStandPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["HysteresisVar"].UpgradeValueBy(1m);
+        DynamicVars["HysteresisVar"].UpgradeValueBy(1m);
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [

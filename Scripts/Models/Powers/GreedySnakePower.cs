@@ -2,7 +2,6 @@ using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -28,22 +27,22 @@ public class GreedySnakePower : ModPowerTemplate
 
     public override async Task BeforeSideTurnEndEarly(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (!participants.Contains(base.Owner))
+        if (!participants.Contains(Owner))
         {
             return;
         }
         Flash();
         CardSelectorPrefs prefs = new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 1);
-        CardModel card = (await CardSelectCmd.FromHand(choiceContext, base.Owner.Player, prefs, null, this)).FirstOrDefault();      
+        CardModel? card = (await CardSelectCmd.FromHand(choiceContext, Owner.Player, prefs, null, this)).FirstOrDefault();      
         if (card != null)
         {
             await CardCmd.Exhaust(choiceContext, card);
             decimal amount = Helper.HasCustomDynamic(card, "Haste") ? card.DynamicVars["Haste"].BaseValue : 0;
             amount += Helper.HasCustomDynamic(card, "Hysteresis") ? card.DynamicVars["Hysteresis"].BaseValue : 0;
-            amount *= base.Amount;
-            await PowerCmd.Apply<PlatingPower>(choiceContext, base.Owner, amount, base.Owner, null);
-            await PowerCmd.Apply<VigorPower>(choiceContext, base.Owner, amount, base.Owner, null);
-            await CreatureCmd.GainBlock(base.Owner, amount, ValueProp.Unpowered, null);
+            amount *= Amount;
+            await PowerCmd.Apply<PlatingPower>(choiceContext, Owner, amount, Owner, null);
+            await PowerCmd.Apply<VigorPower>(choiceContext, Owner, amount, Owner, null);
+            await CreatureCmd.GainBlock(Owner, amount, ValueProp.Unpowered, null);
         }
     }
 }

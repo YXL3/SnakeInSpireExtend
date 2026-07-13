@@ -4,7 +4,6 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Models.Powers;
 using SnakeInSpireExtend.Scripts.Extension;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -25,7 +24,7 @@ public class IndifferentNaturePower : ModPowerTemplate
 
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (participants.Contains(base.Owner))
+        if (participants.Contains(Owner))
         {
             await PowerCmd.Remove(this);
         }
@@ -33,7 +32,7 @@ public class IndifferentNaturePower : ModPowerTemplate
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Card.Owner == base.Owner.Player && !Helper.HasCustomDynamic(cardPlay.Card, "Haste")
+        if (cardPlay.Card.Owner == Owner.Player && !Helper.HasCustomDynamic(cardPlay.Card, "Haste")
         && !cardPlay.Card.Keywords.Contains(CardKeyword.Exhaust) && !cardPlay.Card.ExhaustOnNextPlay)
         {
             Flash();

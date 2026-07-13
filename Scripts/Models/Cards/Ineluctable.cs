@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using SnakeInSpireExtend.Scripts.CardPools;
@@ -27,15 +28,20 @@ public class Ineluctable : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
-        await PowerCmd.Apply<StrengthPower>(choiceContext, base.Owner.Creature, base.DynamicVars["StrengthPower"].BaseValue, base.Owner.Creature, this);
-        await PowerCmd.Apply<DexterityPower>(choiceContext, base.Owner.Creature, base.DynamicVars["DexterityPower"].BaseValue, base.Owner.Creature, this);
-        await PowerCmd.Apply<IneluctablePower>(choiceContext, base.Owner.Creature, base.DynamicVars["IneluctablePower"].BaseValue, base.Owner.Creature, this);
+        // await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, Owner.Creature, DynamicVars["StrengthPower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<DexterityPower>(choiceContext, Owner.Creature, DynamicVars["DexterityPower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<IneluctablePower>(choiceContext, Owner.Creature, DynamicVars["IneluctablePower"].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["StrengthPower"].UpgradeValueBy(1m);
-        base.DynamicVars["DexterityPower"].UpgradeValueBy(1m);
+        DynamicVars["StrengthPower"].UpgradeValueBy(1m);
+        DynamicVars["DexterityPower"].UpgradeValueBy(1m);
     }
+    
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
+        HoverTipFactory.FromPower<StrengthPower>(),
+        HoverTipFactory.FromPower<DexterityPower>()
+    ];
 }

@@ -24,7 +24,7 @@ public class NoSkillPlayPower : ModPowerTemplate
 
     public override bool ShouldPlay(CardModel card, AutoPlayType _)
     {
-        if (card.Owner.Creature != base.Owner)
+        if (card.Owner.Creature != Owner)
         {
             return true;
         }
@@ -33,7 +33,7 @@ public class NoSkillPlayPower : ModPowerTemplate
 
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (participants.Contains(base.Owner))
+        if (participants.Contains(Owner))
         {
             await PowerCmd.Remove(this);
         }

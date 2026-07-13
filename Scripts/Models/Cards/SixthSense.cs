@@ -27,21 +27,21 @@ public class SixthSense : ModCardTemplate
         new DynamicVar("HasteVar", 1m)
     ];
 
-    public SixthSense(): base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self){}
+    public SixthSense(): base(1, CardType.Skill, CardRarity.Common, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        foreach (CardModel item in await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner))
+        foreach (CardModel item in await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner))
         {
-            Helper.Hysteresis(item, base.DynamicVars["HysteresisVar"].BaseValue);
-            Helper.Haste(item, base.DynamicVars["HasteVar"].BaseValue);
+            Helper.Hysteresis(item, DynamicVars["HysteresisVar"].BaseValue);
+            Helper.Haste(item, DynamicVars["HasteVar"].BaseValue);
         }
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["HysteresisVar"].UpgradeValueBy(1m);
-        base.DynamicVars["HasteVar"].UpgradeValueBy(1m);
+        DynamicVars["HysteresisVar"].UpgradeValueBy(1m);
+        DynamicVars["HasteVar"].UpgradeValueBy(1m);
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [

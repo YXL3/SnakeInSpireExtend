@@ -22,7 +22,7 @@ public class SnakeFuryPower : ModPowerTemplate
     
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (participants.Contains(base.Owner))
+        if (participants.Contains(Owner))
         {
             await PowerCmd.Remove(this);
         }

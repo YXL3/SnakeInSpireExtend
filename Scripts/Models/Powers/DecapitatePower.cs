@@ -26,10 +26,10 @@ public class DecapitatePower : ModPowerTemplate
 
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
-        if (creature == base.Owner && applierPlayer != null)
+        if (creature == Owner && applierPlayer != null)
         {
             Flash();
-            await CardPileCmd.AddGeneratedCardToCombat(base.CombatState.CreateCard<Decapitate>(applierPlayer), PileType.Hand, applierPlayer);
+            await CardPileCmd.AddGeneratedCardToCombat(CombatState.CreateCard<Decapitate>(applierPlayer), PileType.Hand, applierPlayer);
         }
     }
 }

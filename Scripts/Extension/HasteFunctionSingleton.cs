@@ -55,8 +55,8 @@ public class HasteFunctionSingleton : HookedSingletonModel
         decimal snakeFury = Helper.GetOwnerPowerAmount<SnakeFuryPower>(card);
         if(snakeFury != 0)
         {
+            Helper.Haste(card, snakeFury);
             card.GiveSingleTurnRetain();
-            Helper.Hysteresis(card, snakeFury);
         }
         else
         {

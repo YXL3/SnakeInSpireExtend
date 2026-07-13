@@ -19,9 +19,9 @@ public class Gleam : DualEffectCardTemplate
     public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(4m, ValueProp.Move),
-        new RepeatVar(4),
-        new BlockVar(4m, ValueProp.Move),
+        new DamageVar(3m, ValueProp.Move),
+        new RepeatVar(3),
+        new BlockVar(3m, ValueProp.Move),
     ];
 
     public Gleam(): base(0, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy){}
@@ -29,21 +29,21 @@ public class Gleam : DualEffectCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .WithHitCount(base.DynamicVars.Repeat.IntValue)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(DynamicVars.Repeat.IntValue)
             .FromCard(this)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
-        await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
         
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Damage.UpgradeValueBy(1m);
-        base.DynamicVars.Repeat.UpgradeValueBy(1m);
-        base.DynamicVars.Block.UpgradeValueBy(1m);
+        DynamicVars.Damage.UpgradeValueBy(1m);
+        DynamicVars.Repeat.UpgradeValueBy(1m);
+        DynamicVars.Block.UpgradeValueBy(1m);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
         Helper.HysteresisHoverTip(),

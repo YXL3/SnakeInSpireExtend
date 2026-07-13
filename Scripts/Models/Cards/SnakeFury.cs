@@ -22,26 +22,26 @@ public class SnakeFury : ModCardTemplate
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new PowerVar<VigorPower>(5m),
-        new PowerVar<SnakeFuryPower>(1m)
+        new PowerVar<SnakeFuryPower>(2m)
     ];
 
     public SnakeFury() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<VigorPower>(choiceContext, base.Owner.Creature, base.DynamicVars["VigorPower"].IntValue, base.Owner.Creature, this);
-        await PowerCmd.Apply<SnakeFuryPower>(choiceContext, base.Owner.Creature, base.DynamicVars["SnakeFuryPower"].IntValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<VigorPower>(choiceContext, Owner.Creature, DynamicVars["VigorPower"].IntValue, Owner.Creature, this);
+        await PowerCmd.Apply<SnakeFuryPower>(choiceContext, Owner.Creature, DynamicVars["SnakeFuryPower"].IntValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["VigorPower"].UpgradeValueBy(3m);
+        DynamicVars["VigorPower"].UpgradeValueBy(2m);
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
         HoverTipFactory.FromPower<VigorPower>(),
         HoverTipFactory.FromKeyword(SnakeInSpireExtendCardKeywords.Keen),
-        Helper.HysteresisHoverTip(),
+        Helper.HasteHoverTip(this),
         HoverTipFactory.FromKeyword(CardKeyword.Retain)
     ];
 }

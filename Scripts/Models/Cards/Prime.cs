@@ -31,14 +31,14 @@ public class Prime : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<VigorPower>(choiceContext, base.Owner.Creature, base.DynamicVars["VigorPower"].IntValue, base.Owner.Creature, this);
-        await PowerCmd.Apply<PrimePower>(choiceContext, base.Owner.Creature, base.DynamicVars.Energy.BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<VigorPower>(choiceContext, Owner.Creature, DynamicVars["VigorPower"].IntValue, Owner.Creature, this);
+        await PowerCmd.Apply<PrimePower>(choiceContext, Owner.Creature, DynamicVars.Energy.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["VigorPower"].UpgradeValueBy(4m);
-        base.DynamicVars.Energy.UpgradeValueBy(1);
+        DynamicVars["VigorPower"].UpgradeValueBy(4m);
+        DynamicVars.Energy.UpgradeValueBy(1);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [

@@ -33,8 +33,8 @@ public class Overwhelm : ModCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
-            .WithHitCount(base.DynamicVars.Repeat.IntValue)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
+            .WithHitCount(DynamicVars.Repeat.IntValue)
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(choiceContext);
     }
@@ -44,12 +44,12 @@ public class Overwhelm : ModCardTemplate
         {
             return Task.CompletedTask;
         }
-        Helper.Haste(card, base.DynamicVars["HasteVar"].BaseValue);
+        Helper.Haste(card, DynamicVars["HasteVar"].BaseValue);
         return Task.CompletedTask;
     }
 
     protected override void OnUpgrade(){
-        base.DynamicVars.Repeat.UpgradeValueBy(1m);
+        DynamicVars.Repeat.UpgradeValueBy(1m);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [Helper.HasteHoverTip(this)];

@@ -82,27 +82,39 @@ public class CrowFleshPile : ModMonsterTemplate
     private async Task ReigniteMove(IReadOnlyList<Creature> targets)
     {
         await DamageCmd.Attack(ReigniteDamage).WithHitCount(2).FromMonster(this).WithHitFx("vfx/vfx_bloody_impact").Execute(null);
-        await PowerCmd.Apply<RevivePower>(new ThrowingPlayerChoiceContext(), base.Creature, Math.Max(1, ReigniteReviveAmount - Respawns * 5), base.Creature, null);
+        if(ReigniteReviveAmount - Respawns * 5 > 0)
+        {
+            await PowerCmd.Apply<RevivePower>(new ThrowingPlayerChoiceContext(), Creature, ReigniteReviveAmount - Respawns * 5, Creature, null);
+        }
     }
 
     private async Task ScratchFrailtyMove(IReadOnlyList<Creature> targets)
     {
         await DamageCmd.Attack(ScratchFrailDamage).FromMonster(this).WithHitFx("vfx/vfx_scratch").Execute(null);
-        await PowerCmd.Apply<FrailPower>(new ThrowingPlayerChoiceContext(), targets, 2m, base.Creature, null);
-        await PowerCmd.Apply<RevivePower>(new ThrowingPlayerChoiceContext(), base.Creature, 15m, base.Creature, null);
+        await PowerCmd.Apply<FrailPower>(new ThrowingPlayerChoiceContext(), targets, 2m, Creature, null);
+        if (Creature.HasPower<RevivePower>())
+        {
+            await PowerCmd.Apply<RevivePower>(new ThrowingPlayerChoiceContext(), Creature, 15m, Creature, null);
+        }
     }
 
     private async Task ScratchWeaknessMove(IReadOnlyList<Creature> targets)
     {
         await DamageCmd.Attack(ScratchWeaknessDamage).FromMonster(this).WithHitFx("vfx/vfx_scratch").Execute(null);
-        await PowerCmd.Apply<WeakPower>(new ThrowingPlayerChoiceContext(), targets, 2m, base.Creature, null);
-        await PowerCmd.Apply<RevivePower>(new ThrowingPlayerChoiceContext(), base.Creature, 15m, base.Creature, null);
+        await PowerCmd.Apply<WeakPower>(new ThrowingPlayerChoiceContext(), targets, 2m, Creature, null);
+        if (Creature.HasPower<RevivePower>())
+        {
+            await PowerCmd.Apply<RevivePower>(new ThrowingPlayerChoiceContext(), Creature, 15m, Creature, null);
+        }
     }
 
     private async Task BeakMove(IReadOnlyList<Creature> targets)
     {
         await DamageCmd.Attack(BeakDamage).WithHitCount(3).FromMonster(this).WithHitFx("vfx/vfx_attack_blunt").Execute(null);
-        await PowerCmd.Apply<RevivePower>(new ThrowingPlayerChoiceContext(), base.Creature, 15m, base.Creature, null);
+        if (Creature.HasPower<RevivePower>())
+        {
+            await PowerCmd.Apply<RevivePower>(new ThrowingPlayerChoiceContext(), Creature, 15m, Creature, null);
+        }
     }
 
     private async Task SludgeMove(IReadOnlyList<Creature> targets)
@@ -110,45 +122,49 @@ public class CrowFleshPile : ModMonsterTemplate
         await DamageCmd.Attack(ScratchFrailDamage).FromMonster(this).WithHitFx("vfx/vfx_gaze").Execute(null);
         foreach (Creature target2 in targets)
         {
-            Player player = target2.Player ?? target2.PetOwner;
+            Player? player = target2.Player ?? target2.PetOwner;
+            if(player == null)
+            {
+                continue;
+            }
             List<CardPileAddResult> statusCards = new List<CardPileAddResult>();
             for (int i = 0; i < 2; i++)
             {
-                CardModel card = base.CombatState.CreateCard<MegaCrit.Sts2.Core.Models.Cards.Void>(player);
-                PileType newPileType = (i == 0) ? PileType.Draw : PileType.Discard;
-                List<CardPileAddResult> list = statusCards;
-                list.Add(await CardPileCmd.AddGeneratedCardToCombat(card, newPileType, null, CardPilePosition.Random));
+                CardModel card = CombatState.CreateCard<MegaCrit.Sts2.Core.Models.Cards.Void>(player);
+                statusCards.Add(await CardPileCmd.AddGeneratedCardToCombat(card, (i == 0) ? PileType.Draw : PileType.Discard, null, CardPilePosition.Random));
             }
-
             if (LocalContext.IsMe(player))
             {
                 CardCmd.PreviewCardPileAdd(statusCards);
                 await Cmd.Wait(1f);
             }
         }
-        await PowerCmd.Apply<RevivePower>(new ThrowingPlayerChoiceContext(), base.Creature, 15m, base.Creature, null);
+        if (Creature.HasPower<RevivePower>())
+        {
+            await PowerCmd.Apply<RevivePower>(new ThrowingPlayerChoiceContext(), Creature, 15m, Creature, null);
+        }
     }
 
     private async Task RespawnMove(IReadOnlyList<Creature> targets)
     {
-        //await CreatureCmd.TriggerAnim(base.Creature, "RespawnTrigger", 0f);
-        if (base.Creature.CombatState == null)
+        //await CreatureCmd.TriggerAnim(Creature, "RespawnTrigger", 0f);
+        if (Creature.CombatState == null)
         {
             return;
         }
         AssertMutable();
-        int reviveHp = base.Creature.GetPower<RevivePower>().Amount * base.Creature.CombatState.Players.Count;
-        await CreatureCmd.SetMaxHp(base.Creature, reviveHp);
-        await CreatureCmd.Heal(base.Creature, reviveHp);
-        base.Creature.GetPower<RevivePower>()?.DoRevive();
-        await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), base.Creature, base.Creature.GetPower<RevivePower>().ReviveStrength, base.Creature, null);
-        await PowerCmd.Remove<RevivePower>(base.Creature);
+        int reviveHp = Creature.GetPower<RevivePower>().Amount * Creature.CombatState.Players.Count;
+        await CreatureCmd.SetMaxHp(Creature, reviveHp);
+        await CreatureCmd.Heal(Creature, reviveHp);
+        Creature.GetPower<RevivePower>()?.DoRevive();
+        await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Creature, Creature.GetPower<RevivePower>().ReviveStrength, Creature, null);
+        await PowerCmd.Remove<RevivePower>(Creature);
         Respawns++;
     }
 
     public async Task TriggerDeadState()
     {
-        //await CreatureCmd.TriggerAnim(base.Creature, "DeadTrigger", 0f);
+        //await CreatureCmd.TriggerAnim(Creature, "DeadTrigger", 0f);
         SetMoveImmediate(DeadState, forceTransition: true);
     }
 
@@ -158,6 +174,6 @@ public class CrowFleshPile : ModMonsterTemplate
         {
             return false;
         }
-        return base.ShouldPowerBeRemovedOnDeath(power);
+        return ShouldPowerBeRemovedOnDeath(power);
     }
 }
