@@ -17,14 +17,14 @@ public class BulletStart : ModCardTemplate
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
     // );
-    
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DynamicVar("HasteVar", 3m),
+        new DynamicVar("HasteVar", 4m),
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-    public BulletStart(): base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self){}
+    public BulletStart(): base(0, CardType.Skill, CardRarity.Rare, TargetType.Self){}
 
     public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
@@ -38,6 +38,6 @@ public class BulletStart : ModCardTemplate
     {
         DynamicVars["HasteVar"].UpgradeValueBy(2m);
     }
-    
+
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [Helper.HasteHoverTip(this)];
 }

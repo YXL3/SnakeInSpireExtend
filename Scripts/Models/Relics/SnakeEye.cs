@@ -1,6 +1,4 @@
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Relics;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -14,7 +12,7 @@ namespace SnakeInSpireExtend.Scripts.Relics;
 
 [RegisterRelic(typeof(SnakeRelicPool))]
 [RegisterCharacterStarterRelic(typeof(Snake))]
-public class SnakeEye : ModRelicTemplate
+public class SnakeEye : ModRelicTemplate, IHasteModifier
 {
     public override RelicRarity Rarity => RelicRarity.Starter;
 
@@ -27,12 +25,11 @@ public class SnakeEye : ModRelicTemplate
         BigIconPath: $"res://SnakeInSpireExtend/images/relics/{GetType().Name}.png"
     );
 
-    private bool _usedThisCombat;
-
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DynamicVar("HysteresisVar", 1m),
-        new DynamicVar("HasteVar", 1m)
+        new DynamicVar("HasteDrawingAmount", 1m)
     ];
+
+    private bool _usedThisCombat;
 
     public bool UsedThisCombat
     {
@@ -50,25 +47,40 @@ public class SnakeEye : ModRelicTemplate
         }
     }
 
-    public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
-    {
-        if (CombatManager.Instance.IsInProgress && !fromHandDraw && card.Owner == Owner && card.Owner.Creature.CombatState.CurrentSide == card.Owner.Creature.Side && !UsedThisCombat)
-        {
-            Flash();
-            UsedThisCombat = true;
-            Helper.Hysteresis(card, DynamicVars["HysteresisVar"].BaseValue);
-            Helper.Haste(card, DynamicVars["HasteVar"].BaseValue);
-        }
-    }
-
     public override Task AfterCombatEnd(CombatRoom _)
     {
         UsedThisCombat = false;
         return Task.CompletedTask;
     }
 
+
+    public decimal ReadHasteModifier(CardModel card, decimal currentValue)
+    {
+        if (!UsedThisCombat)
+        {
+            return DynamicVars["HasteDrawingAmount"].BaseValue;
+        }
+        else
+        {
+            return 0m;
+        }
+    }
+
+    public async Task<decimal> ApplyHasteModifier(CardModel card, decimal currentValue)
+    {
+        if (!UsedThisCombat)
+        {
+            Flash();
+            UsedThisCombat = true;
+            return DynamicVars["HasteDrawingAmount"].BaseValue;
+        }
+        else
+        {
+            return 0m;
+        }
+    }
+
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HysteresisHoverTip(),
         Helper.HasteHoverTip(this)
     ];
 }

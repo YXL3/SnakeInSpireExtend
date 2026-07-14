@@ -35,7 +35,7 @@ public class GreedySnake : ModCardTemplate
     {
         EnergyCost.UpgradeBy(-1);
     }
-    
+
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
         Helper.HysteresisHoverTip(),
         Helper.HasteHoverTip(this),

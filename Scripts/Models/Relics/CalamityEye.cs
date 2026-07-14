@@ -1,7 +1,5 @@
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Relics;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -14,7 +12,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Relics;
 
 [RegisterRelic(typeof(SnakeRelicPool))]
-public class CalamityEye : ModRelicTemplate
+public class CalamityEye : ModRelicTemplate, IHasteModifier
 {
     public override RelicRarity Rarity => RelicRarity.Starter;
 
@@ -26,55 +24,65 @@ public class CalamityEye : ModRelicTemplate
         // 大图标（原版256x256）
         BigIconPath: $"res://SnakeInSpireExtend/images/relics/{GetType().Name}.png"
     );
-    private bool _wasUsedThisTurn;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DynamicVar("HysteresisVar", 1m),
-        new DynamicVar("HasteVar", 1m)
+        new DynamicVar("HasteDrawingAmount", 2m),
+        new EnergyVar(2)
     ];
 
-    private bool WasUsedThisTurn
+    private bool _usedThisCombat;
+
+    public bool UsedThisCombat
     {
         get
         {
-            return _wasUsedThisTurn;
+            return _usedThisCombat;
         }
-        set
+        private set
         {
-            AssertMutable();
-            _wasUsedThisTurn = value;
+            if (_usedThisCombat != value)
+            {
+                AssertMutable();
+                _usedThisCombat = value;
+            }
         }
-    }
-
-    public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
-    {
-        if (CombatManager.Instance.IsInProgress && !fromHandDraw && card.Owner == Owner && card.Owner.Creature.CombatState.CurrentSide == card.Owner.Creature.Side && !WasUsedThisTurn)
-        {
-            Flash();
-            WasUsedThisTurn = true;
-            Helper.Hysteresis(card, DynamicVars["HysteresisVar"].BaseValue);
-            Helper.Haste(card, DynamicVars["HasteVar"].BaseValue);
-        }
-    }
-
-    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
-    {
-        if (!participants.Contains(Owner.Creature))
-        {
-            return Task.CompletedTask;
-        }
-        WasUsedThisTurn = false;
-        return Task.CompletedTask;
     }
 
     public override Task AfterCombatEnd(CombatRoom _)
     {
-        WasUsedThisTurn = false;
+        UsedThisCombat = false;
         return Task.CompletedTask;
     }
 
+
+    public decimal ReadHasteModifier(CardModel card, decimal currentValue)
+    {
+        if (!UsedThisCombat)
+        {
+            return DynamicVars["HasteDrawingAmount"].BaseValue;
+        }
+        else
+        {
+            return 0m;
+        }
+    }
+
+    public async Task<decimal> ApplyHasteModifier(CardModel card, decimal currentValue)
+    {
+        if (!UsedThisCombat)
+        {
+            Flash();
+            UsedThisCombat = true;
+            await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
+            return DynamicVars["HasteDrawingAmount"].BaseValue;
+        }
+        else
+        {
+            return 0m;
+        }
+    }
+
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HysteresisHoverTip(),
         Helper.HasteHoverTip(this)
     ];
 }

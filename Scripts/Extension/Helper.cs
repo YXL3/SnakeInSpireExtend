@@ -109,13 +109,45 @@ public static class Helper
         }
         return relic.Owner.Creature.GetPower<T>().Amount;
     }
-    
-    public static decimal HasteDrawingAmount(CardModel card)
+
+    public static decimal ReadHasteDrawingAmount(CardModel card)
     {
         decimal result = 1m + GetOwnerPowerAmount<SneakyPhantomPower>(card);
         if (CardTypesOfHasteDrawingAmount.Contains(card.GetType()))
         {
             result += card.DynamicVars["HasteDrawingAmount"].BaseValue;
+        }
+        if ((!card.IsMutable) || card.Owner == null)
+        {
+            return result;
+        }
+        foreach (RelicModel relic in card.Owner.Relics)
+        {
+            if (relic is IHasteModifier)
+            {
+                result += ((IHasteModifier)relic).ReadHasteModifier(card, result);
+            }
+        }
+        return result;
+    }
+
+    public static async Task<decimal> ApplyHasteDrawingAmount(CardModel card)
+    {
+        decimal result = 1m + GetOwnerPowerAmount<SneakyPhantomPower>(card);
+        if (CardTypesOfHasteDrawingAmount.Contains(card.GetType()))
+        {
+            result += card.DynamicVars["HasteDrawingAmount"].BaseValue;
+        }
+        if ((!card.IsMutable) || card.Owner == null)
+        {
+            return result;
+        }
+        foreach (RelicModel relic in card.Owner.Relics)
+        {
+            if (relic is IHasteModifier)
+            {
+                result += await ((IHasteModifier)relic).ApplyHasteModifier(card, result);
+            }
         }
         return result;
     }
@@ -130,4 +162,11 @@ public static class Helper
     {
         typeof(SwiftStrike)
     };
+}
+
+public interface IHasteModifier
+{
+    decimal ReadHasteModifier(CardModel card, decimal currentValue);
+
+    virtual Task<decimal> ApplyHasteModifier(CardModel card, decimal currentValue) => Task.FromResult(ReadHasteModifier(card, currentValue));
 }

@@ -5,7 +5,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Powers;
 using SnakeInSpireExtend.Scripts.CardPools;
 using SnakeInSpireExtend.Scripts.Extension;
@@ -24,32 +23,33 @@ public class Lurk : ModCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new PowerVar<WeakPower>(2m),
         new DynamicVar("HasteVar", 1m),
-        new PowerVar<VigorPower>(15m),
+    ];
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [
+        CardKeyword.Exhaust
     ];
 
     public Lurk() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        foreach (Creature enemy in base.CombatState.HittableEnemies)
+        foreach (Creature enemy in CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<WeakPower>(choiceContext, enemy, DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<WeakPower>(choiceContext, enemy, DynamicVars.Weak.BaseValue, Owner.Creature, this);
         }
         foreach(CardModel card in PileType.Hand.GetPile(Owner).Cards.Where(card => card.Type == CardType.Skill))
         {
             Helper.Haste(card, DynamicVars["HasteVar"].BaseValue);
         }
-        await PowerCmd.Apply<VigorPower>(choiceContext, Owner.Creature, -DynamicVars["VigorPower"].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["HasteVar"].UpgradeValueBy(1m);
+        RemoveKeyword(CardKeyword.Exhaust);
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
         HoverTipFactory.FromPower<WeakPower>(),
-        Helper.HasteHoverTip(this),
-        HoverTipFactory.FromPower<VigorPower>()
+        Helper.HasteHoverTip(this)
     ];
 }

@@ -35,7 +35,7 @@ public class HoverTipsPatch : IPatchMethod
         if(name == "Haste")
         {
             list.Add(Helper.SmartHoverTipFromPowers(__instance, name,
-            new DynamicVar("HasteDrawingAmount", Helper.HasteDrawingAmount(__instance)),
+            new DynamicVar("HasteDrawingAmount", Helper.ReadHasteDrawingAmount(__instance)),
             new DynamicVar("HastePassingAmount", Helper.HastePassingAmount(__instance))));
         }
         else

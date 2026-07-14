@@ -12,9 +12,8 @@ public abstract class DualEffectCardTemplate(
     : ModCardTemplate(energyCost, type, rarity, targetType, shouldShowInCardLibrary){
     protected override PileType GetResultPileTypeForCardPlay()
     {
-        PileType result = GetResultPileTypeForCardPlay();
-        if (result != PileType.Discard || !Helper.HasCustomDynamic(this, "Haste"))return result;
-        return PileType.Hand;
+        PileType result = base.GetResultPileTypeForCardPlay();
+        return (result != PileType.Discard || !Helper.HasCustomDynamic(this, "Haste"))? result : PileType.Hand;
     }
 }
 

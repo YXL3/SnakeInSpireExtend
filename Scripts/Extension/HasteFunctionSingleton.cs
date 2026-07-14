@@ -35,7 +35,7 @@ public class HasteFunctionSingleton : HookedSingletonModel
         {
             return;
         }
-        IEnumerable<CardModel> cards = await CardPileCmd.Draw(choiceContext, Helper.HasteDrawingAmount(card), card.Owner);
+        IEnumerable<CardModel> cards = await CardPileCmd.Draw(choiceContext, await Helper.ApplyHasteDrawingAmount(card), card.Owner);
         if (functionalHaste == "Haste")
         {
             decimal hastePassed = Helper.HastePassingAmount(card);
