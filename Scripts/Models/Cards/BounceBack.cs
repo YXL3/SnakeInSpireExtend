@@ -15,7 +15,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class BounceBack : ModCardTemplate
+public class BounceBack() : ModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -24,12 +24,10 @@ public class BounceBack : ModCardTemplate
     public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(3m, ValueProp.Move),
+        new BlockVar(4m, ValueProp.Move),
         new DynamicVar("HasteVar", 2m),
         new PowerVar<VigorPower>(15m)
     ];
-
-    public BounceBack() : base(0, CardType.Skill, CardRarity.Common, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

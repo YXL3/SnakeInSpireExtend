@@ -11,7 +11,7 @@ namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
 [RegisterCharacterStarterCard(typeof(Snake),4,Order = 0)]
-public class StrikeSnake : ModCardTemplate
+public class StrikeSnake() : ModCardTemplate(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -22,8 +22,6 @@ public class StrikeSnake : ModCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(6m, ValueProp.Move)
     ];
-
-    public StrikeSnake() : base(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

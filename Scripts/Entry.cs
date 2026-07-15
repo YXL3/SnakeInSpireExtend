@@ -8,6 +8,9 @@ using STS2RitsuLib.Interop;
 using STS2RitsuLib.Patching.Core;
 using SnakeInSpireExtend.Scripts.Rewards;
 using SnakeInSpireExtend.Scripts.Relics;
+using STS2RitsuLib.Scaffolding.Cards.HandOutline;
+using MegaCrit.Sts2.Core.Models;
+using SnakeInSpireExtend.Scripts.Extension;
 namespace SnakeInSpireExtend.Scripts;
 
 [ModInitializer(nameof(Init))]
@@ -32,5 +35,13 @@ public class Entry
         if (!patcher.PatchAll())
             throw new InvalidOperationException("Critical patches failed.");
         SnakeModRewardRegister.TransformRegister();
+
+        ModCardHandOutlineRegistry.Register<CardModel>(ModCardHandOutlineRules.Dynamic(
+            card => card.CanPlay() && !(card.ShouldGlowGold || card.ShouldGlowRed)
+            &&(Helper.HasCustomDynamic(card, "Hysteresis") || Helper.HasCustomDynamic(card, "Haste")),
+            card => Helper.HasCustomDynamic(card, "Hysteresis")?
+            (Helper.HasCustomDynamic(card, "Haste")? Godot.Colors.Purple : Godot.Colors.Orange)
+            : Godot.Colors.Green
+        ));
     }
 }

@@ -12,15 +12,13 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class SneakyPhantom : ModCardTemplate
+public class SneakyPhantom() : ModCardTemplate(2, CardType.Power, CardRarity.Ancient, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
     // );
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Power", 1m)];
-    
-    public SneakyPhantom(): base(2, CardType.Power, CardRarity.Ancient, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

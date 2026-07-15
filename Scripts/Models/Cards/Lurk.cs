@@ -14,7 +14,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class Lurk : ModCardTemplate
+public class Lurk() : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -28,8 +28,6 @@ public class Lurk : ModCardTemplate
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
         CardKeyword.Exhaust
     ];
-
-    public Lurk() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

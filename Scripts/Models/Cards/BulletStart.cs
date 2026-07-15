@@ -12,7 +12,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class BulletStart : ModCardTemplate
+public class BulletStart() : ModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -23,8 +23,6 @@ public class BulletStart : ModCardTemplate
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-
-    public BulletStart(): base(0, CardType.Skill, CardRarity.Rare, TargetType.Self){}
 
     public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {

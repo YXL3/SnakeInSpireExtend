@@ -13,7 +13,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class Savagery : ModCardTemplate
+public class Savagery() : ModCardTemplate(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -25,8 +25,6 @@ public class Savagery : ModCardTemplate
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
-
-    public Savagery() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

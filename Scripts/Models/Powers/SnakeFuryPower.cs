@@ -1,8 +1,12 @@
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Commands.Builders;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -19,12 +23,31 @@ public class SnakeFuryPower : ModPowerTemplate
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
-    
-    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+
+    private decimal _vigorAmountBeforeAttack;
+
+    public override async Task BeforeAttack(AttackCommand command)
     {
-        if (participants.Contains(Owner))
+        if (command.Attacker == Owner && command.DamageProps.IsPoweredAttack() && command.ModelSource is CardModel)
         {
-            await PowerCmd.Remove(this);
+            if (Owner.HasPower<VigorPower>())
+            {
+                _vigorAmountBeforeAttack = Owner.GetPower<VigorPower>().Amount;
+            }
         }
     }
+    
+    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        if (cardPlay.Card.Owner == Owner.Player && _vigorAmountBeforeAttack > 0)
+        {
+            await PowerCmd.Apply<VigorPower>(choiceContext, Owner, _vigorAmountBeforeAttack, Owner, null);
+            await PowerCmd.Decrement(this);
+            _vigorAmountBeforeAttack = 0;
+        }
+    }
+
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
+        HoverTipFactory.FromPower<VigorPower>(),
+    ];
 }

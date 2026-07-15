@@ -13,7 +13,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class Contagion : ModCardTemplate
+public class Contagion() : ModCardTemplate(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -22,8 +22,6 @@ public class Contagion : ModCardTemplate
         new DamageVar(5m, ValueProp.Move),
         new CardsVar(1)
     ];
-
-    public Contagion() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

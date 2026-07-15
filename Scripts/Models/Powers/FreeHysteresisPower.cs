@@ -50,13 +50,13 @@ public class FreeHysteresisPower : ModPowerTemplate
             return false;
         }
 
-        modifiedCost = default(decimal);
+        modifiedCost = 0;
         return true;
     }
 
     public override async Task BeforeCardPlayed(CardPlay cardPlay)
     {
-        if (cardPlay.Card.Owner.Creature == Owner && cardPlay.Card.Type == CardType.Skill)
+        if (cardPlay.Card.Owner.Creature == Owner && Helper.HasCustomDynamic(cardPlay.Card, "Hysteresis"))
         {
             bool flag;
             switch (cardPlay.Card.Pile?.Type)

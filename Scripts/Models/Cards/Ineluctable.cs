@@ -12,7 +12,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class Ineluctable : ModCardTemplate
+public class Ineluctable() : ModCardTemplate(1, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -23,8 +23,6 @@ public class Ineluctable : ModCardTemplate
         new PowerVar<DexterityPower>(2m),
         new PowerVar<IneluctablePower>(1m)
     ];
-
-    public Ineluctable(): base(1, CardType.Power, CardRarity.Rare, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

@@ -12,7 +12,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class Psychokinesis : ModCardTemplate
+public class Psychokinesis() : ModCardTemplate(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -21,8 +21,6 @@ public class Psychokinesis : ModCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new CardsVar(1)
     ];
-
-    public Psychokinesis(): base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

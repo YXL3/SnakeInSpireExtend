@@ -12,14 +12,12 @@ namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
 [RegisterCharacterStarterCard(typeof(Snake),1,Order = 2)]
-public class FlashOfFang : DualEffectCardTemplate
+public class FlashOfFang() : DualEffectCardTemplate(0, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
     // );
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Move)];
-
-    public FlashOfFang(): base(0, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -27,7 +25,6 @@ public class FlashOfFang : DualEffectCardTemplate
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
-        
     }
     
     protected override void OnUpgrade(){

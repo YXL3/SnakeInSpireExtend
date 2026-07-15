@@ -13,7 +13,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class Unload : ModCardTemplate
+public class Unload() : ModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -21,8 +21,6 @@ public class Unload : ModCardTemplate
     protected override bool HasEnergyCostX => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("EnergyXOnPlay", 0)];
-
-    public Unload() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

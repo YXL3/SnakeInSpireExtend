@@ -1,4 +1,3 @@
-using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -14,7 +13,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class GearUp : ModCardTemplate
+public class GearUp() : ModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -24,8 +23,6 @@ public class GearUp : ModCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(7m, ValueProp.Move),
     ];
-    
-    public GearUp(): base(1, CardType.Skill, CardRarity.Common, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

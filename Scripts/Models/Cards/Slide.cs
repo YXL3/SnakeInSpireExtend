@@ -15,7 +15,7 @@ namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
 [RegisterCharacterStarterCard(typeof(Snake),1,Order = 3)]
-public class Slide : ModCardTemplate
+public class Slide() : ModCardTemplate(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -27,8 +27,6 @@ public class Slide : ModCardTemplate
         new BlockVar(6m, ValueProp.Move),
         new DynamicVar("HasteVar", 1m)
     ];
-
-    public Slide(): base(1, CardType.Skill, CardRarity.Basic, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

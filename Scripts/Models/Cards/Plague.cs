@@ -10,7 +10,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(TokenCardPool))]
-public class Plague : ModCardTemplate
+public class Plague() : ModCardTemplate(0, CardType.Attack, CardRarity.Token, TargetType.AllEnemies)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -34,8 +34,6 @@ public class Plague : ModCardTemplate
         new DamageVar(3m, ValueProp.Move),
         new DynamicVar("Increase", 3m)
     ];
-
-    public Plague() : base(0, CardType.Attack, CardRarity.Token, TargetType.AllEnemies){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

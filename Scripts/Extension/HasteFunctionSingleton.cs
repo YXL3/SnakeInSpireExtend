@@ -3,7 +3,6 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using SnakeInSpireExtend.Scripts.Models;
-using SnakeInSpireExtend.Scripts.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Models;
 
@@ -44,23 +43,23 @@ public class HasteFunctionSingleton : HookedSingletonModel
                 Helper.Haste(item, hastePassed);
                 if (item.Keywords.Contains(SnakeInSpireExtendCardKeywords.Keen) && item != card)
                 {
-                    await KeenAction(item, choiceContext);
+                    await CardCmd.AutoPlay(choiceContext, item, null);
                 }
             }
         }
     }
 
-    private static async Task KeenAction(CardModel card, PlayerChoiceContext choiceContext)
-    {
-        decimal snakeFury = Helper.GetOwnerPowerAmount<SnakeFuryPower>(card);
-        if(snakeFury != 0)
-        {
-            Helper.Haste(card, snakeFury);
-            card.GiveSingleTurnRetain();
-        }
-        else
-        {
-            await CardCmd.AutoPlay(choiceContext, card, null);
-        }
-    }
+    // private static async Task KeenAction(CardModel card, PlayerChoiceContext choiceContext)
+    // {
+    //     decimal snakeFury = Helper.GetOwnerPowerAmount<SnakeFuryPower>(card);
+    //     if(snakeFury != 0)
+    //     {
+    //         Helper.Haste(card, snakeFury);
+    //         card.GiveSingleTurnRetain();
+    //     }
+    //     else
+    //     {
+    //         await CardCmd.AutoPlay(choiceContext, card, null);
+    //     }
+    // }
 }

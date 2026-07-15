@@ -33,7 +33,6 @@ public static class SnakeModRewardRegister
                 }
                 return new CardTransformReward(player);
             });
-
         CardTransformRewardType = definition.RewardType;
     }
 }

@@ -5,7 +5,6 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using SnakeInSpireExtend.Scripts.CardPools;
-using SnakeInSpireExtend.Scripts.Extension;
 using SnakeInSpireExtend.Scripts.Models;
 using SnakeInSpireExtend.Scripts.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
@@ -14,18 +13,20 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class SnakeFury : ModCardTemplate
+public class SnakeFury() : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
     // );
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new PowerVar<VigorPower>(5m),
-        new PowerVar<SnakeFuryPower>(2m)
+        new PowerVar<VigorPower>(3m),
+        new PowerVar<SnakeFuryPower>(1m)
     ];
 
-    public SnakeFury() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self){}
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [
+        SnakeInSpireExtendCardKeywords.Keen
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -35,13 +36,10 @@ public class SnakeFury : ModCardTemplate
 
     protected override void OnUpgrade()
     {
-        DynamicVars["VigorPower"].UpgradeValueBy(2m);
+        DynamicVars["VigorPower"].UpgradeValueBy(1m);
     }
-    
+
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
         HoverTipFactory.FromPower<VigorPower>(),
-        HoverTipFactory.FromKeyword(SnakeInSpireExtendCardKeywords.Keen),
-        Helper.HasteHoverTip(this),
-        HoverTipFactory.FromKeyword(CardKeyword.Retain)
     ];
 }

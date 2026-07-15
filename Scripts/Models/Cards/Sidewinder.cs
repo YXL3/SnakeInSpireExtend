@@ -13,7 +13,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class Sidewinder : ModCardTemplate
+public class Sidewinder() : ModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -24,8 +24,6 @@ public class Sidewinder : ModCardTemplate
         new DynamicVar("HysteresisVar", 1m),
         new DynamicVar("HasteVar", 1m),
     ];
-
-    public Sidewinder(): base(1, CardType.Skill, CardRarity.Common, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

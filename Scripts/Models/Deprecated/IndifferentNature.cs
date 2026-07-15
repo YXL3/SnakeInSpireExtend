@@ -14,7 +14,7 @@
 // namespace SnakeInSpireExtend.Scripts.Cards;
 
 // [RegisterCard(typeof(SnakeCardPool))]
-// public class IndifferentNature : ModCardTemplate
+// public class IndifferentNature() : ModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
 // {
 //     // public override CardAssetProfile AssetProfile => new(
 //     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -27,8 +27,6 @@
 //     public override IEnumerable<CardKeyword> CanonicalKeywords => [
 //         CardKeyword.Exhaust
 //     ];
-
-//     public IndifferentNature() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self){}
 
 //     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 //     {

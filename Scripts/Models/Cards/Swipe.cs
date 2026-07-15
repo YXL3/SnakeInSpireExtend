@@ -13,7 +13,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class Swipe : ModCardTemplate
+public class Swipe() : ModCardTemplate(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -23,8 +23,6 @@ public class Swipe : ModCardTemplate
         new DamageVar(9m, ValueProp.Move),
         new DynamicVar("HysteresisVar",1m)
     ];
-
-    public Swipe(): base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");

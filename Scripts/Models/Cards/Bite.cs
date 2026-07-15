@@ -14,7 +14,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class Bite : ModCardTemplate
+public class Bite() : ModCardTemplate(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -35,8 +35,6 @@ public class Bite : ModCardTemplate
         }
         return (int)card.DynamicVars["Hysteresis"].BaseValue;
     }
-
-    public Bite(): base(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");

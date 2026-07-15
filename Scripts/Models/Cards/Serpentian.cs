@@ -12,7 +12,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class Serpentian : ModCardTemplate
+public class Serpentian() : ModCardTemplate(3, CardType.Skill, CardRarity.Rare, TargetType.AllAllies)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -24,8 +24,6 @@ public class Serpentian : ModCardTemplate
         new EnergyVar(1),
         new CardsVar(2),
     ];
-    
-    public Serpentian(): base(3, CardType.Skill, CardRarity.Rare, TargetType.AllAllies){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -34,7 +32,7 @@ public class Serpentian : ModCardTemplate
         IEnumerable<Creature> allOtherPlayer = from c in CombatState.GetTeammatesOf(Owner.Creature) where c != null && c.IsAlive && c.IsPlayer && c != Owner.Creature select c;
         foreach (Creature item in allOtherPlayer)
         {
-            await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, item.Player);
+            await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, item.Player);
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, item.Player);
         }
         PlayerCmd.EndTurn(Owner, canBackOut: false);

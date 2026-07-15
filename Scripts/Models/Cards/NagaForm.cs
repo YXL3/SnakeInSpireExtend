@@ -12,7 +12,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class NagaForm : ModCardTemplate
+public class NagaForm() : ModCardTemplate(3, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -22,8 +22,6 @@ public class NagaForm : ModCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("NagaFormPower", 7m), new DynamicVar("WellLaidPlansPower", 1m)];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
-    
-    public NagaForm(): base(3, CardType.Power, CardRarity.Rare, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

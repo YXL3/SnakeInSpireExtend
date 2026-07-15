@@ -13,13 +13,11 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class GreedySnake : ModCardTemplate
+public class GreedySnake() : ModCardTemplate(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
-    public override CardAssetProfile AssetProfile => new(
-        PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    );
-
-    public GreedySnake(): base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self){}
+    // public override CardAssetProfile AssetProfile => new(
+    //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
+    // );
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new PowerVar<GreedySnakePower>(1m)

@@ -4,7 +4,6 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -16,7 +15,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class TailWhip : ModCardTemplate
+public class TailWhip() : ModCardTemplate(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -40,8 +39,6 @@ public class TailWhip : ModCardTemplate
         return (int)card.DynamicVars["Haste"].BaseValue;
     }
 
-    public TailWhip(): base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy){}
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
@@ -55,16 +52,7 @@ public class TailWhip : ModCardTemplate
         }
     }
 
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips
-    {
-        get
-        {
-            List<IHoverTip> result = [Helper.HasteHoverTip(this), HoverTipFactory.FromPower<VulnerablePower>()];
-            if (IsUpgraded)
-            {
-                result.Add(HoverTipFactory.FromPower<WeakPower>());
-            }
-            return result;
-        }
-    }
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => IsUpgraded
+        ? [Helper.HasteHoverTip(this), HoverTipFactory.FromPower<VulnerablePower>(), HoverTipFactory.FromPower<WeakPower>()]
+        : [Helper.HasteHoverTip(this), HoverTipFactory.FromPower<VulnerablePower>()];
 }

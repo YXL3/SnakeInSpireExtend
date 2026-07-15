@@ -10,7 +10,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class EnGarde : ModCardTemplate
+public class EnGarde() : ModCardTemplate(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
@@ -21,8 +21,6 @@ public class EnGarde : ModCardTemplate
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [SnakeInSpireExtendCardKeywords.Keen];
-
-    public EnGarde() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

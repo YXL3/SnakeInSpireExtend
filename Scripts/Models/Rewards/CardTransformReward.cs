@@ -5,7 +5,6 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using STS2RitsuLib.Combat.Rewards;
@@ -27,9 +26,7 @@ public class CardTransformReward : ModCustomReward
         _targetCard = null;
     }
 
-    public override void MarkContentAsSeen()
-    {
-    }
+    public override void MarkContentAsSeen(){}
 
     /// <summary>
     ///     Uses the RewardType captured during registration, ensuring the serialized value

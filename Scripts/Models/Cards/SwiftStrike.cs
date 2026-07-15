@@ -13,22 +13,22 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class SwiftStrike : ModCardTemplate
+public class SwiftStrike() : ModCardTemplate(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
     // );
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(9m, ValueProp.Move),
+        new DamageVar(10m, ValueProp.Move),
         new DynamicVar("HasteDrawingAmount", 1m)
     ];
 
     protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Strike };
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [SnakeInSpireExtendCardKeywords.Keen];
-
-    public SwiftStrike(): base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy){}
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [
+        SnakeInSpireExtendCardKeywords.Keen
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
@@ -40,7 +40,7 @@ public class SwiftStrike : ModCardTemplate
     }
 
     protected override void OnUpgrade(){
-        DynamicVars.Damage.UpgradeValueBy(2m);
+        DynamicVars.Damage.UpgradeValueBy(1m);
         DynamicVars["HasteDrawingAmount"].UpgradeValueBy(1m);
     }
 

@@ -12,13 +12,11 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class LethalStripes : ModCardTemplate
+public class LethalStripes() : ModCardTemplate(1, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
     // );
-
-    public LethalStripes(): base(1, CardType.Power, CardRarity.Rare, TargetType.Self){}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
