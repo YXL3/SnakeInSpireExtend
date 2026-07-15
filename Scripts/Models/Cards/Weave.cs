@@ -22,6 +22,7 @@ public class Weave() : ModCardTemplate(1, CardType.Skill, CardRarity.Common, Tar
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(8m, ValueProp.Move)
     ];
+
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
         SnakeInSpireExtendCardKeywords.Keen
     ];
@@ -39,6 +40,4 @@ public class Weave() : ModCardTemplate(1, CardType.Skill, CardRarity.Common, Tar
     {
         DynamicVars.Block.UpgradeValueBy(3m);
     }
-    
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [];
 }

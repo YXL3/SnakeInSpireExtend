@@ -39,10 +39,8 @@ public class LastStandPower : ModPowerTemplate
         if (cardModel != null)
         {
             Flash();
-            while(Helper.HasCustomDynamic(cardModel, "Hysteresis"))
-            {
-                await CardCmd.AutoPlay(choiceContext, cardModel, null);
-            }
+            cardModel.BaseReplayCount += (int)maxValue - 1;
+            await CardCmd.AutoPlay(choiceContext, cardModel, null);
             await CardCmd.Exhaust(choiceContext, cardModel);
         }
     }
