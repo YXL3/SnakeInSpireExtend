@@ -30,8 +30,7 @@ public class IneluctablePower : ModPowerTemplate
         }
         Flash();
         CardSelectorPrefs prefs = new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, Amount);
-        List<CardModel> list = (await CardSelectCmd.FromHand(choiceContext, player, prefs, null, this)).ToList();
-        foreach (CardModel item in list)
+        foreach (CardModel item in await CardSelectCmd.FromHand(choiceContext, player, prefs, null, this))
         {
             CardModel cardModel2 = CombatState.CreateCard<Ineluctable>(player);
             await CardCmd.Transform(item, cardModel2);

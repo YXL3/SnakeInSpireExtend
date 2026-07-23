@@ -12,14 +12,14 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class BulletStart() : ModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
+public class BulletStart() : ModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
     // );
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DynamicVar("HasteVar", 4m),
+        new DynamicVar("HasteVar", 3m),
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -37,5 +37,5 @@ public class BulletStart() : ModCardTemplate(0, CardType.Skill, CardRarity.Rare,
         DynamicVars["HasteVar"].UpgradeValueBy(2m);
     }
 
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [Helper.HasteHoverTip(this)];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [..Helper.HasteHoverTipIfNeeded(this)];
 }

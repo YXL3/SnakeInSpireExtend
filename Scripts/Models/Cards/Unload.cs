@@ -35,7 +35,7 @@ public class Unload() : ModCardTemplate(0, CardType.Skill, CardRarity.Rare, Targ
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HysteresisHoverTip(),
-        Helper.HasteHoverTip(this),
+        ..Helper.HysteresisHoverTipIfNeeded(this),
+        ..Helper.HasteHoverTipIfNeeded(this),
     ];
 }

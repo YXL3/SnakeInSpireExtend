@@ -24,10 +24,6 @@ public class SnakeFury() : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommo
         new PowerVar<SnakeFuryPower>(1m)
     ];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [
-        SnakeInSpireExtendCardKeywords.Keen
-    ];
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<VigorPower>(choiceContext, Owner.Creature, DynamicVars["VigorPower"].BaseValue, Owner.Creature, this);

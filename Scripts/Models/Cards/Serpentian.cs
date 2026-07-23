@@ -44,6 +44,7 @@ public class Serpentian() : ModCardTemplate(3, CardType.Skill, CardRarity.Rare, 
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
+        EnergyHoverTip,
         HoverTipFactory.FromPower<IntangiblePower>()
     ];
 }

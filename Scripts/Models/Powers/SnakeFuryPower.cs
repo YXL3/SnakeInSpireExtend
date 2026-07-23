@@ -3,7 +3,6 @@ using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -36,7 +35,7 @@ public class SnakeFuryPower : ModPowerTemplate
             }
         }
     }
-    
+
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (cardPlay.Card.Owner == Owner.Player && _vigorAmountBeforeAttack > 0)
@@ -46,8 +45,4 @@ public class SnakeFuryPower : ModPowerTemplate
             _vigorAmountBeforeAttack = 0;
         }
     }
-
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        HoverTipFactory.FromPower<VigorPower>(),
-    ];
 }

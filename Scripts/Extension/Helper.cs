@@ -9,7 +9,7 @@ using SnakeInSpireExtend.Scripts.Powers;
 namespace SnakeInSpireExtend.Scripts.Extension;
 public static class Helper
 {
-    private static FieldInfo _varsField;
+    private static FieldInfo? _varsField;
     
     static Helper()
     {
@@ -59,11 +59,11 @@ public static class Helper
         return new HoverTip(locString, locString2);
     }
 
-    
     public static HoverTip SmartHoverTipFromPowers(CardModel card, string name, params DynamicVar[] descriptionVars)
     {
-        LocString locString = new LocString("powers", $"{name.ToUpper()}.title");
+        LocString locString = new LocString("powers", $"{name.ToUpper()}.smartTitle");
         LocString locString2 = new LocString("powers", $"{name.ToUpper()}.smartDescription");
+        locString.Add(card.DynamicVars[name]);
         locString2.Add(card.DynamicVars[name]);
         foreach(DynamicVar item in descriptionVars)
         {
@@ -72,15 +72,24 @@ public static class Helper
         return new HoverTip(locString, locString2);
     }
 
-    public static HoverTip HysteresisHoverTip()
+    private static HoverTip HysteresisHoverTip()
     {
         return StaticHoverTipFromPowers("HYSTERESIS");
     }
 
-    public static HoverTip HasteHoverTip(CardModel card)
+    private static HoverTip HasteHoverTip(CardModel card)
     {
         return StaticHoverTipFromPowers("HASTE", new DynamicVar("HasteDrawingAmount", 1m + GetOwnerPowerAmount<SneakyPhantomPower>(card)));
     }
+
+    public static IEnumerable<IHoverTip> ConditionalHoverTip(CardModel card, string name, Func<HoverTip> tipFactory)
+    {
+        if (!HasCustomDynamic(card, name))yield return tipFactory();
+    }
+
+    public static IEnumerable<IHoverTip> HysteresisHoverTipIfNeeded(CardModel card) => ConditionalHoverTip(card, "Hysteresis", HysteresisHoverTip);
+
+    public static IEnumerable<IHoverTip> HasteHoverTipIfNeeded(CardModel card) => ConditionalHoverTip(card, "Haste", () => HasteHoverTip(card));
 
     public static HoverTip HasteHoverTip(RelicModel relic)
     {
@@ -91,7 +100,7 @@ public static class Helper
     {
         return card.DynamicVars.ContainsKey(name) && card.DynamicVars[name].BaseValue > 0;
     }
-    
+
     public static decimal GetOwnerPowerAmount<T>(CardModel card) where T : PowerModel
     {
         if ((!card.IsMutable) || card.Owner == null || !card.Owner.Creature.HasPower<T>())

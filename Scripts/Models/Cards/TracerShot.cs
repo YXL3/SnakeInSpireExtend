@@ -5,39 +5,43 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using SnakeInSpireExtend.Scripts.CardPools;
-using SnakeInSpireExtend.Scripts.Models;
+using SnakeInSpireExtend.Scripts.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class Weave() : ModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+public class TracerShot() : ModCardTemplate(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
     // );
-    public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(9m, ValueProp.Move)
+        new DamageVar(7m, ValueProp.Move),
+        new EnergyVar(4)
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
-        SnakeInSpireExtendCardKeywords.Keen
+        CardKeyword.Exhaust
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        if (!Keywords.Contains(CardKeyword.Exhaust) && !ExhaustOnNextPlay)
-        {
-            await CardPileCmd.Add(this, PileType.Draw, CardPilePosition.Bottom);
-        }
+        ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
+            .WithHitFx("vfx/vfx_attack_blunt")
+            .Execute(choiceContext);
+        await PowerCmd.Apply<TracerShotPower>(choiceContext, Owner.Creature, DynamicVars.Energy.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars.Damage.UpgradeValueBy(4m);
     }
+
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
+        EnergyHoverTip
+    ];
 }

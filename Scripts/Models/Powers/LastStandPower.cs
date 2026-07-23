@@ -35,13 +35,13 @@ public class LastStandPower : ModPowerTemplate
         }
         decimal maxValue = items.Max(c => c.DynamicVars["Hysteresis"].BaseValue);
         items = items.Where(c => c.DynamicVars["Hysteresis"].BaseValue == maxValue).ToList();
-        CardModel? cardModel = Owner.Player.RunState.Rng.Shuffle.NextItem(items);
-        if (cardModel != null)
+        CardModel? card = Owner.Player.RunState.Rng.Shuffle.NextItem(items);
+        if (card != null)
         {
             Flash();
-            cardModel.BaseReplayCount += (int)maxValue - 1;
-            await CardCmd.AutoPlay(choiceContext, cardModel, null);
-            await CardCmd.Exhaust(choiceContext, cardModel);
+            card.BaseReplayCount += (int)maxValue - 1;
+            await CardCmd.AutoPlay(choiceContext, card, null);
+            await CardCmd.Exhaust(choiceContext, card);
         }
     }
 }

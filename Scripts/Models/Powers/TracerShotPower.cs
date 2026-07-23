@@ -9,14 +9,12 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Powers;
 
 [RegisterPower]
-public class NagaFormPower : ModPowerTemplate
+public class TracerShotPower : ModPowerTemplate
 {
     public override PowerAssetProfile AssetProfile => new(
         IconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png",
         BigIconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png"
     );
-
-    private int cards_count = 7;
     
     public override PowerType Type => PowerType.Buff;
 
@@ -24,10 +22,10 @@ public class NagaFormPower : ModPowerTemplate
 
     public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
     {
-        if (card.Owner == Owner.Player && PileType.Hand.GetPile(card.Owner).Cards.Count == cards_count)
+        if (card.Owner.Creature == Owner && PileType.Hand.GetPile(card.Owner).Cards.Count >= CardPile.MaxCardsInHand)
         {
-            await PlayerCmd.GainEnergy(Amount, Owner.Player);
-        await CardPileCmd.Draw(choiceContext, Amount, Owner.Player);
+            await PlayerCmd.GainEnergy(Amount, card.Owner);
+            await PowerCmd.Remove(this);
         }
     }
 }

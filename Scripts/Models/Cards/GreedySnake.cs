@@ -35,8 +35,8 @@ public class GreedySnake() : ModCardTemplate(1, CardType.Power, CardRarity.Uncom
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HysteresisHoverTip(),
-        Helper.HasteHoverTip(this),
+        ..Helper.HysteresisHoverTipIfNeeded(this),
+        ..Helper.HasteHoverTipIfNeeded(this),
         HoverTipFactory.FromPower<PlatingPower>(),
         HoverTipFactory.FromPower<VigorPower>(),
         HoverTipFactory.FromKeyword(CardKeyword.Exhaust)

@@ -2,9 +2,8 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models.Powers;
 using SnakeInSpireExtend.Scripts.CardPools;
-using SnakeInSpireExtend.Scripts.Extension;
-using SnakeInSpireExtend.Scripts.Models;
 using SnakeInSpireExtend.Scripts.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -26,11 +25,11 @@ public class LethalStripes() : ModCardTemplate(1, CardType.Power, CardRarity.Rar
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Ethereal);
+        AddKeyword(CardKeyword.Innate);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HasteHoverTip(this),
-        HoverTipFactory.FromKeyword(SnakeInSpireExtendCardKeywords.Keen)
+        HoverTipFactory.FromKeyword(CardKeyword.Exhaust),
+        HoverTipFactory.FromPower<VigorPower>()
     ];
 }

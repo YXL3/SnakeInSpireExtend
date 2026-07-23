@@ -19,7 +19,7 @@ public class Overwhelm() : ModCardTemplate(2, CardType.Attack, CardRarity.Uncomm
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
     // );
-    
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(5m, ValueProp.Move),
         new RepeatVar(3),
@@ -49,5 +49,5 @@ public class Overwhelm() : ModCardTemplate(2, CardType.Attack, CardRarity.Uncomm
         DynamicVars.Repeat.UpgradeValueBy(1m);
     }
 
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [Helper.HasteHoverTip(this)];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [..Helper.HasteHoverTipIfNeeded(this)];
 }

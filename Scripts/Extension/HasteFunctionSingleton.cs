@@ -18,10 +18,6 @@ public class HasteFunctionSingleton : HookedSingletonModel
     {
         CardModel card = cardPlay.Card;
         await HasteFunction(card, choiceContext);
-        if (card is DualEffectCardTemplate)
-        {
-            await HasteFunction(card, choiceContext, "Hysteresis");
-        }
         if (Helper.HasCustomDynamic(card, "Hysteresis"))
         {
             card.DynamicVars["Hysteresis"].UpgradeValueBy(-1m);
@@ -48,18 +44,4 @@ public class HasteFunctionSingleton : HookedSingletonModel
             }
         }
     }
-
-    // private static async Task KeenAction(CardModel card, PlayerChoiceContext choiceContext)
-    // {
-    //     decimal snakeFury = Helper.GetOwnerPowerAmount<SnakeFuryPower>(card);
-    //     if(snakeFury != 0)
-    //     {
-    //         Helper.Haste(card, snakeFury);
-    //         card.GiveSingleTurnRetain();
-    //     }
-    //     else
-    //     {
-    //         await CardCmd.AutoPlay(choiceContext, card, null);
-    //     }
-    // }
 }

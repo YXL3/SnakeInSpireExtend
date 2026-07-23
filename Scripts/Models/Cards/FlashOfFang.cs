@@ -1,7 +1,6 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using SnakeInSpireExtend.Scripts.CardPools;
@@ -30,11 +29,6 @@ public class FlashOfFang() : DualEffectCardTemplate(0, CardType.Attack, CardRari
     protected override void OnUpgrade(){
         DynamicVars.Damage.UpgradeValueBy(3m);
     }
-
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HysteresisHoverTip(),
-        Helper.HasteHoverTip(this)
-    ];
 }
 
 

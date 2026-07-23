@@ -37,6 +37,9 @@ public class Snake : ModCharacterTemplate<SnakeCardPool, SnakeRelicPool, SnakePo
                 CharacterSelectIconPath: "res://SnakeInSpireExtend/images/_material/snakeButton.png"
                 // CharacterSelectBgPath: "res://SnakeInSpireExtend/scenes/snake_bg.tscn",
                 // IconTexturePath: "res://SnakeInSpireExtend/images/snake/energy_snake.png"
+            ),
+            Scenes: new(
+                EnergyCounterPath: "res://SnakeInSpireExtend/scenes/snake_energy_counter.tscn"
             )
             // Vfx: new(
             //     TrailPath: "..."

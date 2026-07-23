@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Relics;
 using MegaCrit.Sts2.Core.Rooms;
 using SnakeInSpireExtend.Scripts.Extension;
 using SnakeInSpireExtend.Scripts.RelicPools;
@@ -83,6 +84,7 @@ public class CalamityEye : ModRelicTemplate, IHasteModifier
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
+        HoverTipFactory.ForEnergy(this),
         Helper.HasteHoverTip(this)
     ];
 }

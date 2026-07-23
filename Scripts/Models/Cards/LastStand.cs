@@ -40,7 +40,7 @@ public class LastStand() : ModCardTemplate(1, CardType.Power, CardRarity.Rare, T
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HysteresisHoverTip(),
+        ..Helper.HysteresisHoverTipIfNeeded(this),
         HoverTipFactory.FromKeyword(CardKeyword.Exhaust)
     ];
 }

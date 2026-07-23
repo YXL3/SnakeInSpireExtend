@@ -41,7 +41,7 @@ public class Ouroboros() : ModCardTemplate(2, CardType.Power, CardRarity.Uncommo
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HysteresisHoverTip(),
-        Helper.HasteHoverTip(this)
+        ..Helper.HysteresisHoverTipIfNeeded(this),
+        ..Helper.HasteHoverTipIfNeeded(this)
     ];
 }

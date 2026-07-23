@@ -22,14 +22,16 @@ public class GearUp() : ModCardTemplate(1, CardType.Skill, CardRarity.Common, Ta
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(7m, ValueProp.Move),
+        new DynamicVar("HasteVar", 1m),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        foreach(CardModel card in PileType.Discard.GetPile(Owner).Cards.Where(card => Helper.HasCustomDynamic(card, "Haste")))
+        foreach(CardModel card in PileType.Discard.GetPile(Owner).Cards.Where(card => card.Type == CardType.Skill).ToList())
         {
-            await CardPileCmd.Add(card, PileType.Hand);
+            Helper.Haste(card, DynamicVars["HasteVar"].BaseValue);
+            await CardPileCmd.Add(card, PileType.Draw);
         }
     }
 
@@ -39,6 +41,6 @@ public class GearUp() : ModCardTemplate(1, CardType.Skill, CardRarity.Common, Ta
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HasteHoverTip(this)
+        ..Helper.HasteHoverTipIfNeeded(this)
     ];
 }

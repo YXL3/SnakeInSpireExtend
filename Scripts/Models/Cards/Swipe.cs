@@ -20,7 +20,7 @@ public class Swipe() : ModCardTemplate(1, CardType.Attack, CardRarity.Common, Ta
     // );
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(9m, ValueProp.Move),
+        new DamageVar(10m, ValueProp.Move),
         new DynamicVar("HysteresisVar",1m)
     ];
 
@@ -44,5 +44,5 @@ public class Swipe() : ModCardTemplate(1, CardType.Attack, CardRarity.Common, Ta
         return Task.CompletedTask;
     }
 
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [Helper.HysteresisHoverTip()];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [..Helper.HysteresisHoverTipIfNeeded(this)];
 }

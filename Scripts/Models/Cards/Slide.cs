@@ -43,6 +43,6 @@ public class Slide() : ModCardTemplate(1, CardType.Skill, CardRarity.Basic, Targ
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HasteHoverTip(this)
+        ..Helper.HasteHoverTipIfNeeded(this)
     ];
-}//"SNAKE_IN_SPIRE_EXTEND_CARD_SLIDE.description":"抽1张牌。\n如果抽到的是攻击牌，敌人本回合受到的攻击伤害翻倍。\n如果抽到的是技能牌，给予2层[gold]虚弱[/gold]和[gold]易伤[/gold]。\n如果抽到的是能力牌，敌人失去2点[gold]力量[/gold]。\n如果都不是，给予1层[gold]死[/gold]。",
+}

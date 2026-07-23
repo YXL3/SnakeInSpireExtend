@@ -18,7 +18,7 @@ public class Sidewinder() : ModCardTemplate(1, CardType.Skill, CardRarity.Common
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
     // );
-    
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new CardsVar(2),
         new DynamicVar("HysteresisVar", 1m),
@@ -39,6 +39,6 @@ public class Sidewinder() : ModCardTemplate(1, CardType.Skill, CardRarity.Common
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => IsUpgraded
-        ? [Helper.HysteresisHoverTip(), Helper.HasteHoverTip(this)]
-        : [Helper.HysteresisHoverTip()];
+        ? [..Helper.HysteresisHoverTipIfNeeded(this), ..Helper.HasteHoverTipIfNeeded(this)]
+        : [..Helper.HysteresisHoverTipIfNeeded(this)];
 }

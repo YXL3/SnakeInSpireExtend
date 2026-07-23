@@ -1,8 +1,9 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
 using SnakeInSpireExtend.Scripts.CardPools;
 using SnakeInSpireExtend.Scripts.Extension;
@@ -29,8 +30,8 @@ public class Gleam() : DualEffectCardTemplate(0, CardType.Attack, CardRarity.Anc
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
             .WithHitCount(DynamicVars.Repeat.IntValue)
-            .WithHitFx("vfx/vfx_grand_finale_impact")
-            .OnlyPlayAnimOnce()
+            .WithHitVfxNode((Creature t) => NStabVfx.Create(t, facingEnemies: true))
+            .WithHitFx(null, null, "blunt_attack.mp3")
             .Execute(choiceContext);
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
     }
@@ -41,10 +42,6 @@ public class Gleam() : DualEffectCardTemplate(0, CardType.Attack, CardRarity.Anc
         DynamicVars.Repeat.UpgradeValueBy(1m);
         DynamicVars.Block.UpgradeValueBy(1m);
     }
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HysteresisHoverTip(),
-        Helper.HasteHoverTip(this)
-    ];
 }
 
 

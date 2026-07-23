@@ -1,8 +1,0 @@
-{
-    "SNAKE_IN_SPIRE_EXTEND_AFFLICTION_WEIGHTED.title":"沉重",
-    "SNAKE_IN_SPIRE_EXTEND_AFFLICTION_WEIGHTED.description":"打出这张牌时，失去{Amount:energyIcons()}。",
-    "SNAKE_IN_SPIRE_EXTEND_AFFLICTION_WEIGHTED.extraCardText":"[red]失去[/red]{Amount:energyIcons()}。",
-    
-    "SNAKE_IN_SPIRE_EXTEND_AFFLICTION_CORRUPTED.title":"腐化",
-    "SNAKE_IN_SPIRE_EXTEND_AFFLICTION_CORRUPTED.description":"造成的伤害和获得的格挡增加[blue]50%[/blue]。打出时失去[blue]1[/blue]点生命。"
-}

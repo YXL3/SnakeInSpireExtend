@@ -53,6 +53,6 @@ public class TailWhip() : ModCardTemplate(2, CardType.Attack, CardRarity.Uncommo
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => IsUpgraded
-        ? [Helper.HasteHoverTip(this), HoverTipFactory.FromPower<VulnerablePower>(), HoverTipFactory.FromPower<WeakPower>()]
-        : [Helper.HasteHoverTip(this), HoverTipFactory.FromPower<VulnerablePower>()];
+        ? [..Helper.HasteHoverTipIfNeeded(this), HoverTipFactory.FromPower<VulnerablePower>(), HoverTipFactory.FromPower<WeakPower>()]
+        : [..Helper.HasteHoverTipIfNeeded(this), HoverTipFactory.FromPower<VulnerablePower>()];
 }

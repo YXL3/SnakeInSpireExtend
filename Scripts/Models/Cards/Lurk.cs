@@ -48,6 +48,6 @@ public class Lurk() : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, Ta
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
         HoverTipFactory.FromPower<WeakPower>(),
-        Helper.HasteHoverTip(this)
+        ..Helper.HasteHoverTipIfNeeded(this)
     ];
 }

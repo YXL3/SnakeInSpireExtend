@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using SnakeInSpireExtend.Scripts.CardPools;
+using SnakeInSpireExtend.Scripts.Extension;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -19,26 +20,25 @@ public class Psychokinesis() : ModCardTemplate(1, CardType.Power, CardRarity.Unc
     // );
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new CardsVar(1)
+        new DynamicVar("HysteresisVar", 1m)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
         // await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        CardModel? card = (await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(SelectionScreenPrompt, 1), null, this)).FirstOrDefault();
-        if(card == null)
-        {
-            return;
-        }
-        CardCmd.ClearAffliction(card);
-        await CardCmd.Afflict<Weighted>(card, 1m);
+        CardModel? card = (await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt, 1), null, this)).FirstOrDefault();
+        if(card == null) return;
+        await CardCmd.Discard(choiceContext, card);
+        Helper.Hysteresis(card, DynamicVars["HysteresisVar"].BaseValue);
+        card.SetToFreeThisCombat();
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(1m);
+        DynamicVars["HysteresisVar"].UpgradeValueBy(1m);
     }
-    
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => HoverTipFactory.FromAffliction<Weighted>(1);
+
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
+        ..Helper.HysteresisHoverTipIfNeeded(this)
+    ];
 }

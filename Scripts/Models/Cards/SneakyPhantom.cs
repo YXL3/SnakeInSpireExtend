@@ -31,5 +31,5 @@ public class SneakyPhantom() : ModCardTemplate(2, CardType.Power, CardRarity.Anc
         EnergyCost.UpgradeBy(-1);
     }
 
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [Helper.HasteHoverTip(this)];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [..Helper.HasteHoverTipIfNeeded(this)];
 }

@@ -13,14 +13,14 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCard(typeof(SnakeCardPool))]
-public class Savagery() : ModCardTemplate(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+public class Savagery() : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     // public override CardAssetProfile AssetProfile => new(
     //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
     // );
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new EnergyVar(3),
+        new EnergyVar(2),
         new DynamicVar("HysteresisVar", 1m)
     ];
 
@@ -38,10 +38,11 @@ public class Savagery() : ModCardTemplate(2, CardType.Skill, CardRarity.Uncommon
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars.Energy.UpgradeValueBy(1);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HysteresisHoverTip()
+        EnergyHoverTip,
+        ..Helper.HysteresisHoverTipIfNeeded(this)
     ];
 }

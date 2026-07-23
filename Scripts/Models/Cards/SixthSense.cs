@@ -31,10 +31,10 @@ public class SixthSense() : ModCardTemplate(1, CardType.Skill, CardRarity.Uncomm
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        foreach (CardModel item in await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner))
+        foreach (CardModel card in await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner))
         {
-            Helper.Hysteresis(item, DynamicVars["HysteresisVar"].BaseValue);
-            Helper.Haste(item, DynamicVars["HasteVar"].BaseValue);
+            Helper.Hysteresis(card, DynamicVars["HysteresisVar"].BaseValue);
+            Helper.Haste(card, DynamicVars["HasteVar"].BaseValue);
         }
     }
     
@@ -45,7 +45,7 @@ public class SixthSense() : ModCardTemplate(1, CardType.Skill, CardRarity.Uncomm
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HysteresisHoverTip(),
-        Helper.HasteHoverTip(this)
+        ..Helper.HysteresisHoverTipIfNeeded(this),
+        ..Helper.HasteHoverTipIfNeeded(this)
     ];
 }

@@ -49,5 +49,5 @@ public class Bite() : ModCardTemplate(2, CardType.Attack, CardRarity.Common, Tar
         AddKeyword(CardKeyword.Retain);
     }
 
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [Helper.HysteresisHoverTip()];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [..Helper.HysteresisHoverTipIfNeeded(this)];
 }

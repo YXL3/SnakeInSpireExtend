@@ -48,8 +48,6 @@ public class Garrotte() : ModCardTemplate(2, CardType.Attack, CardRarity.Rare, T
         return result;
     }
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
@@ -66,7 +64,7 @@ public class Garrotte() : ModCardTemplate(2, CardType.Attack, CardRarity.Rare, T
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        Helper.HysteresisHoverTip(),
-        Helper.HasteHoverTip(this)
+        ..Helper.HysteresisHoverTipIfNeeded(this),
+        ..Helper.HasteHoverTipIfNeeded(this)
     ];
 }

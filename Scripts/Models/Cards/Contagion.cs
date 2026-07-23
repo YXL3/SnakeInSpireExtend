@@ -27,7 +27,7 @@ public class Contagion() : ModCardTemplate(1, CardType.Attack, CardRarity.Rare, 
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
-            .WithHitFx("vfx/vfx_gaze")
+            .WithHitFx("vfx/vfx_scratch")
             .Execute(choiceContext);
         foreach(CardModel item in await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, DynamicVars.Cards.IntValue), null, this))
         {
