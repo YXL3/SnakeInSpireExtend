@@ -6,19 +6,14 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Powers;
-using SnakeInSpireExtend.Scripts.CardPools;
 using SnakeInSpireExtend.Scripts.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-[RegisterCard(typeof(SnakeCardPool))]
-public class Malum() : ModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.AnyEnemy)
+public class Malum() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.AnyEnemy)
 {
-    // public override CardAssetProfile AssetProfile => new(
-    //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    // );
     public interface IChoosable
     {
         public Task OnChosen(PlayerChoiceContext choiceContext, CardPlay cardPlay);
@@ -45,10 +40,9 @@ public class Malum() : ModCardTemplate(1, CardType.Skill, CardRarity.Rare, Targe
         await PowerCmd.Apply<MalumPower>(choiceContext, Owner.Creature, DynamicVars["Turns"].BaseValue, Owner.Creature, this);
     }
 
-
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
+        EnergyCost.UpgradeBy(-1);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
@@ -57,13 +51,9 @@ public class Malum() : ModCardTemplate(1, CardType.Skill, CardRarity.Rare, Targe
     ];
 }
 
-[RegisterCard(typeof(TokenCardPool))]
+[RegisterCard(typeof(StatusCardPool))]
 public class Dread() : ModCardTemplate(-1, CardType.Status, CardRarity.Status, TargetType.None, false), Malum.IChoosable
 {
-    // public override CardAssetProfile AssetProfile => new(
-    //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    // );
-
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VulnerablePower>(2m)];
 
     public override int MaxUpgradeLevel => 0;
@@ -79,13 +69,9 @@ public class Dread() : ModCardTemplate(-1, CardType.Status, CardRarity.Status, T
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<VulnerablePower>()];
 }
 
-[RegisterCard(typeof(TokenCardPool))]
+[RegisterCard(typeof(StatusCardPool))]
 public class Blind() : ModCardTemplate(-1, CardType.Status, CardRarity.Status, TargetType.None, false), Malum.IChoosable
 {
-    // public override CardAssetProfile AssetProfile => new(
-    //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    // );
-
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<WeakPower>(2m)];
 
     public override int MaxUpgradeLevel => 0;

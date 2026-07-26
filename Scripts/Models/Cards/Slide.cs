@@ -6,21 +6,14 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
-using SnakeInSpireExtend.Scripts.CardPools;
 using SnakeInSpireExtend.Scripts.Extension;
 using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-[RegisterCard(typeof(SnakeCardPool))]
 [RegisterCharacterStarterCard(typeof(Snake),1,Order = 3)]
-public class Slide() : ModCardTemplate(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
+public class Slide() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
-    // public override CardAssetProfile AssetProfile => new(
-    //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    // );
-
     public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [

@@ -1,6 +1,4 @@
 {
     "COMBAT_REWARD_TRANSFORM_CARD":"[gold]变化[/gold]一张牌。",
-    "COMBAT_REWARD_TRANSFORM_CARD_TO_CERTAIN":"将一张牌[gold]变化[/gold]为[gold]{Card}[/gold]。",
-    "COMBAT_REWARD_TRANSFORM_CARD.selectionScreenPrompt":"选择一张牌[gold]变化[/gold]。",
-    "COMBAT_REWARD_TRANSFORM_CARD_TO_CERTAIN.selectionScreenPrompt":"选择一张牌[gold]变化[/gold]为[gold]{Card}[/gold]。"
+    "COMBAT_REWARD_TRANSFORM_CARD_TO_CERTAIN":"将一张牌[gold]变化[/gold]为[gold]{Card}[/gold]。"
 }

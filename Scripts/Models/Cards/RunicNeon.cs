@@ -4,19 +4,11 @@ using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
-using SnakeInSpireExtend.Scripts.CardPools;
-using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-[RegisterCard(typeof(SnakeCardPool))]
-public class RunicNeon() : ModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
+public class RunicNeon() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
-    // public override CardAssetProfile AssetProfile => new(
-    //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    // );
-
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

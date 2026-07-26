@@ -6,20 +6,12 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
-using SnakeInSpireExtend.Scripts.CardPools;
 using SnakeInSpireExtend.Scripts.Extension;
-using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-[RegisterCard(typeof(SnakeCardPool))]
-public class Lurk() : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies)
+public class Lurk() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies)
 {
-    // public override CardAssetProfile AssetProfile => new(
-    //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    // );
-
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new PowerVar<WeakPower>(2m),
         new DynamicVar("HasteVar", 1m),

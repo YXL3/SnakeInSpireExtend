@@ -51,5 +51,8 @@
     "SNAKE_IN_SPIRE_EXTEND_POWER_MALUM_POWER.smartDescription":"[blue]{Amount}[/blue]回合后，打出[gold]禁果[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_FROZEN_LEN_POWER.title":"冻结透镜",
     "SNAKE_IN_SPIRE_EXTEND_POWER_FROZEN_LEN_POWER.description":"打出你下回合开始时抽到的[gold]机敏[/gold]牌。",
-    "SNAKE_IN_SPIRE_EXTEND_POWER_FROZEN_LEN_POWER.smartDescription":"打出你下[blue]{Amount}[/blue]回合开始时抽到的[gold]机敏[/gold]牌。"
+    "SNAKE_IN_SPIRE_EXTEND_POWER_FROZEN_LEN_POWER.smartDescription":"打出你下[blue]{Amount}[/blue]回合开始时抽到的[gold]机敏[/gold]牌。",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_PSYCHOKINESIS_POWER.title":"念动力",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_PSYCHOKINESIS_POWER.description":"抽到所选牌时，为其添加[gold]急促[/gold]。",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_PSYCHOKINESIS_POWER.smartDescription":"抽到[gold]{Card}[/gold]时，为其添加[gold]急促[/gold][blue]{Amount}[/blue]。"
 }

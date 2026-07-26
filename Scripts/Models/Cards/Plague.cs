@@ -12,9 +12,6 @@ namespace SnakeInSpireExtend.Scripts.Cards;
 [RegisterCard(typeof(TokenCardPool))]
 public class Plague() : ModCardTemplate(0, CardType.Attack, CardRarity.Token, TargetType.AllEnemies)
 {
-    // public override CardAssetProfile AssetProfile => new(
-    //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    // );    
     private decimal _extraDamageFromPlaguePlays;
 
     private decimal ExtraDamageFromPlaguePlays

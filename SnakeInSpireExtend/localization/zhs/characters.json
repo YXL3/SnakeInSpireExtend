@@ -4,14 +4,13 @@
   "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.banter.dead.endTurnPing": "……我活该么。",
   "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.cardsModifierDescription": "蛇的卡牌现在会出现在奖励和商店中。",
   "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.cardsModifierTitle": "蛇卡牌",
-  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.description": "[gold]静默猎手[/gold]的蛇，不愿沦为玄武独自爬塔。\n用[gold]急促[/gold]和[gold]迟滞[/gold]交错的节奏构建致命战术。",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.description": "[gold]静默猎手[/gold]的蛇，不愿沦为玄武独自爬塔。\n（请发动鬼脑想象一条带着枪的蛇。）",
   "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.eventDeathPrevention": "忠孝两难全。",
-  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.goldMonologue": "[sine]能给[green]老友[/green]买4张灵动……想什么呢……[/sine]",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.goldMonologue": "[sine]能给[green]友人[/green]买4张灵动……想什么呢……[/sine]",
   "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.possessiveAdjective": "它的",
   "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.pronounObject": "它",
   "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.pronounPossessive": "它的",
   "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.pronounSubject": "它",
   "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.title": "蛇",
-  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.titleObject": "那条蛇",
-  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.unlockText": "用[pink]{Prerequisite}[/pink]进行一局游戏来解锁这个角色。"
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.titleObject": "蛇"
 }

@@ -58,7 +58,7 @@ public class CardTransformReward : ModCustomReward
     {
         if (_targetCard != null)
         {
-            CardSelectorPrefs cardSelectorPrefs = new CardSelectorPrefs(new LocString("gameplay_ui", "COMBAT_REWARD_TRANSFORM_CARD_TO_CERTAIN.selectionScreenPrompt"), 1)
+            CardSelectorPrefs cardSelectorPrefs = new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, 1)
             {
                 Cancelable = true,
                 RequireManualConfirmation = true

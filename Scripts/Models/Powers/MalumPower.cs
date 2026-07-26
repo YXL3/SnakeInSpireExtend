@@ -18,7 +18,10 @@ public class MalumPower : ModPowerTemplate
     //     BigIconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png"
     // );
 
-    private Malum? malum;
+    private class Data
+    {
+        public Malum? malum;
+    }
 
     public override PowerType Type => PowerType.Buff;
 
@@ -26,11 +29,16 @@ public class MalumPower : ModPowerTemplate
 
     public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
 
+    protected override object InitInternalData()
+    {
+        return new Data();
+    }
+
     public override async Task BeforeApplied(Creature target, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if(cardSource != null && cardSource is Malum)
         {
-            malum = (Malum?)cardSource;
+            GetInternalData<Data>().malum = (Malum?)cardSource;
         }
     }
 
@@ -45,8 +53,11 @@ public class MalumPower : ModPowerTemplate
             await PowerCmd.Decrement(this);
             return;
         }
+        Malum? malum = GetInternalData<Data>().malum;
         if(malum != null && malum.IsMutable)
         {
+            malum = (Malum)malum.CreateClone();
+            CardCmd.ClearAffliction(malum);
             await CardCmd.AutoPlay(choiceContext, malum, null);
         }
         await PowerCmd.Remove(this);

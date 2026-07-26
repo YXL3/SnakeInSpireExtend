@@ -39,7 +39,7 @@ public class LastStandPower : ModPowerTemplate
         if (card != null)
         {
             Flash();
-            card.BaseReplayCount += (int)maxValue - 1;
+            card.BaseReplayCount = (card.BaseReplayCount + 1) * (int)maxValue - 1;
             await CardCmd.AutoPlay(choiceContext, card, null);
             await CardCmd.Exhaust(choiceContext, card);
         }
