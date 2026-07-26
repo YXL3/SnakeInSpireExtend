@@ -1,6 +1,5 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
@@ -23,8 +22,7 @@ public class Gleam() : DualEffectCardTemplate(0, CardType.Attack, CardRarity.Anc
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
             .WithHitCount(DynamicVars.Repeat.IntValue)
-            .WithHitVfxNode((Creature t) => NStabVfx.Create(t, facingEnemies: true))
-            .WithHitFx(null, null, "blunt_attack.mp3")
+            .WithHitVfxNode(t => NThinSliceVfx.Create(cardPlay.Target))
             .Execute(choiceContext);
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
     }

@@ -29,7 +29,7 @@ public class Ineluctable() : SnakeCardTemplate(1, CardType.Power, CardRarity.Rar
         DynamicVars["StrengthPower"].UpgradeValueBy(1m);
         DynamicVars["DexterityPower"].UpgradeValueBy(1m);
     }
-    
+
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
         HoverTipFactory.FromPower<StrengthPower>(),
         HoverTipFactory.FromPower<DexterityPower>()

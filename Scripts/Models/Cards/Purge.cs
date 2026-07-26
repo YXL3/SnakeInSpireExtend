@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using SnakeInSpireExtend.Scripts.Rewards;
@@ -28,7 +29,8 @@ public class Purge() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Rare, Ta
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             bool shouldTriggerFatal = cardPlay.Target.Powers.All((PowerModel p) => p.ShouldOwnerDeathTriggerFatal());
             AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
-                .WithHitFx("vfx/vfx_attack_slash")
+                .WithHitVfxNode(t => NStabVfx.Create(t, true, VfxColor.Gold))
+                .WithHitFx(null, null, "blunt_attack.mp3")
                 .Execute(choiceContext);
             if (shouldTriggerFatal && attackCommand.Results.SelectMany((List<DamageResult> r) => r).Any((DamageResult r) => r.WasTargetKilled))
             {

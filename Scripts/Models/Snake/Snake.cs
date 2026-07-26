@@ -66,7 +66,7 @@ public class Snake : ModCharacterTemplate<SnakeCardPool, SnakeRelicPool, SnakePo
         "vfx/vfx_attack_blunt",
         "vfx/vfx_bite",
         "vfx/vfx_attack_slash",
-        "vfx/vfx_thrash",
+        "vfx/vfx_bite",
         "vfx/vfx_grand_finale_impact"
     ];
 }

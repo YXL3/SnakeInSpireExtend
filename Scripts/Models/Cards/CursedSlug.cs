@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
 using SnakeInSpireExtend.Scripts.Extension;
 
@@ -26,8 +27,8 @@ public class CursedSlug() : SnakeCardTemplate(3, CardType.Attack, CardRarity.Rar
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
             .WithHitCount(DynamicVars.Repeat.IntValue)
-            .WithHitFx("vfx/vfx_attack_blunt")
-            .OnlyPlayAnimOnce()
+            .WithHitVfxNode(t => NStabVfx.Create(t, true, VfxColor.Purple))
+            .WithHitFx(null, null, "blunt_attack.mp3")
             .Execute(choiceContext);
         for (int i = 0; i < DynamicVars.Cards.IntValue; i++)
         {
