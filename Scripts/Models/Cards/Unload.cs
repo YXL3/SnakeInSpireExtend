@@ -17,17 +17,18 @@ public class Unload() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Rare, Ta
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        int x = ResolveEnergyXValue();
-        DynamicVars["EnergyXOnPlay"].BaseValue = x;
-        await PlayerCmd.GainEnergy(IsUpgraded? x+1 : x, Owner);
+        int X = ResolveEnergyXValue();
+        DynamicVars["EnergyXOnPlay"].BaseValue = X;
+        await PlayerCmd.GainEnergy(IsUpgraded? X+1 : X, Owner);
         CardModel? card = (await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(SelectionScreenPrompt, 1), null, this)).FirstOrDefault();
         if(card == null)return;
-        Helper.Hysteresis(card, x);
-        Helper.Haste(card, x);
+        Helper.Hysteresis(card, X);
+        Helper.Haste(card, X);
         await CardCmd.Discard(choiceContext, PileType.Hand.GetPile(Owner).Cards.Where(c => c is not null && c != card).ToList());
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
+        EnergyHoverTip,
         ..Helper.HysteresisHoverTipIfNeeded(this),
         ..Helper.HasteHoverTipIfNeeded(this),
     ];

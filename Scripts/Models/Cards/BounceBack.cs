@@ -16,7 +16,7 @@ public class BounceBack() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Comm
     public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(4m, ValueProp.Move),
+        new BlockVar(5m, ValueProp.Move),
         new DynamicVar("HasteVar", 2m),
         new PowerVar<VigorPower>(15m)
     ];
