@@ -13,7 +13,7 @@ namespace SnakeInSpireExtend.Scripts.Extension;
 public class HasteFunctionSingleton : HookedSingletonModel
 {
     public HasteFunctionSingleton() : base(HookType.Combat){}
-    
+
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         CardModel card = cardPlay.Card;
@@ -24,23 +24,20 @@ public class HasteFunctionSingleton : HookedSingletonModel
         }
     }
 
-    private static async Task HasteFunction(CardModel card, PlayerChoiceContext choiceContext, string functionalHaste = "Haste")
+    private static async Task HasteFunction(CardModel card, PlayerChoiceContext choiceContext)
     {
-        if (!Helper.HasCustomDynamic(card, functionalHaste))
+        if (!Helper.HasCustomDynamic(card, "Haste"))
         {
             return;
         }
         IEnumerable<CardModel> cards = await CardPileCmd.Draw(choiceContext, await Helper.ApplyHasteDrawingAmount(card), card.Owner);
-        if (functionalHaste == "Haste")
-        {
-            decimal hastePassed = Helper.HastePassingAmount(card);
-            card.DynamicVars[functionalHaste].BaseValue = 0m;
-            foreach (CardModel item in cards){
-                Helper.Haste(item, hastePassed);
-                if (item.Keywords.Contains(SnakeInSpireExtendCardKeywords.Keen) && item != card)
-                {
-                    await CardCmd.AutoPlay(choiceContext, item, null);
-                }
+        decimal hastePassed = Helper.HastePassingAmount(card);
+        card.DynamicVars["Haste"].BaseValue = 0m;
+        foreach (CardModel item in cards){
+            Helper.Haste(item, hastePassed);
+            if (item.Keywords.Contains(SnakeInSpireExtendCardKeywords.Keen) && item != card)
+            {
+                await CardCmd.AutoPlay(choiceContext, item, null);
             }
         }
     }

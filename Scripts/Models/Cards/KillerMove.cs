@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+using SnakeInSpireExtend.Scripts.Models;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
@@ -13,6 +14,8 @@ public class KillerMove() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Com
         new DamageVar(11m, ValueProp.Move),
         new EnergyVar(2)
     ];
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [SnakeInSpireExtendCardKeywords.Keen];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");

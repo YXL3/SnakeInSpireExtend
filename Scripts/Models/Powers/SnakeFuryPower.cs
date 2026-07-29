@@ -14,10 +14,10 @@ namespace SnakeInSpireExtend.Scripts.Powers;
 [RegisterPower]
 public class SnakeFuryPower : ModPowerTemplate
 {
-    // public override PowerAssetProfile AssetProfile => new(
-    //     IconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png",
-    //     BigIconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png"
-    // );
+    public override PowerAssetProfile AssetProfile => new(
+        IconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png",
+        BigIconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png"
+    );
     
     public override PowerType Type => PowerType.Buff;
 
