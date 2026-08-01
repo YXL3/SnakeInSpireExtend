@@ -7,22 +7,24 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class GearUp() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+public class Castling() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(5m, ValueProp.Move),
-        new CardsVar(2)
+        new BlockVar(7m, ValueProp.Move)
+    ];
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [
+        CardKeyword.Retain
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        foreach (CardModel card in PileType.Draw.GetPile(Owner).Cards.Take(DynamicVars.Cards.IntValue))
+        foreach(CardModel card in PileType.Draw.GetPile(Owner).Cards.Where(card => card.GainsBlock).ToList())
         {
-            CardCmd.Upgrade(card);
-            CardCmd.Preview(card);
+            await CardPileCmd.Add(card, PileType.Discard);
         }
     }
 

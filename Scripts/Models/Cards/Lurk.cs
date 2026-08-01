@@ -10,7 +10,7 @@ using SnakeInSpireExtend.Scripts.Extension;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class Lurk() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies)
+public class Lurk() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AllEnemies)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new PowerVar<WeakPower>(2m),

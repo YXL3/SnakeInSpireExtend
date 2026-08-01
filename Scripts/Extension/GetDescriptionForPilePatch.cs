@@ -34,6 +34,6 @@ public class GetDescriptionForPilePatch : IPatchMethod
             return;
         }
         string loc = new LocString("powers", $"{name.ToUpper()}.title").GetRawText();
-        __result += $"\n[aqua]{loc}{__instance.DynamicVars[name].BaseValue}。[/aqua]";
+        __result += $"\n[aqua]{loc}{__instance.DynamicVars[name].BaseValue}[/aqua]。";
     }
 }
