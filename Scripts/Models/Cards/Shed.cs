@@ -13,30 +13,29 @@ public class Shed() : SnakeCardTemplate(1, CardType.Power, CardRarity.Uncommon, 
     public override int MaxUpgradeLevel => int.MaxValue;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new PowerVar<StrengthPower>(1m),
+        new PowerVar<DexterityPower>(1m),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<StrengthPower>(choiceContext, Owner.Creature, DynamicVars["StrengthPower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<DexterityPower>(choiceContext, Owner.Creature, DynamicVars.Dexterity.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["StrengthPower"].UpgradeValueBy(1m);
+        DynamicVars.Dexterity.UpgradeValueBy(1m);
     }
 
     public override Task AfterRestSiteHeal(Player player, bool isMimicked)
     {
-        if (player != Owner || Pile == null || Pile.Type != PileType.Deck)
+        if (player == Owner && Pile != null && Pile.Type == PileType.Deck)
         {
-            return Task.CompletedTask;
+            CardCmd.Upgrade(this);
         }
-        CardCmd.Upgrade(this);
         return Task.CompletedTask;
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        HoverTipFactory.FromPower<StrengthPower>(),
+        HoverTipFactory.FromPower<DexterityPower>(),
     ];
 }

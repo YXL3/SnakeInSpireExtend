@@ -18,7 +18,7 @@ public class BulletStart() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Com
 
     public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
-        if (player == Owner && Owner.Creature.CombatState.RoundNumber == 1)
+        if (player == Owner && combatState.RoundNumber == 1)
         {
             Helper.Haste(this, DynamicVars["HasteVar"].BaseValue);
         }
