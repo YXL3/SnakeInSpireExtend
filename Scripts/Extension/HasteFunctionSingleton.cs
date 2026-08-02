@@ -26,19 +26,22 @@ public class HasteFunctionSingleton : HookedSingletonModel
 
     private static async Task HasteFunction(CardModel card, PlayerChoiceContext choiceContext)
     {
-        if (!Helper.HasCustomDynamic(card, "Haste"))
+        if (Helper.HasCustomDynamic(card, "Haste"))
         {
-            return;
-        }
-        IEnumerable<CardModel> cards = await CardPileCmd.Draw(choiceContext, await Helper.ApplyHasteDrawingAmount(card), card.Owner);
-        decimal hastePassed = Helper.HastePassingAmount(card);
-        card.DynamicVars["Haste"].BaseValue = 0m;
-        foreach (CardModel item in cards){
-            Helper.Haste(item, hastePassed);
-            if (item.Keywords.Contains(SnakeInSpireExtendCardKeywords.Keen) && item != card)
-            {
-                await CardCmd.AutoPlay(choiceContext, item, null);
+            IEnumerable<CardModel> cards = await CardPileCmd.Draw(choiceContext, await Helper.ApplyHasteDrawingAmount(card), card.Owner);
+            decimal hastePassed = Helper.HastePassingAmount(card);
+            card.DynamicVars["Haste"].BaseValue = 0m;
+            foreach (CardModel item in cards){
+                Helper.Haste(item, hastePassed);
             }
+        }
+    }
+
+    public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
+    {
+        if (!fromHandDraw && card.Keywords.Contains(SnakeInSpireExtendCardKeywords.Keen))
+        {
+            await CardCmd.AutoPlay(choiceContext, card, null);
         }
     }
 }

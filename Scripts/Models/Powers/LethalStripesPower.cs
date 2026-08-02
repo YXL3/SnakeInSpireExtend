@@ -40,6 +40,7 @@ public class LethalStripesPower : ModPowerTemplate
     {
         if (record != null && cardPlay.Card == record.ModelSource)
         {
+            Flash();
             await CardCmd.Exhaust(choiceContext, cardPlay.Card);
             await PowerCmd.Apply<VigorPower>(choiceContext, Owner,
             record.Results.SelectMany((List<DamageResult> r) => r).Sum((DamageResult r) => r.TotalDamage), Owner, null);

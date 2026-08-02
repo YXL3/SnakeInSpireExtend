@@ -26,7 +26,6 @@ public class GreedySnakePower : ModPowerTemplate
         {
             return;
         }
-        Flash();
         CardSelectorPrefs prefs = new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 1);
         CardModel? card = (await CardSelectCmd.FromHand(choiceContext, Owner.Player, prefs, null, this)).FirstOrDefault();      
         if (card != null)
@@ -36,7 +35,6 @@ public class GreedySnakePower : ModPowerTemplate
             amount += Helper.HasCustomDynamic(card, "Hysteresis") ? card.DynamicVars["Hysteresis"].BaseValue : 0;
             amount *= Amount;
             await PowerCmd.Apply<PlatingPower>(choiceContext, Owner, amount, Owner, null);
-            await PowerCmd.Apply<VigorPower>(choiceContext, Owner, amount, Owner, null);
             await CreatureCmd.GainBlock(Owner, amount, ValueProp.Unpowered, null);
         }
     }

@@ -23,14 +23,13 @@ public class GreedySnake() : SnakeCardTemplate(1, CardType.Power, CardRarity.Unc
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        AddKeyword(CardKeyword.Innate);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
         ..Helper.HysteresisHoverTipIfNeeded(this),
         ..Helper.HasteHoverTipIfNeeded(this),
         HoverTipFactory.FromPower<PlatingPower>(),
-        HoverTipFactory.FromPower<VigorPower>(),
         HoverTipFactory.FromKeyword(CardKeyword.Exhaust)
     ];
 }

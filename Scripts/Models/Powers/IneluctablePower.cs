@@ -28,7 +28,6 @@ public class IneluctablePower : ModPowerTemplate
         {
             return;
         }
-        Flash();
         CardSelectorPrefs prefs = new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, Amount);
         foreach (CardModel item in await CardSelectCmd.FromHand(choiceContext, player, prefs, null, this))
         {

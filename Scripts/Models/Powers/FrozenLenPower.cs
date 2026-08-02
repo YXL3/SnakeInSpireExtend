@@ -31,8 +31,8 @@ public class FrozenLenPower : ModPowerTemplate
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
-    
-    public override async Task AfterCardDrawnEarly(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
+
+    public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
     {
         if (fromHandDraw && card.Owner == Owner.Player && card.Keywords.Contains(SnakeInSpireExtendCardKeywords.Keen))
         {

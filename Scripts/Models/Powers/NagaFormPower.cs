@@ -46,6 +46,7 @@ public class NagaFormPower : ModPowerTemplate
     {
         if (player == Owner.Player)
         {
+            Flash();
             foreach (CardModel card in GetInternalData<Data>().cards)
             {
                 CardModel card2 = card.CreateClone();
