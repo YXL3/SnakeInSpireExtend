@@ -11,6 +11,8 @@ using SnakeInSpireExtend.Scripts.Relics;
 using STS2RitsuLib.Scaffolding.Cards.HandOutline;
 using MegaCrit.Sts2.Core.Models;
 using SnakeInSpireExtend.Scripts.Extension;
+using STS2RitsuLib.RunData;
+
 namespace SnakeInSpireExtend.Scripts;
 
 [ModInitializer(nameof(Init))]
@@ -18,6 +20,8 @@ public class Entry
 { 
     public const string ModId = "SnakeInSpireExtend";
     public static readonly Logger Logger = RitsuLibFramework.CreateLogger(ModId);
+    private const string SneakyPhantomSavedDataKey = "sneaky_phantom_carry_over";
+    public static PlayerRunSavedData<PhantomCarryOverState> SneakyPhantomSavedData = null!;
     public static void Init()
     {
         var assembly = Assembly.GetExecutingAssembly();
@@ -42,5 +46,8 @@ public class Entry
             card => Helper.HasCustomDynamic(card, "Hysteresis")?(Helper.HasCustomDynamic(card, "Haste")
             ? Godot.Colors.Snow : Godot.Colors.Purple): Godot.Colors.Green
         ));
+        
+        SneakyPhantomSavedData = RunSavedDataStore.For(ModId).RegisterPerPlayer<PhantomCarryOverState>(
+            SneakyPhantomSavedDataKey, () => new(), new() { WritePolicy = RunSavedDataWritePolicy.WhenNonDefault });
     }
 }

@@ -14,13 +14,13 @@ public class HysteresisFunctionPatch : IPatchMethod
 
     public static ModPatchTarget[] GetTargets()
     {
-        return [new(typeof(CardModel), "GetResultPileTypeForCardPlay")];
+        return [new(typeof(CardModel), "GetResultLocationForCardPlay")];
     }
 
-    public static void Postfix(CardModel __instance, ref PileType __result)
+    public static void Postfix(CardModel __instance, ref CardLocation __result)
     {
-        if (__result == PileType.Discard && Helper.HasCustomDynamic(__instance, "Hysteresis")){
-            __result = PileType.Hand;
+        if (__result.pileType == PileType.Discard && Helper.HasCustomDynamic(__instance, "Hysteresis")){
+            __result = new CardLocation(__instance.Owner, PileType.Hand, CardPilePosition.Bottom);
         }
     }
 }

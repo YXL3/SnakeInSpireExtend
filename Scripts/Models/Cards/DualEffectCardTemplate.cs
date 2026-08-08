@@ -11,10 +11,11 @@ public abstract class DualEffectCardTemplate(
     TargetType targetType,
     bool shouldShowInCardLibrary = true)
     : SnakeCardTemplate(energyCost, type, rarity, targetType, shouldShowInCardLibrary){
-    protected override PileType GetResultPileTypeForCardPlay()
+    protected override CardLocation GetResultLocationForCardPlay()
     {
-        PileType result = base.GetResultPileTypeForCardPlay();
-        return (result == PileType.None || !Helper.HasCustomDynamic(this, "Haste"))? result : PileType.Hand;
+        CardLocation result = base.GetResultLocationForCardPlay();
+        return (result.pileType == PileType.None || !Helper.HasCustomDynamic(this, "Haste"))?
+        result : new CardLocation(Owner, PileType.Hand, CardPilePosition.Bottom);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [

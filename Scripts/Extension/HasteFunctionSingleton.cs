@@ -10,10 +10,8 @@ namespace SnakeInSpireExtend.Scripts.Extension;
 
 [RegisterSingleton]
 
-public class HasteFunctionSingleton : HookedSingletonModel
+public class HasteFunctionSingleton() : HookedSingletonModel(HookType.Combat)
 {
-    public HasteFunctionSingleton() : base(HookType.Combat){}
-
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         CardModel card = cardPlay.Card;

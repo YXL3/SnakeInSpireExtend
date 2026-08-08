@@ -1,0 +1,31 @@
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
+using SnakeInSpireExtend.Scripts.Extension;
+using STS2RitsuLib.Interop.AutoRegistration;
+using STS2RitsuLib.Scaffolding.Content;
+
+namespace SnakeInSpireExtend.Scripts.Powers;
+
+[RegisterPower]
+public class GoodInstinctsPower : ModPowerTemplate
+{
+    public override PowerAssetProfile AssetProfile => new(
+        IconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png",
+        BigIconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png"
+    );
+
+    public override PowerType Type => PowerType.Buff;
+
+    public override PowerStackType StackType => PowerStackType.Counter;
+
+    public override async Task BeforeCardPlayed(CardPlay cardPlay)
+    {
+        if (Owner.Player == cardPlay.Card.Owner && Helper.HasCustomDynamic(cardPlay.Card, "Haste"))
+        {
+            Flash();
+            await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Unpowered, null);
+        }
+    }
+}

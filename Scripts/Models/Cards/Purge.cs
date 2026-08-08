@@ -23,12 +23,13 @@ public class Purge() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Rare, Ta
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        AbstractRoom currentRoom = CombatState.RunState.CurrentRoom;
+        if(CombatState == null) return;
+        AbstractRoom? currentRoom = CombatState.RunState.CurrentRoom;
         if (currentRoom is CombatRoom combatRoom)
         {
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             bool shouldTriggerFatal = cardPlay.Target.Powers.All((PowerModel p) => p.ShouldOwnerDeathTriggerFatal());
-            AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
+            AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target)
                 .WithHitVfxNode(t => NStabVfx.Create(t, true, VfxColor.Gold))
                 .WithHitFx(null, null, "blunt_attack.mp3")
                 .Execute(choiceContext);

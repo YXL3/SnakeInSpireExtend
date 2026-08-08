@@ -9,6 +9,8 @@ namespace SnakeInSpireExtend.Scripts.Cards;
 
 public class NagaForm() : SnakeCardTemplate(3, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         List<CardModel> list = PileType.Hand.GetPile(Owner).Cards.Where(c => c.Type == CardType.Attack).ToList();
@@ -29,7 +31,7 @@ public class NagaForm() : SnakeCardTemplate(3, CardType.Power, CardRarity.Rare, 
     }
 
     protected override void OnUpgrade(){
-        AddKeyword(CardKeyword.Retain);
+        RemoveKeyword(CardKeyword.Ethereal);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [

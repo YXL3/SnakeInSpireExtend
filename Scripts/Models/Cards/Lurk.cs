@@ -23,6 +23,7 @@ public class Lurk() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Common, Ta
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        if(CombatState == null) return;
         foreach (Creature enemy in CombatState.HittableEnemies)
         {
             await PowerCmd.Apply<WeakPower>(choiceContext, enemy, DynamicVars.Weak.BaseValue, Owner.Creature, this);

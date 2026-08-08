@@ -15,7 +15,8 @@
     "SNAKE_IN_SPIRE_EXTEND_POWER_GLIDER_POWER.title":"滑翔翼",
     "SNAKE_IN_SPIRE_EXTEND_POWER_GLIDER_POWER.description":"回合开始时，如果你没有[gold]翱翔[/gold]，获得[gold]翱翔[/gold]，否则失去[gold]翱翔[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_SNEAKY_PHANTOM_POWER.title":"潜行幻象",
-    "SNAKE_IN_SPIRE_EXTEND_POWER_SNEAKY_PHANTOM_POWER.description":"你因[gold]急促[/gold]抽牌时，多抽{Amount}张。",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_SNEAKY_PHANTOM_POWER.description":"下场战斗开始时，将[gold]{Cards}[/gold]的复制品加入[gold]手牌[/gold]，获得{Energy:energyIcons()}和[blue]{Block}[/blue][gold]格挡[/gold]。",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_SNEAKY_PHANTOM_POWER.smartDescription":"下场战斗开始时，将[gold]{Cards}[/gold]的复制品加入[gold]手牌[/gold]，获得{Energy:energyIcons()}和[blue]{Block}[/blue][gold]格挡[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_TRACER_SHOT_POWER.title":"曳光弹",
     "SNAKE_IN_SPIRE_EXTEND_POWER_TRACER_SHOT_POWER.description":"下一次将[gold]手牌[/gold]抽满时，获得{Amount:energyIcons()}。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_LAST_STAND_POWER.title":"背水一战",
@@ -27,7 +28,7 @@
     "SNAKE_IN_SPIRE_EXTEND_POWER_NO_SKILL_PLAY_POWER.title":"禁用技能",
     "SNAKE_IN_SPIRE_EXTEND_POWER_NO_SKILL_PLAY_POWER.description":"一回合内不能打出技能牌。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_GREEDY_SNAKE_POWER.title":"贪吃蛇",
-    "SNAKE_IN_SPIRE_EXTEND_POWER_GREEDY_SNAKE_POWER.description":"回合结束时，[gold]消耗[/gold][blue]1[/blue]张牌，获得等于其[gold]迟滞[/gold]和[gold]急促[/gold]层数之和{Amount:choose(1):|[blue]{Amount}[/blue]倍}的[gold]覆甲[/gold]。",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_GREEDY_SNAKE_POWER.description":"回合结束时，[gold]消耗[/gold][blue]{Amount}[/blue]张牌，获得其[gold]迟滞[/gold]和[gold]急促[/gold]层数之和的[gold]覆甲[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_LETHAL_STRIPES_POWER.title":"致命斑纹",
     "SNAKE_IN_SPIRE_EXTEND_POWER_LETHAL_STRIPES_POWER.description":"[gold]消耗[/gold]你打出的造成多次伤害的攻击牌，获得其造成伤害总量的[gold]活力[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_MALUM_POWER.title":"禁果",
@@ -35,5 +36,7 @@
     "SNAKE_IN_SPIRE_EXTEND_POWER_FROZEN_LEN_POWER.title":"冻结透镜",
     "SNAKE_IN_SPIRE_EXTEND_POWER_FROZEN_LEN_POWER.description":"打出你下[blue]{Amount}[/blue]回合开始时抽到的[gold]机敏[/gold]牌。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_PSYCHOKINESIS_POWER.title":"念动力",
-    "SNAKE_IN_SPIRE_EXTEND_POWER_PSYCHOKINESIS_POWER.description":"抽到[gold]{Card}[/gold]时，为其添加[gold]急促[/gold][blue]{Amount}[/blue]。"
+    "SNAKE_IN_SPIRE_EXTEND_POWER_PSYCHOKINESIS_POWER.description":"你因[gold]急促[/gold]抽牌时，多抽[blue]{Amount}[/blue]张。",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_GOOD_INSTINCTS_POWER.title":"优秀直觉",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_GOOD_INSTINCTS_POWER.description":"你打出有[gold]急促[/gold]的牌时，获得[blue]{Amount}[/blue]点[gold]格挡[/gold]。"
 }

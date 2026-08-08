@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -20,13 +21,14 @@ public class Serpentian() : SnakeCardTemplate(3, CardType.Skill, CardRarity.Rare
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        if(CombatState == null) return;
         // await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<IntangiblePower>(choiceContext, Owner.Creature, DynamicVars["IntangiblePower"].BaseValue, Owner.Creature, this);
-        IEnumerable<Creature> allOtherPlayer = from c in CombatState.GetTeammatesOf(Owner.Creature) where c != null && c.IsAlive && c.IsPlayer && c != Owner.Creature select c;
-        foreach (Creature item in allOtherPlayer)
+        IEnumerable<Player> players = CombatState.GetTeammatesOf(Owner.Creature).Where(c => c != null && c.IsAlive && c.Player != null && c != Owner.Creature).Select(c => c.Player!);
+        foreach (Player player in players)
         {
-            await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, item.Player);
-            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, item.Player);
+            await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, player);
+            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, player);
         }
         PlayerCmd.EndTurn(Owner, canBackOut: false);
     }

@@ -31,7 +31,7 @@ public class SnakeFuryPower : ModPowerTemplate
         {
             if (Owner.HasPower<VigorPower>())
             {
-                _vigorAmountBeforeAttack = Owner.GetPower<VigorPower>().Amount;
+                _vigorAmountBeforeAttack = Owner.GetPower<VigorPower>()!.Amount;
             }
         }
     }

@@ -17,6 +17,7 @@ public class ScrapShield() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Com
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        if(CombatState == null) return;
         CardModel card = CombatState.CreateCard<DefendSnake>(Owner);
         if (IsUpgraded)
         {

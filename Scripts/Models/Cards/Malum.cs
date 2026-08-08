@@ -31,6 +31,7 @@ public class Malum() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Rare, Tar
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        if(CombatState == null) return;
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         List<CardModel> cards = taboos.Select(c => CombatState.CreateCard((CardModel)c, Owner)).ToList();
         CardModel? cardModel = await CardSelectCmd.FromChooseACardScreen(choiceContext, cards, Owner);

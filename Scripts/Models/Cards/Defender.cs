@@ -17,8 +17,10 @@ public class Defender() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Commo
         CardKeyword.Retain
     ];
 
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        if(CombatState == null) return;
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay)
             .TargetingAllOpponents(CombatState)
             .WithHitCount(DynamicVars.Repeat.IntValue)
             .WithHitFx("vfx/vfx_attack_blunt")

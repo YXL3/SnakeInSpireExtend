@@ -22,20 +22,18 @@ public class GreedySnakePower : ModPowerTemplate
 
     public override async Task BeforeSideTurnEndEarly(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (!participants.Contains(Owner))
+        if (!participants.Contains(Owner) || Owner.Player == null)
         {
             return;
         }
-        CardSelectorPrefs prefs = new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 1);
-        CardModel? card = (await CardSelectCmd.FromHand(choiceContext, Owner.Player, prefs, null, this)).FirstOrDefault();      
-        if (card != null)
-        {
+        decimal amount = 0m;
+        CardSelectorPrefs prefs = new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, Amount);
+        foreach(CardModel card in await CardSelectCmd.FromHand(choiceContext, Owner.Player, prefs, null, this)){
             await CardCmd.Exhaust(choiceContext, card);
-            decimal amount = Helper.HasCustomDynamic(card, "Haste") ? card.DynamicVars["Haste"].BaseValue : 0;
+            amount += Helper.HasCustomDynamic(card, "Haste") ? card.DynamicVars["Haste"].BaseValue : 0;
             amount += Helper.HasCustomDynamic(card, "Hysteresis") ? card.DynamicVars["Hysteresis"].BaseValue : 0;
-            amount *= Amount;
-            await PowerCmd.Apply<PlatingPower>(choiceContext, Owner, amount, Owner, null);
-            await CreatureCmd.GainBlock(Owner, amount, ValueProp.Unpowered, null);
         }
+        await PowerCmd.Apply<PlatingPower>(choiceContext, Owner, amount, Owner, null);
+        await CreatureCmd.GainBlock(Owner, amount, ValueProp.Unpowered, null);
     }
 }

@@ -7,12 +7,12 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class Castling() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+public class Castling() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(7m, ValueProp.Move)
+        new BlockVar(13m, ValueProp.Move)
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
@@ -30,6 +30,6 @@ public class Castling() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Uncomm
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars.Block.UpgradeValueBy(4m);
     }
 }

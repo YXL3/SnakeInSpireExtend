@@ -5,10 +5,6 @@
     <LangVersion>12.0</LangVersion>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-
-    <Sts2Dir>D:\Games\Slay the Spire II</Sts2Dir>
-    <Sts2DataDir>$(Sts2Dir)\data_sts2_windows_x86_64</Sts2DataDir>
-    <GodotExe>D:\Godot_v4.5.1-stable_mono_win64\Godot_v4.5.1-stable_mono_win64.exe</GodotExe>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +19,7 @@
     </Reference>
 
     <Reference Include="STS2-RitsuLib">
-      <HintPath>$(Sts2Dir)\mods\STS2-RitsuLib\STS2-RitsuLib.dll</HintPath>
+      <HintPath>$(Sts2Dir)\mods\STS2-RitsuLib\lib\0.110.0\STS2-RitsuLib.dll</HintPath>
       <Private>false</Private>
     </Reference>
   <!-- NuGet获取，注意版本是否一致，不一致手动更改Version -->

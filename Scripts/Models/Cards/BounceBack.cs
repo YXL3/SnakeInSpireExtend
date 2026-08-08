@@ -17,6 +17,8 @@ public class BounceBack() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Unco
         new PowerVar<VigorPower>(15m)
     ];
 
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         foreach (CardModel item in await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(SelectionScreenPrompt, 1), null, this))

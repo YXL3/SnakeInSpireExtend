@@ -7,7 +7,7 @@ using SnakeInSpireExtend.Scripts.Powers;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class Glider() : SnakeCardTemplate(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+public class Glider() : SnakeCardTemplate(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

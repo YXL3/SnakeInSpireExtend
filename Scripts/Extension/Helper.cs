@@ -79,7 +79,7 @@ public static class Helper
 
     private static HoverTip HasteHoverTip(CardModel card)
     {
-        return StaticHoverTipFromPowers("HASTE", new DynamicVar("HasteDrawingAmount", 1m + GetOwnerPowerAmount<SneakyPhantomPower>(card)));
+        return StaticHoverTipFromPowers("HASTE", new DynamicVar("HasteDrawingAmount", 1m + GetOwnerPowerAmount<PsychokinesisPower>(card)));
     }
 
     public static IEnumerable<IHoverTip> ConditionalHoverTip(CardModel card, string name, Func<HoverTip> tipFactory)
@@ -93,7 +93,7 @@ public static class Helper
 
     public static HoverTip HasteHoverTip(RelicModel relic)
     {
-        return StaticHoverTipFromPowers("HASTE", new DynamicVar("HasteDrawingAmount", 1m + GetOwnerPowerAmount<SneakyPhantomPower>(relic)));
+        return StaticHoverTipFromPowers("HASTE", new DynamicVar("HasteDrawingAmount", 1m + GetOwnerPowerAmount<PsychokinesisPower>(relic)));
     }
 
     public static bool HasCustomDynamic(CardModel card, string name)
@@ -107,7 +107,7 @@ public static class Helper
         {
             return 0m;
         }
-        return card.Owner.Creature.GetPower<T>().Amount;
+        return card.Owner.Creature.GetPower<T>()!.Amount;
     }
 
     public static decimal GetOwnerPowerAmount<T>(RelicModel relic) where T : PowerModel
@@ -116,12 +116,12 @@ public static class Helper
         {
             return 0m;
         }
-        return relic.Owner.Creature.GetPower<T>().Amount;
+        return relic.Owner.Creature.GetPower<T>()!.Amount;
     }
 
     public static decimal ReadHasteDrawingAmount(CardModel card)
     {
-        decimal result = 1m + GetOwnerPowerAmount<SneakyPhantomPower>(card);
+        decimal result = 1m + GetOwnerPowerAmount<PsychokinesisPower>(card);
         if (CardTypesOfHasteDrawingAmount.Contains(card.GetType()))
         {
             result += card.DynamicVars["HasteDrawingAmount"].BaseValue;
@@ -142,7 +142,7 @@ public static class Helper
 
     public static async Task<decimal> ApplyHasteDrawingAmount(CardModel card)
     {
-        decimal result = 1m + GetOwnerPowerAmount<SneakyPhantomPower>(card);
+        decimal result = 1m + GetOwnerPowerAmount<PsychokinesisPower>(card);
         if (CardTypesOfHasteDrawingAmount.Contains(card.GetType()))
         {
             result += card.DynamicVars["HasteDrawingAmount"].BaseValue;

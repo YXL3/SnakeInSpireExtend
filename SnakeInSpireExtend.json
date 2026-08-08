@@ -1,13 +1,14 @@
 {
   "id": "SnakeInSpireExtend",
-  "name": "SnakeInSpireExtend",
+  "name": "蛇mod",
   "author": "CDlight",
   "description": "Snake character mod.",
-  "version": "0.1",
+  "version": "0.2.0",
+  "min_game_version": "0.110.0",
   "has_pck": true,
   "has_dll": true,
   "dependencies": [
-    { "id": "STS2-RitsuLib", "min_version": "0.2.27" }
+    { "id": "STS2-RitsuLib", "min_version": "0.5.8" }
   ],
   "affects_gameplay": true
 }
