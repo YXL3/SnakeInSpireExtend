@@ -37,6 +37,7 @@ public class Entry
         patcher.RegisterPatch<HoverTipsPatch>();
         patcher.RegisterPatch<KeywordsPatch>();
         patcher.RegisterPatch<KillerMovePatch>();
+        patcher.RegisterPatch<SnakeCardPortraitFilterPatch>();
         if (!patcher.PatchAll())
             throw new InvalidOperationException("Critical patches failed.");
         SnakeModRewardRegister.TransformRegister();
@@ -50,5 +51,6 @@ public class Entry
 
         SneakyPhantomSavedData = RunSavedDataStore.For(ModId).RegisterPerPlayer<PhantomCarryOverState>(
             SneakyPhantomSavedDataKey, () => new(), new() { WritePolicy = RunSavedDataWritePolicy.WhenNonDefault});
+
     }
 }
