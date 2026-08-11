@@ -11,7 +11,7 @@ namespace SnakeInSpireExtend.Scripts.Cards;
 public class SnakeFury() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new PowerVar<VigorPower>(3m),
+        new PowerVar<VigorPower>(4m),
         new PowerVar<SnakeFuryPower>(1m)
     ];
 
@@ -23,7 +23,7 @@ public class SnakeFury() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Uncom
 
     protected override void OnUpgrade()
     {
-        DynamicVars["VigorPower"].UpgradeValueBy(1m);
+        DynamicVars["SnakeFuryPower"].UpgradeValueBy(1m);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [

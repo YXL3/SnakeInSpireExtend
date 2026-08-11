@@ -8,9 +8,9 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class GlassKnife() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+public class GlassKnife() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
-    private int remainingPlays = 5;
+    private int remainingPlays = 12;
 
     [SavedProperty]
     public int RemainingPlays
@@ -30,10 +30,8 @@ public class GlassKnife() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Unc
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(7m, ValueProp.Move),
         new RepeatVar(2),
-        new DynamicVar("Plays", 5m)
+        new DynamicVar("Plays", 12m)
     ];
-
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
@@ -45,7 +43,7 @@ public class GlassKnife() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Unc
         {
             RemainingPlays--;
             deckVersion.RemainingPlays--;
-            if (deckVersion.RemainingPlays < 0)
+            if (deckVersion.RemainingPlays <= 0)
             {
                 await CardPileCmd.RemoveFromDeck(deckVersion);
             }
@@ -53,10 +51,10 @@ public class GlassKnife() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Unc
     }
 
     protected override void OnUpgrade(){
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.Damage.UpgradeValueBy(4m);
         if(Pile == null || Pile.Type == PileType.Deck)
         {
-            RemainingPlays += 5;
+            RemainingPlays = 12;
         }
     }
 }

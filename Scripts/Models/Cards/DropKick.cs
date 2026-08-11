@@ -9,10 +9,10 @@ using SnakeInSpireExtend.Scripts.Extension;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class DropKick() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+public class DropKick() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(12m, ValueProp.Move),
+        new DamageVar(13m, ValueProp.Move),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

@@ -36,6 +36,7 @@ public class Entry
         patcher.RegisterPatch<GetDescriptionForPilePatch>();
         patcher.RegisterPatch<HoverTipsPatch>();
         patcher.RegisterPatch<KeywordsPatch>();
+        patcher.RegisterPatch<KillerMovePatch>();
         if (!patcher.PatchAll())
             throw new InvalidOperationException("Critical patches failed.");
         SnakeModRewardRegister.TransformRegister();
@@ -46,8 +47,8 @@ public class Entry
             card => Helper.HasCustomDynamic(card, "Hysteresis")?(Helper.HasCustomDynamic(card, "Haste")
             ? Godot.Colors.Snow : Godot.Colors.Purple): Godot.Colors.Green
         ));
-        
+
         SneakyPhantomSavedData = RunSavedDataStore.For(ModId).RegisterPerPlayer<PhantomCarryOverState>(
-            SneakyPhantomSavedDataKey, () => new(), new() { WritePolicy = RunSavedDataWritePolicy.WhenNonDefault });
+            SneakyPhantomSavedDataKey, () => new(), new() { WritePolicy = RunSavedDataWritePolicy.WhenNonDefault});
     }
 }

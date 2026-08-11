@@ -10,6 +10,8 @@ namespace SnakeInSpireExtend.Scripts.Cards;
 
 public class ScrapShield() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DynamicVar("HysteresisVar", 2m),
         new DynamicVar("HasteVar", 2m)

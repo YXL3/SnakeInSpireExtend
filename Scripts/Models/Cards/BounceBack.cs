@@ -5,7 +5,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 using SnakeInSpireExtend.Scripts.Extension;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
@@ -13,8 +12,7 @@ namespace SnakeInSpireExtend.Scripts.Cards;
 public class BounceBack() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DynamicVar("HysteresisVar", 1m),
-        new PowerVar<VigorPower>(15m)
+        new DynamicVar("HysteresisVar", 1m)
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
@@ -25,7 +23,6 @@ public class BounceBack() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Unco
         {
             Helper.Hysteresis(item, DynamicVars["HysteresisVar"].BaseValue);
         }
-        await PowerCmd.Apply<VigorPower>(choiceContext, Owner.Creature, -DynamicVars["VigorPower"].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
@@ -34,7 +31,6 @@ public class BounceBack() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Unco
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        ..Helper.HysteresisHoverTipIfNeeded(this),
-        HoverTipFactory.FromPower<VigorPower>()
+        ..Helper.HysteresisHoverTipIfNeeded(this)
     ];
 }

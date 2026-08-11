@@ -8,7 +8,7 @@ using SnakeInSpireExtend.Scripts.Powers;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class SneakyPhantom() : SnakeCardTemplate(2, CardType.Power, CardRarity.Ancient, TargetType.Self)
+public class SneakyPhantom() : SnakeCardTemplate(1, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
         CardKeyword.Retain

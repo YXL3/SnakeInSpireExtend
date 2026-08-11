@@ -169,7 +169,7 @@ public static class Helper
 
     private static readonly HashSet<Type> CardTypesOfHasteDrawingAmount = new()
     {
-        typeof(SwiftStrike)
+        typeof(Shelter)
     };
 }
 

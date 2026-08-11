@@ -15,7 +15,6 @@ public class FrozenLen() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Uncom
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
-        CardKeyword.Retain,
         CardKeyword.Exhaust
     ];
 
@@ -25,7 +24,7 @@ public class FrozenLen() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Uncom
 
     protected override void OnUpgrade()
     {
-        RemoveKeyword(CardKeyword.Exhaust);
+        DynamicVars["FrozenLenPower"].UpgradeValueBy(1m);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromKeyword(SnakeInSpireExtendCardKeywords.Keen)];

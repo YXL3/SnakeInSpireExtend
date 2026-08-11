@@ -38,5 +38,7 @@
     "SNAKE_IN_SPIRE_EXTEND_POWER_PSYCHOKINESIS_POWER.title":"念动力",
     "SNAKE_IN_SPIRE_EXTEND_POWER_PSYCHOKINESIS_POWER.description":"你因[gold]急促[/gold]抽牌时，多抽[blue]{Amount}[/blue]张。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_GOOD_INSTINCTS_POWER.title":"优秀直觉",
-    "SNAKE_IN_SPIRE_EXTEND_POWER_GOOD_INSTINCTS_POWER.description":"你打出有[gold]急促[/gold]的牌时，获得[blue]{Amount}[/blue]点[gold]格挡[/gold]。"
+    "SNAKE_IN_SPIRE_EXTEND_POWER_GOOD_INSTINCTS_POWER.description":"你打出有[gold]急促[/gold]的牌时，获得[blue]{Amount}[/blue]点[gold]格挡[/gold]。",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_KILLER_MOVE_POWER.title":"撒手锏",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_KILLER_MOVE_POWER.description":"你每回合的第一张攻击牌多命中[blue]{Amount}[/blue]次。"
 }

@@ -8,7 +8,7 @@ using SnakeInSpireExtend.Scripts.Extension;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class BulletStart() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
+public class BulletStart() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DynamicVar("HasteVar", 3m),

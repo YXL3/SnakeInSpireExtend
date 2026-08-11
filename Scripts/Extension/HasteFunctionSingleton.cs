@@ -26,9 +26,9 @@ public class HasteFunctionSingleton() : HookedSingletonModel(HookType.Combat)
     {
         if (Helper.HasCustomDynamic(card, "Haste"))
         {
-            IEnumerable<CardModel> cards = await CardPileCmd.Draw(choiceContext, await Helper.ApplyHasteDrawingAmount(card), card.Owner);
             decimal hastePassed = Helper.HastePassingAmount(card);
             card.DynamicVars["Haste"].BaseValue = 0m;
+            IEnumerable<CardModel> cards = await CardPileCmd.Draw(choiceContext, await Helper.ApplyHasteDrawingAmount(card), card.Owner);
             foreach (CardModel item in cards){
                 Helper.Haste(item, hastePassed);
             }

@@ -12,11 +12,10 @@ using MegaCrit.Sts2.Core.ValueProps;
 using SnakeInSpireExtend.Scripts.Rewards;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
-
-public class Purge() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+public class Purge() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(11m, ValueProp.Move),
+        new DamageVar(7m, ValueProp.Move),
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];

@@ -8,7 +8,7 @@ using SnakeInSpireExtend.Scripts.Powers;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class Psychokinesis() : SnakeCardTemplate(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+public class Psychokinesis() : SnakeCardTemplate(2, CardType.Power, CardRarity.Ancient, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PsychokinesisPower>(1m)];
 
@@ -19,7 +19,7 @@ public class Psychokinesis() : SnakeCardTemplate(2, CardType.Power, CardRarity.R
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
+        EnergyCost.UpgradeBy(-1);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [..Helper.HasteHoverTipIfNeeded(this)];

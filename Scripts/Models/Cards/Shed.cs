@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class Shed() : SnakeCardTemplate(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+public class Shed() : SnakeCardTemplate(1, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
     public override int MaxUpgradeLevel => int.MaxValue;
 

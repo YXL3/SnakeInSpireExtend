@@ -11,12 +11,11 @@ namespace SnakeInSpireExtend.Scripts.Cards;
 public class Prime() : SnakeCardTemplate(2, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new PowerVar<VigorPower>(11m)
+        new PowerVar<VigorPower>(10m)
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
-        SnakeInSpireExtendCardKeywords.Keen,
-        CardKeyword.Retain
+        SnakeInSpireExtendCardKeywords.Keen
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -26,7 +25,7 @@ public class Prime() : SnakeCardTemplate(2, CardType.Skill, CardRarity.Common, T
 
     protected override void OnUpgrade()
     {
-        DynamicVars["VigorPower"].UpgradeValueBy(4m);
+        DynamicVars["VigorPower"].UpgradeValueBy(3m);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [

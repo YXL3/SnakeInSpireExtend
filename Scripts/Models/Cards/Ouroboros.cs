@@ -3,15 +3,12 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using SnakeInSpireExtend.Scripts.Extension;
-using SnakeInSpireExtend.Scripts.Models;
 using SnakeInSpireExtend.Scripts.Powers;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class Ouroboros() : SnakeCardTemplate(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+public class Ouroboros() : SnakeCardTemplate(2, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [SnakeInSpireExtendCardKeywords.Keen];
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<OuroborosPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);

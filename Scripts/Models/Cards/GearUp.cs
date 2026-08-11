@@ -12,7 +12,7 @@ public class GearUp() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Common, 
     public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(5m, ValueProp.Move),
+        new BlockVar(7m, ValueProp.Move),
         new CardsVar(2)
     ];
 
@@ -28,6 +28,7 @@ public class GearUp() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Common, 
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars.Block.UpgradeValueBy(1m);
+        DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

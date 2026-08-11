@@ -16,28 +16,24 @@ public class SixthSense() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Unco
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new CardsVar(1),
-        new DynamicVar("HysteresisVar", 1m),
-        new DynamicVar("HasteVar", 1m)
+        new CardsVar(2),
+        new DynamicVar("HysteresisVar", 1m)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        foreach (CardModel card in await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner))
+        foreach (CardModel card in await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner))
         {
             Helper.Hysteresis(card, DynamicVars["HysteresisVar"].BaseValue);
-            Helper.Haste(card, DynamicVars["HasteVar"].BaseValue);
         }
     }
     
     protected override void OnUpgrade()
     {
-        DynamicVars["HysteresisVar"].UpgradeValueBy(1m);
-        DynamicVars["HasteVar"].UpgradeValueBy(1m);
+        DynamicVars.Cards.UpgradeValueBy(1m);
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        ..Helper.HysteresisHoverTipIfNeeded(this),
-        ..Helper.HasteHoverTipIfNeeded(this)
+        ..Helper.HysteresisHoverTipIfNeeded(this)
     ];
 }
