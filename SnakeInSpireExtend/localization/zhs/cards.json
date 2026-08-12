@@ -39,7 +39,7 @@
     "SNAKE_IN_SPIRE_EXTEND_CARD_GARROTTE.title": "绞杀",
     "SNAKE_IN_SPIRE_EXTEND_CARD_GEAR_UP.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n[gold]升级抽牌堆[/gold]顶的{Cards:diff()}张牌。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_GEAR_UP.title": "整装待发",
-    "SNAKE_IN_SPIRE_EXTEND_CARD_GLEAM.description": "造成{Damage:diff()}点伤害{Repeat:diff()}次。\n获得{Block:diff()}点[gold]格挡[/gold]。\n如果这张牌有[gold]急促[/gold]，返回[gold]手牌[/gold]。",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_GLEAM.description": "造成{Damage:diff()}点伤害{Repeat:diff()}次。\n如果这张牌有[gold]急促[/gold]，获得{Energy:energyIcons()}并返回[gold]手牌[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_GLEAM.title": "璀璨",
     "SNAKE_IN_SPIRE_EXTEND_CARD_GOOD_INSTINCTS.description": "你打出有[gold]急促[/gold]的牌时，获得{GoodInstinctsPower:diff()}点[gold]格挡[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_GOOD_INSTINCTS.title": "优秀直觉",

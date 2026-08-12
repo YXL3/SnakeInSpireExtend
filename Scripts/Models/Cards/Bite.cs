@@ -21,7 +21,7 @@ public class Bite() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Common, T
 
     private static int CalculateHysteresisCount(CardModel card)
     {
-        if (!Helper.HasCustomDynamic(card,"Hysteresis"))
+        if (!Helper.HasCustomDynamic(card, "Hysteresis"))
         {
             return 0;
         }

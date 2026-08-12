@@ -1,20 +1,20 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
+using SnakeInSpireExtend.Scripts.Extension;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class Gleam() : DualEffectCardTemplate(0, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy)
+public class Gleam() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy)
 {
-    public override bool GainsBlock => true;
-
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(3m, ValueProp.Move),
-        new RepeatVar(3),
-        new BlockVar(3m, ValueProp.Move),
+        new DamageVar(5m, ValueProp.Move),
+        new RepeatVar(2),
+        new EnergyVar(1)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -24,15 +24,28 @@ public class Gleam() : DualEffectCardTemplate(0, CardType.Attack, CardRarity.Anc
             .WithHitCount(DynamicVars.Repeat.IntValue)
             .WithHitVfxNode(t => NThinSliceVfx.Create(cardPlay.Target))
             .Execute(choiceContext);
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        if(Helper.HasCustomDynamic(this, "Haste"))
+        {
+            await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
+        }
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(1m);
-        DynamicVars.Repeat.UpgradeValueBy(1m);
-        DynamicVars.Block.UpgradeValueBy(1m);
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
+
+    protected override CardLocation GetResultLocationForCardPlay()
+    {
+        CardLocation result = base.GetResultLocationForCardPlay();
+        return (result.pileType == PileType.None || !Helper.HasCustomDynamic(this, "Haste"))?
+        result : new CardLocation(Owner, PileType.Hand, CardPilePosition.Bottom);
+    }
+
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
+        EnergyHoverTip,
+        ..Helper.HasteHoverTipIfNeeded(this)
+    ];
 }
 
 

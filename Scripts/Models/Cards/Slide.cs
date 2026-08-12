@@ -11,7 +11,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-[RegisterCharacterStarterCard(typeof(Snake),1,Order = 3)]
+[RegisterCharacterStarterCard(typeof(Snake), 1, Order = 3)]
 public class Slide() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
     public override bool GainsBlock => true;

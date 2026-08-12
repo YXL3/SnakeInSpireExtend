@@ -8,7 +8,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-[RegisterCharacterStarterCard(typeof(Snake),4,Order = 0)]
+[RegisterCharacterStarterCard(typeof(Snake), 4, Order = 0)]
 public class StrikeSnake() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
 {
     public override CardAssetProfile AssetProfile => new(

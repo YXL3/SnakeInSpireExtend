@@ -48,5 +48,6 @@ public class Contagion() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Rare
     {
         DynamicVars.Damage.UpgradeValueBy(3m);
     }
+
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.Static(StaticHoverTip.Fatal)];
 }

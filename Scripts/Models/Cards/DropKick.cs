@@ -21,7 +21,7 @@ public class DropKick() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Rare,
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_heavy_blunt")
             .Execute(choiceContext);
-        if(Helper.HasCustomDynamic(this,"Haste"))
+        if(Helper.HasCustomDynamic(this, "Haste"))
         {
             foreach(CardModel card in PileType.Hand.GetPile(Owner).Cards.Where(card => card.Type == CardType.Attack).ToList())
             {

@@ -24,7 +24,7 @@ public class TailWhip() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Uncom
 
     private static int CalculateHasteCount(CardModel card)
     {
-        if (!Helper.HasCustomDynamic(card,"Haste"))
+        if (!Helper.HasCustomDynamic(card, "Haste"))
         {
             return 0;
         }
