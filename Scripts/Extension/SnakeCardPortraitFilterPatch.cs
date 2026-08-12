@@ -1,3 +1,4 @@
+using System.Reflection;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Cards;
@@ -19,23 +20,11 @@ public class SnakeCardPortraitFilterPatch : IPatchMethod
         return [new(typeof(NCard), "UpdatePortrait")];
     }
 
+    private static FieldInfo _portraitField = AccessTools.Field(typeof(NCard), "_portrait");
+
     public static void Postfix(NCard __instance)
     {
-        if (__instance.Model is not SnakeCardTemplate)
-        {
-            return;
-        }
-
-        TextureRect portrait = Traverse.Create(__instance).Field("_portrait").GetValue<TextureRect>();
-        if (portrait != null)
-        {
-            portrait.TextureFilter = CanvasItem.TextureFilterEnum.Nearest;
-        }
-
-        TextureRect ancientPortrait = Traverse.Create(__instance).Field("_ancientPortrait").GetValue<TextureRect>();
-        if (ancientPortrait != null)
-        {
-            ancientPortrait.TextureFilter = CanvasItem.TextureFilterEnum.Nearest;
-        }
+        if (_portraitField.GetValue(__instance) is not TextureRect portrait) return;
+        portrait.TextureFilter = __instance.Model is SnakeCardTemplate ? CanvasItem.TextureFilterEnum.Nearest : CanvasItem.TextureFilterEnum.Linear;
     }
 }
