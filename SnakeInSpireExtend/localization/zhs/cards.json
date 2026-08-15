@@ -1,5 +1,6 @@
 {
-    "SNAKE_IN_SPIRE_EXTEND_CARD_BANE.description": "造成{Damage:diff()}点伤害。\n失去{Energy:energyIcons()}。",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_BANE.description": "造成{Damage:diff()}点伤害。\n选择一张[gold]手牌[/gold]，与其互换耗能。",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_BANE.selectionScreenPrompt": "选择一张牌。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_BANE.title": "灾祸",
     "SNAKE_IN_SPIRE_EXTEND_CARD_BITE.description": "造成{Damage:diff()}点伤害。\n这张牌每有1层[gold]迟滞[/gold]，再造成一次伤害。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_BITE.title": "噬咬",

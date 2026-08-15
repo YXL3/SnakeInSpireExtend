@@ -6,7 +6,6 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
-using STS2RitsuLib;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Models;
 using STS2RitsuLib.RunData;
@@ -31,7 +30,6 @@ public class SneakyPhantomSingleton() : HookedSingletonModel(HookType.Combat)
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
         if (CurrentCombatState?.RoundNumber != 1 || CurrentRunState is not RunState runState) return;
-
         PhantomCarryOverState? state = _pendingCarryOver;
         if (state == null || state.IsEmpty)
         {
@@ -39,28 +37,27 @@ public class SneakyPhantomSingleton() : HookedSingletonModel(HookType.Combat)
             if (state == null || state.IsEmpty)return;
         }
         _pendingCarryOver = null;
-
-        if (state.Block > 0)
-            await CreatureCmd.GainBlock(player.Creature, state.Block, ValueProp.Unpowered, null);
-
-        if (state.Energy > 0)
-            await PlayerCmd.GainEnergy(state.Energy, player);
-
+        await CreatureCmd.GainBlock(player.Creature, state.Block, ValueProp.Unpowered, null);
+        await PlayerCmd.GainEnergy(state.Energy, player);
         foreach (PhantomCardEntry entry in state.Cards)
         {
             CardModel card = CardModel.FromSerializable(entry.Card);
             CurrentCombatState.AddCard(card, player);
-
-            if (entry.ReplayCount > 0)
-                card.BaseReplayCount = entry.ReplayCount;
-            if (entry.Haste > 0)
-                Helper.Haste(card, entry.Haste);
-            if (entry.Hysteresis > 0)
-                Helper.Hysteresis(card, entry.Hysteresis);
-
+            if (entry.ReplayCount > 0) card.BaseReplayCount = entry.ReplayCount;
+            if (entry.Haste > 0) Helper.Haste(card, entry.Haste);
+            if (entry.Hysteresis > 0) Helper.Hysteresis(card, entry.Hysteresis);
+            PhantomEnergyCostCodec.Apply(card, entry.EnergyCost);
             await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, player);
         }
-
         SavedData.Set(runState, player.NetId, new PhantomCarryOverState());
+    }
+
+    public override Task AfterRoomEntered(AbstractRoom room)
+    {
+        if (room.IsVictoryRoom)
+        {
+            _pendingCarryOver = null;
+        }
+        return Task.CompletedTask;
     }
 }

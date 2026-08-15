@@ -31,7 +31,8 @@ public class SneakyPhantom() : SnakeCardTemplate(1, CardType.Power, CardRarity.R
                 Card = c.ToSerializable(),
                 ReplayCount = c.BaseReplayCount,
                 Haste = Helper.HasCustomDynamic(c, "Haste") ? c.DynamicVars["Haste"].BaseValue : 0,
-                Hysteresis = Helper.HasCustomDynamic(c, "Hysteresis") ? c.DynamicVars["Hysteresis"].BaseValue : 0
+                Hysteresis = Helper.HasCustomDynamic(c, "Hysteresis") ? c.DynamicVars["Hysteresis"].BaseValue : 0,
+                EnergyCost = PhantomEnergyCostCodec.Capture(c)
             }).ToList(),
             Block = Owner.Creature.Block,
             Energy = Owner.PlayerCombatState.Energy

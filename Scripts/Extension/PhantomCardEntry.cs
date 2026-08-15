@@ -32,4 +32,11 @@ public sealed class PhantomCardEntry
     /// 0 means the card did not have Hysteresis.
     /// </summary>
     public decimal Hysteresis { get; set; }
+
+    /// <summary>
+    /// The card's energy cost (base cost, local modifiers, and X-value for X-cost cards)
+    /// at the time SneakyPhantom was played. Null means no energy-cost data was captured
+    /// (e.g. a save created before this field existed).
+    /// </summary>
+    public PhantomEnergyCost? EnergyCost { get; set; }
 }

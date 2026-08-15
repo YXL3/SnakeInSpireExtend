@@ -19,7 +19,7 @@
     </Reference>
 
     <Reference Include="STS2-RitsuLib">
-      <HintPath>$(Sts2Dir)\mods\RitsuLib\lib\0.110.0\STS2-RitsuLib.dll</HintPath>
+      <HintPath>$(Sts2Dir)\mods\RitsuLib\lib\0.111.0\STS2-RitsuLib.dll</HintPath>
       <Private>false</Private>
     </Reference>
   <!-- NuGet获取，注意版本是否一致，不一致手动更改Version -->

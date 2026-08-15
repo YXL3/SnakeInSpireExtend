@@ -11,12 +11,8 @@ namespace SnakeInSpireExtend.Scripts.Cards;
 
 public class Torsion() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [
-        CardKeyword.Retain
-    ];
-
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(4m, ValueProp.Move)
+        new DamageVar(5m, ValueProp.Move)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){

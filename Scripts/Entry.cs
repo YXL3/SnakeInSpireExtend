@@ -43,7 +43,7 @@ public class Entry
         SnakeModRewardRegister.TransformRegister();
 
         ModCardHandOutlineRegistry.Register<CardModel>(ModCardHandOutlineRules.Dynamic(
-            card => card.CanPlay() && !(card.ShouldGlowGold || card.ShouldGlowRed)
+            card => !(card.ShouldGlowGold || card.ShouldGlowRed)
             &&(Helper.HasCustomDynamic(card, "Hysteresis") || Helper.HasCustomDynamic(card, "Haste")),
             card => Helper.HasCustomDynamic(card, "Hysteresis")?(Helper.HasCustomDynamic(card, "Haste")
             ? Godot.Colors.Snow : Godot.Colors.Purple): Godot.Colors.Green
