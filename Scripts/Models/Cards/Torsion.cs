@@ -15,7 +15,8 @@ public class Torsion() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Uncomm
         new DamageVar(5m, ValueProp.Move)
     ];
 
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         decimal vigorLoss = (await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_scratch")
@@ -24,7 +25,8 @@ public class Torsion() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Uncomm
         await PowerCmd.Apply<VigorPower>(choiceContext, cardPlay.Target, -vigorLoss, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade(){
+    protected override void OnUpgrade()
+    {
         DynamicVars.Damage.UpgradeValueBy(2m);
     }
 

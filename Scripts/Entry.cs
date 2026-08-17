@@ -36,8 +36,8 @@ public class Entry
         patcher.RegisterPatch<GetDescriptionForPilePatch>();
         patcher.RegisterPatch<HoverTipsPatch>();
         patcher.RegisterPatch<KeywordsPatch>();
-        patcher.RegisterPatch<KillerMovePatch>();
         patcher.RegisterPatch<SnakeCardPortraitFilterPatch>();
+        patcher.RegisterPatch<NegativeVigorPatch>();
         if (!patcher.PatchAll())
             throw new InvalidOperationException("Critical patches failed.");
         SnakeModRewardRegister.TransformRegister();

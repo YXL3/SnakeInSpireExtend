@@ -4,11 +4,11 @@
   "author": "CDlight",
   "description": "Snake character mod.",
   "version": "0.2.0",
-  "min_game_version": "0.110.0",
+  "min_game_version": "0.111.0",
   "has_pck": true,
   "has_dll": true,
   "dependencies": [
-    { "id": "STS2-RitsuLib", "min_version": "0.5.8" }
+    { "id": "STS2-RitsuLib", "min_version": "0.5.12" }
   ],
   "affects_gameplay": true
 }

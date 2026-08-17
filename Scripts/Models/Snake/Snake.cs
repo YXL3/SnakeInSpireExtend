@@ -11,7 +11,7 @@ using STS2RitsuLib.Scaffolding.Godot;
 namespace SnakeInSpireExtend.Scripts;
 
 [RegisterCharacter]
-public class Snake : ModCharacterTemplate<SnakeCardPool, SnakeRelicPool, SnakePotionPool>, IModColorfulPhilosophersCardPool 
+public class Snake : ModCharacterTemplate<SnakeCardPool, SnakeRelicPool, SnakePotionPool>
 {
     // 角色名称颜色
     public override Color NameColor => new(0.5f, 1f, 0f);

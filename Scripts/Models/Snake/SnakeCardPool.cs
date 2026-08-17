@@ -1,10 +1,11 @@
 using Godot;
+using STS2RitsuLib.Scaffolding.Characters;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2RitsuLib.Utils;
 
 namespace SnakeInSpireExtend.Scripts.CardPools;
 
-public class SnakeCardPool : TypeListCardPoolModel
+public class SnakeCardPool : TypeListCardPoolModel, IModColorfulPhilosophersCardPool
 {
     public override string Title => "snake";
 

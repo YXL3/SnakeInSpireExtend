@@ -1,0 +1,5 @@
+{
+  "SNAKE_IN_SPIRE_EXTEND_ENCHANTMENT_CATACLYSM.description": "打出时消耗，并打出[gold]手牌[/gold]中所有同类型牌。",
+  "SNAKE_IN_SPIRE_EXTEND_ENCHANTMENT_CATACLYSM.extraCardText": "打出手牌中所有{Type}牌。",
+  "SNAKE_IN_SPIRE_EXTEND_ENCHANTMENT_CATACLYSM.title": "灾难"
+}

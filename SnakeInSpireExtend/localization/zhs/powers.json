@@ -9,9 +9,9 @@
     "HASTE.smartDescription":"打出后，抽[blue]{HasteDrawingAmount}[/blue]张牌并失去[gold]急促[/gold]，抽到的牌获得[blue]{HastePassingAmount}[/blue]层[gold]急促[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_OUROBOROS_POWER.title":"衔尾蛇",
     "SNAKE_IN_SPIRE_EXTEND_POWER_OUROBOROS_POWER.description":"你所有有[gold]急促[/gold]或[gold]迟滞[/gold]的牌也拥有[gold]机敏[/gold]。",
-    "SNAKE_IN_SPIRE_EXTEND_POWER_NAGA_FORM_POWER.title":"那迦形态",
-    "SNAKE_IN_SPIRE_EXTEND_POWER_NAGA_FORM_POWER.description":"回合开始时，打出[gold]{Cards}[/gold]的一张0{energyPrefix:energyIcons(1)}复制品。",
-    "SNAKE_IN_SPIRE_EXTEND_POWER_NAGA_FORM_POWER.smartDescription":"回合开始时，打出[gold]{Cards}[/gold]的一张0{energyPrefix:energyIcons(1)}复制品。",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_UNLOAD_POWER.title":"迸发",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_UNLOAD_POWER.description":"下[blue]{Amount}[/blue]回合开始时，打出[gold]{Cards}[/gold]的一张0{energyPrefix:energyIcons(1)}复制品。",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_UNLOAD_POWER.smartDescription":"下[blue]{Amount}[/blue]回合开始时，打出[gold]{Cards}[/gold]的一张0{energyPrefix:energyIcons(1)}复制品。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_GLIDER_POWER.title":"滑翔翼",
     "SNAKE_IN_SPIRE_EXTEND_POWER_GLIDER_POWER.description":"回合开始时，如果你没有[gold]翱翔[/gold]，获得[gold]翱翔[/gold]，否则失去[gold]翱翔[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_SNEAKY_PHANTOM_POWER.title":"潜行幻象",
@@ -39,6 +39,6 @@
     "SNAKE_IN_SPIRE_EXTEND_POWER_PSYCHOKINESIS_POWER.description":"你因[gold]急促[/gold]抽牌时，多抽[blue]{Amount}[/blue]张。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_GOOD_INSTINCTS_POWER.title":"优秀直觉",
     "SNAKE_IN_SPIRE_EXTEND_POWER_GOOD_INSTINCTS_POWER.description":"你打出有[gold]急促[/gold]的牌时，获得[blue]{Amount}[/blue]点[gold]格挡[/gold]。",
-    "SNAKE_IN_SPIRE_EXTEND_POWER_KILLER_MOVE_POWER.title":"撒手锏",
-    "SNAKE_IN_SPIRE_EXTEND_POWER_KILLER_MOVE_POWER.description":"你每回合的第一张攻击牌多命中[blue]{Amount}[/blue]次。"
+    "SNAKE_IN_SPIRE_EXTEND_POWER_NAGA_FORM_POWER.title":"那迦形态",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_NAGA_FORM_POWER.description":"回合结束时，为[gold]抽牌堆[/gold]顶的牌附魔[purple]灾难[/purple]。"
 }

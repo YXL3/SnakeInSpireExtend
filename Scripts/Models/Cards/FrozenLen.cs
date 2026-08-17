@@ -18,7 +18,8 @@ public class FrozenLen() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Uncom
         CardKeyword.Exhaust
     ];
 
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
         await PowerCmd.Apply<FrozenLenPower>(choiceContext, Owner.Creature, DynamicVars["FrozenLenPower"].BaseValue, Owner.Creature, this);
     }
 

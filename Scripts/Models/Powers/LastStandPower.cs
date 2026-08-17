@@ -29,7 +29,7 @@ public class LastStandPower : ModPowerTemplate
             return;
         }
         List<CardModel> items = PileType.Hand.GetPile(Owner.Player).Cards.Where((CardModel c) => Helper.HasCustomDynamic(c, "Hysteresis")).ToList();
-        if (!items.Any())
+        if (items.Count == 0)
         {
             return;
         }

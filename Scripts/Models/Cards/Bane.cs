@@ -21,12 +21,14 @@ public class Bane() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Common, T
 
     private static readonly FieldInfo? LocalModifiersField = typeof(CardEnergyCost).GetField("_localModifiers", BindingFlags.NonPublic | BindingFlags.Instance);
 
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay){
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
-        CardModel? card = (await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(SelectionScreenPrompt, 1), c => !c.EnergyCost.CostsX, this)).FirstOrDefault();
+        CardModel? card = (await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(SelectionScreenPrompt, 1),
+        c => !(c.EnergyCost.CostsX || c.Keywords.Contains(CardKeyword.Unplayable)), this)).FirstOrDefault();
         if(card != null && LocalModifiersField != null)
         {
             int thisEnergyCost = EnergyCost.GetWithModifiers(CostModifiers.None);

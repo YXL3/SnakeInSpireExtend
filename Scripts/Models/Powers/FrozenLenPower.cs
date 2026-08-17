@@ -46,7 +46,7 @@ public class FrozenLenPower : ModPowerTemplate
         {
             return;
         }
-        if (GetInternalData<Data>().autoPlayingCards.Any())
+        if (GetInternalData<Data>().autoPlayingCards.Count != 0)
         {
             Flash();
             foreach (CardModel card in GetInternalData<Data>().autoPlayingCards)
