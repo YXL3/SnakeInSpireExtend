@@ -24,7 +24,8 @@ public class Swipe() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Common, 
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade(){
+    protected override void OnUpgrade()
+    {
         DynamicVars.Damage.UpgradeValueBy(3m);
     }
 

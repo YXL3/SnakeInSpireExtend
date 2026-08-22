@@ -7,7 +7,7 @@ using SnakeInSpireExtend.Scripts.Models;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class EnGarde() : SnakeCardTemplate(2, CardType.Skill, CardRarity.Common, TargetType.Self)
+public class EnGarde() : SnakeCardTemplate(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new EnergyVar(2)

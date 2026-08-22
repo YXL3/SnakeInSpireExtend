@@ -14,6 +14,8 @@ using SnakeInSpireExtend.Scripts.Rewards;
 namespace SnakeInSpireExtend.Scripts.Cards;
 public class Contagion() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
 {
+    public override bool CanBeGeneratedInCombat => false;
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(7m, ValueProp.Move),
     ];

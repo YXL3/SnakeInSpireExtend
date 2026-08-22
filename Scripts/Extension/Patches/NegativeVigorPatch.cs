@@ -1,4 +1,5 @@
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using STS2RitsuLib.Patching.Models;
 
@@ -14,11 +15,11 @@ public class NegativeVigorPatch : IPatchMethod
 
     public static ModPatchTarget[] GetTargets()
     {
-        return [new(typeof(VigorPower), "get_AllowNegative", MethodType.Normal)];
+        return [new(typeof(PowerModel), "get_AllowNegative", MethodType.Normal)];
     }
 
-    public static void Postfix(ref bool __result)
+    public static void Postfix(ref bool __result, PowerModel __instance)
     {
-        __result = true;
+        if (__instance is VigorPower) __result = true;
     }
 }

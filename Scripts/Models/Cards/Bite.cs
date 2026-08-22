@@ -13,7 +13,7 @@ namespace SnakeInSpireExtend.Scripts.Cards;
 public class Bite() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {   
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(15m, ValueProp.Move),
+        new DamageVar(14m, ValueProp.Move),
         new CalculationBaseVar(1),
         new CalculationExtraVar(1),
         new CalculatedVar("CalculatedHits").WithMultiplier((CardModel card, Creature? _) => CalculateHysteresisCount(card))
@@ -37,9 +37,9 @@ public class Bite() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Common, T
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade(){
-        DynamicVars.Damage.UpgradeValueBy(3m);
-        AddKeyword(CardKeyword.Retain);
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(4m);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [..Helper.HysteresisHoverTipIfNeeded(this)];

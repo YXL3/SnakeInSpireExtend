@@ -28,7 +28,7 @@
     "SNAKE_IN_SPIRE_EXTEND_POWER_NO_SKILL_PLAY_POWER.title":"禁用技能",
     "SNAKE_IN_SPIRE_EXTEND_POWER_NO_SKILL_PLAY_POWER.description":"一回合内不能打出技能牌。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_GREEDY_SNAKE_POWER.title":"贪吃蛇",
-    "SNAKE_IN_SPIRE_EXTEND_POWER_GREEDY_SNAKE_POWER.description":"回合结束时，[gold]消耗[/gold][blue]{Amount}[/blue]张牌，获得其[gold]迟滞[/gold]和[gold]急促[/gold]层数之和的[gold]覆甲[/gold]。",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_GREEDY_SNAKE_POWER.description":"回合开始时，[gold]消耗[/gold][blue]{Amount}[/blue]张牌，获得其[gold]迟滞[/gold]和[gold]急促[/gold]层数之和的[gold]覆甲[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_LETHAL_STRIPES_POWER.title":"致命斑纹",
     "SNAKE_IN_SPIRE_EXTEND_POWER_LETHAL_STRIPES_POWER.description":"[gold]消耗[/gold]你打出的造成多次伤害的攻击牌，获得其造成伤害总量的[gold]活力[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_MALUM_POWER.title":"禁果",

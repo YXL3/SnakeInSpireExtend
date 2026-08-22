@@ -2,6 +2,7 @@
   <PropertyGroup>
     <Sts2Dir>D:\SteamLibrary\steamapps\common\Slay the Spire 2</Sts2Dir>
     <Sts2DataDir>$(Sts2Dir)\data_sts2_windows_x86_64</Sts2DataDir>
+    <RitsuLibDir>D:\SteamLibrary\steamapps\workshop\content\2868840\3747602295\lib\0.111.0\STS2-RitsuLib.dll</RitsuLibDir>
     <GodotExe>D:\Godot_v4.5.1-stable_mono_win64\Godot_v4.5.1-stable_mono_win64.exe</GodotExe>
   </PropertyGroup>
 </Project>

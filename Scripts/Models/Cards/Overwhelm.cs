@@ -39,7 +39,8 @@ public class Overwhelm() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Unco
         return Task.CompletedTask;
     }
 
-    protected override void OnUpgrade(){
+    protected override void OnUpgrade()
+    {
         DynamicVars.Repeat.UpgradeValueBy(1m);
     }
 

@@ -5,11 +5,16 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 public class Torture() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
 {
+    public override CardAssetProfile AssetProfile => new(
+        PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
+    );
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(1m, ValueProp.Move),
         new PowerVar<StrengthPower>(1m)
@@ -24,7 +29,8 @@ public class Torture() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Rare, 
         await PowerCmd.Apply<StrengthPower>(choiceContext, cardPlay.Target, -DynamicVars.Strength.BaseValue, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade(){
+    protected override void OnUpgrade()
+    {
         AddKeyword(CardKeyword.Innate);
     }
 

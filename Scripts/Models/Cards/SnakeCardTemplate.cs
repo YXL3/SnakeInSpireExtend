@@ -12,10 +12,8 @@ public abstract class SnakeCardTemplate(
     CardRarity rarity,
     TargetType targetType,
     bool shouldShowInCardLibrary = true)
-    : ModCardTemplate(energyCost, type, rarity, targetType, shouldShowInCardLibrary){
-    // public override CardAssetProfile AssetProfile => new(
-    //     PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    // );
+    : ModCardTemplate(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
+{
 }
 
 

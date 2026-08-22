@@ -17,8 +17,8 @@ public class Doppelganger() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Un
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         int X = ResolveEnergyXValue();
-        await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, Owner.Creature, X, Owner.Creature, this);
-        await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, Owner.Creature, X, Owner.Creature, this);
+        await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, Owner.Creature, IsUpgraded? X+1 : X, Owner.Creature, this);
+        await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, Owner.Creature, IsUpgraded? X+1 : X, Owner.Creature, this);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [

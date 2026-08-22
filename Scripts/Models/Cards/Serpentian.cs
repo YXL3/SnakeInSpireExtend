@@ -6,11 +6,16 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
+using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 public class Serpentian() : SnakeCardTemplate(3, CardType.Skill, CardRarity.Rare, TargetType.AllAllies)
 {
+    public override CardAssetProfile AssetProfile => new(
+        PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
+    );
+
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [

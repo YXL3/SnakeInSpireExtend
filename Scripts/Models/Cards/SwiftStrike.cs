@@ -29,7 +29,8 @@ public class SwiftStrike() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Co
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade(){
+    protected override void OnUpgrade()
+    {
         DynamicVars.Damage.UpgradeValueBy(3m);
     }
 

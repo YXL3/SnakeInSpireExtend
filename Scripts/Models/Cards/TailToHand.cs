@@ -29,7 +29,8 @@ public class TailToHand() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Com
     }
 
     
-    protected override void OnUpgrade(){
+    protected override void OnUpgrade()
+    {
         DynamicVars.Damage.UpgradeValueBy(3m);
     }
 

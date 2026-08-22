@@ -20,7 +20,7 @@ public class Cataclysm : ModEnchantmentTemplate
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
 
     public override EnchantmentAssetProfile AssetProfile => new(
-        IconPath: "res://icon.svg"
+        IconPath: $"res://SnakeInSpireExtend/images/enchantments/{GetType().Name}.png"
     );
 
     protected override void OnEnchant()

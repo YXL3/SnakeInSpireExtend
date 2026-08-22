@@ -23,7 +23,8 @@ public class FlashOfFang() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Ba
             .Execute(choiceContext);
     }
     
-    protected override void OnUpgrade(){
+    protected override void OnUpgrade()
+    {
         DynamicVars.Damage.UpgradeValueBy(3m);
     }
 

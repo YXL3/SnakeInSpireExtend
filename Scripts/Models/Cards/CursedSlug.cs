@@ -4,15 +4,19 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
 using SnakeInSpireExtend.Scripts.Extension;
+using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class CursedSlug() : SnakeCardTemplate(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+public class CursedSlug() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
 {
+    public override CardAssetProfile AssetProfile => new(
+        PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
+    );
+
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
@@ -33,25 +37,26 @@ public class CursedSlug() : SnakeCardTemplate(3, CardType.Attack, CardRarity.Rar
             .Execute(choiceContext);
         for (int i = 0; i < DynamicVars.Cards.IntValue; i++)
         {
-            CardModel card = CombatState.CreateCard<Slimed>(Owner);
-            Helper.Haste(card, DynamicVars["HasteVar"].BaseValue);
+            CardModel card = CombatState.CreateCard<MegaCrit.Sts2.Core.Models.Cards.Void>(Owner);
             await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, Owner);
         }
     }
 
-    public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw){
+    public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
+    {
         if (card == this)
         {
             await CardCmd.AutoPlay(choiceContext, card, null);
         }
     }
 
-    protected override void OnUpgrade(){
+    protected override void OnUpgrade()
+    {
         DynamicVars.Damage.UpgradeValueBy(3m);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        HoverTipFactory.FromCard<Slimed>(),
+        HoverTipFactory.FromCard<MegaCrit.Sts2.Core.Models.Cards.Void>(),
         ..Helper.HasteHoverTipIfNeeded(this)
     ];
 }

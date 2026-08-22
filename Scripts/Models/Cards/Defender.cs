@@ -27,7 +27,8 @@ public class Defender() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Commo
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade(){
+    protected override void OnUpgrade()
+    {
         DynamicVars.Damage.UpgradeValueBy(3m);
     }
 }

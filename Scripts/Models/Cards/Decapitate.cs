@@ -32,7 +32,8 @@ public class Decapitate() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Unc
         }
     }
 
-    protected override void OnUpgrade(){
+    protected override void OnUpgrade()
+    {
         DynamicVars.Damage.UpgradeValueBy(2m);
         DynamicVars.Cards.UpgradeValueBy(1m);
     }

@@ -14,7 +14,7 @@ public class Garrotte() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Rare,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(9m, ValueProp.Move),
-        new CalculationBaseVar(1),
+        new CalculationBaseVar(0),
         new CalculationExtraVar(1),
         new CalculatedVar("CalculatedHits").WithMultiplier((CardModel card, Creature? _) => CalculateOtherHasteHysteresisCount(card))
     ];

@@ -6,11 +6,16 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using SnakeInSpireExtend.Scripts.Extension;
+using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 public class RunicNeon() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
+    public override CardAssetProfile AssetProfile => new(
+        PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
+    );
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DynamicVar("HysteresisVar", 2m),
         new DynamicVar("HasteVar", 2m)

@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -36,7 +37,6 @@ public class SneakyPhantomSingleton() : HookedSingletonModel(HookType.Combat)
             state = SavedData.Get(runState, player.NetId);
             if (state == null || state.IsEmpty)return;
         }
-        _pendingCarryOver = null;
         await CreatureCmd.GainBlock(player.Creature, state.Block, ValueProp.Unpowered, null);
         await PlayerCmd.GainEnergy(state.Energy, player);
         foreach (PhantomCardEntry entry in state.Cards)
@@ -49,14 +49,19 @@ public class SneakyPhantomSingleton() : HookedSingletonModel(HookType.Combat)
             PhantomEnergyCostCodec.Apply(card, entry.EnergyCost);
             await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, player);
         }
+        _pendingCarryOver = null;
         SavedData.Set(runState, player.NetId, new PhantomCarryOverState());
     }
 
     public override Task AfterRoomEntered(AbstractRoom room)
     {
-        if (room.IsVictoryRoom)
+        if (room is EventRoom eventRoom && eventRoom.CanonicalEvent is Neow && CurrentRunState is RunState runState)
         {
             _pendingCarryOver = null;
+            foreach (Player player in runState.Players)
+            {
+                SavedData.Set(runState, player.NetId, new PhantomCarryOverState());
+            }
         }
         return Task.CompletedTask;
     }

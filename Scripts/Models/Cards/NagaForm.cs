@@ -16,7 +16,8 @@ public class NagaForm() : SnakeCardTemplate(3, CardType.Power, CardRarity.Rare, 
         await PowerCmd.Apply<NagaFormPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade(){
+    protected override void OnUpgrade()
+    {
         RemoveKeyword(CardKeyword.Ethereal);
     }
 
