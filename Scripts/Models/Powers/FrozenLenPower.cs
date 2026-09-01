@@ -1,23 +1,14 @@
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using SnakeInSpireExtend.Scripts.Models;
-using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Powers;
 
-[RegisterPower]
-public class FrozenLenPower : ModPowerTemplate
+public class FrozenLenPower : SnakePowerTemplate
 {
-    public override PowerAssetProfile AssetProfile => new(
-        IconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png",
-        BigIconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png"
-    );
-
     private class Data
     {
         public readonly HashSet<CardModel> autoPlayingCards = new HashSet<CardModel>();

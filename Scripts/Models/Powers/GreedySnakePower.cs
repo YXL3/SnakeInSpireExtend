@@ -6,13 +6,10 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using SnakeInSpireExtend.Scripts.Extension;
-using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Powers;
 
-[RegisterPower]
-public class GreedySnakePower : ModPowerTemplate
+public class GreedySnakePower : SnakePowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
 

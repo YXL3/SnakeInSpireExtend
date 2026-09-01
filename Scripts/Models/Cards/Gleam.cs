@@ -47,5 +47,3 @@ public class Gleam() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Ancient,
         ..Helper.HasteHoverTipIfNeeded(this)
     ];
 }
-
-

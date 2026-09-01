@@ -33,7 +33,7 @@ public class GetDescriptionForPilePatch : IPatchMethod
         {
             return;
         }
-        string loc = new LocString("powers", $"{name.ToUpper()}.title").GetRawText();
+        string loc = new LocString("static_hover_tips", $"{name.ToUpper()}.title").GetRawText();
         __result += $"\n[aqua]{loc}{__instance.DynamicVars[name].BaseValue}[/aqua]。";
     }
 }

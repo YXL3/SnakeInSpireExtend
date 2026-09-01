@@ -39,5 +39,3 @@ public class FlashOfFang() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Ba
         ..Helper.HasteHoverTipIfNeeded(this)
     ];
 }
-
-
