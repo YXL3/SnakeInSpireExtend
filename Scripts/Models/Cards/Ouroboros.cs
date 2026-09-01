@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using SnakeInSpireExtend.Scripts.Extension;
+using SnakeInSpireExtend.Scripts.Models;
 using SnakeInSpireExtend.Scripts.Powers;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
@@ -21,6 +22,7 @@ public class Ouroboros() : SnakeCardTemplate(2, CardType.Power, CardRarity.Rare,
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
         ..Helper.HysteresisHoverTipIfNeeded(this),
-        ..Helper.HasteHoverTipIfNeeded(this)
+        ..Helper.HasteHoverTipIfNeeded(this),
+        HoverTipFactory.FromKeyword(SnakeInSpireExtendCardKeywords.Keen)
     ];
 }

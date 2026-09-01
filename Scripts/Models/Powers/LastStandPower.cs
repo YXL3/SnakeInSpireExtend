@@ -1,5 +1,6 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -17,7 +18,7 @@ public class LastStandPower : ModPowerTemplate
         IconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png",
         BigIconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png"
     );
-    
+
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Single;
@@ -39,9 +40,34 @@ public class LastStandPower : ModPowerTemplate
         if (card != null)
         {
             Flash();
-            card.BaseReplayCount = (card.BaseReplayCount + 1) * (int)maxValue - 1;
+            GetInternalData<Data>().playingCard = card;
             await CardCmd.AutoPlay(choiceContext, card, null);
             await CardCmd.Exhaust(choiceContext, card);
         }
     }
+
+    private class Data
+    {
+        public CardModel? playingCard;
+    }
+
+    protected override object InitInternalData()
+    {
+        return new Data();
+    }
+
+    public override int ModifyCardPlayCount(CardModel card, Creature? target, int playCount)
+    {
+        if (card != GetInternalData<Data>().playingCard)
+        {
+            return playCount;
+        }
+        return (int)(Helper.HasCustomDynamic(card, "Hysteresis")? playCount + card.DynamicVars["Hysteresis"].BaseValue - 1 : playCount);
+    }
+
+    public override async Task AfterModifyingCardPlayCount(CardModel card)
+    {
+        GetInternalData<Data>().playingCard = null;
+    }
+
 }

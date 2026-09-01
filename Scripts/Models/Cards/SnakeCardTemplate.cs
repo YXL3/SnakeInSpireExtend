@@ -15,5 +15,3 @@ public abstract class SnakeCardTemplate(
     : ModCardTemplate(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
 {
 }
-
-

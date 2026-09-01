@@ -6,7 +6,6 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
-using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Models;
 using STS2RitsuLib.RunData;
@@ -37,7 +36,6 @@ public class SneakyPhantomSingleton() : HookedSingletonModel(HookType.Combat)
             state = SavedData.Get(runState, player.NetId);
             if (state == null || state.IsEmpty)return;
         }
-        await CreatureCmd.GainBlock(player.Creature, state.Block, ValueProp.Unpowered, null);
         await PlayerCmd.GainEnergy(state.Energy, player);
         foreach (PhantomCardEntry entry in state.Cards)
         {

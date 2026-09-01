@@ -14,11 +14,6 @@ public sealed class PhantomCarryOverState
     public List<PhantomCardEntry> Cards { get; set; } = [];
 
     /// <summary>
-    /// The block amount the player had when SneakyPhantom was played.
-    /// </summary>
-    public int Block { get; set; }
-
-    /// <summary>
     /// The energy the player had when SneakyPhantom was played.
     /// </summary>
     public int Energy { get; set; }
@@ -26,5 +21,5 @@ public sealed class PhantomCarryOverState
     /// <summary>
     /// Whether this state contains no carry-over data.
     /// </summary>
-    public bool IsEmpty => Cards.Count == 0 && Block == 0 && Energy == 0;
+    public bool IsEmpty => Cards.Count == 0 && Energy == 0;
 }

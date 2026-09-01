@@ -1,6 +1,5 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -10,7 +9,7 @@ using SnakeInSpireExtend.Scripts.Extension;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class Lurk() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AllEnemies)
+public class Lurk() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new PowerVar<WeakPower>(2m),
@@ -23,11 +22,8 @@ public class Lurk() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Common, Ta
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if(CombatState == null) return;
-        foreach (Creature enemy in CombatState.HittableEnemies)
-        {
-            await PowerCmd.Apply<WeakPower>(choiceContext, enemy, DynamicVars.Weak.BaseValue, Owner.Creature, this);
-        }
+        ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+        await PowerCmd.Apply<WeakPower>(choiceContext, cardPlay.Target, DynamicVars.Weak.BaseValue, Owner.Creature, this);
         foreach(CardModel card in PileType.Hand.GetPile(Owner).Cards.Where(card => card.Type == CardType.Skill))
         {
             Helper.Haste(card, DynamicVars["HasteVar"].BaseValue);

@@ -22,7 +22,7 @@ public class SneakyPhantom() : SnakeCardTemplate(1, CardType.Power, CardRarity.R
             return;
         }
         List<CardModel> handCards = PileType.Hand.GetPile(Owner).Cards.ToList();
-        power.SetProperty(handCards, Owner.Creature.Block, Owner.PlayerCombatState.Energy);
+        power.SetProperty(handCards, Owner.PlayerCombatState.Energy);
 
         PhantomCarryOverState carryOver = new PhantomCarryOverState
         {
@@ -34,7 +34,6 @@ public class SneakyPhantom() : SnakeCardTemplate(1, CardType.Power, CardRarity.R
                 Hysteresis = Helper.HasCustomDynamic(c, "Hysteresis") ? c.DynamicVars["Hysteresis"].BaseValue : 0,
                 EnergyCost = PhantomEnergyCostCodec.Capture(c)
             }).ToList(),
-            Block = Owner.Creature.Block,
             Energy = Owner.PlayerCombatState.Energy
         };
         SneakyPhantomSingleton.StoreCarryOver(Owner, carryOver);
