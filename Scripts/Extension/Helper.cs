@@ -50,8 +50,8 @@ public static class Helper
 
     public static HoverTip StaticHoverTipFromPowers(string name, params DynamicVar[] descriptionVars)
     {
-        LocString locString = new LocString("powers", name + ".title");
-        LocString locString2 = new LocString("powers", name + ".description");
+        LocString locString = new LocString("static_hover_tips", name + ".title");
+        LocString locString2 = new LocString("static_hover_tips", name + ".description");
         foreach(DynamicVar item in descriptionVars)
         {
             locString2.Add(item);
@@ -61,8 +61,8 @@ public static class Helper
 
     public static HoverTip SmartHoverTipFromPowers(CardModel card, string name, params DynamicVar[] descriptionVars)
     {
-        LocString locString = new LocString("powers", $"{name.ToUpper()}.smartTitle");
-        LocString locString2 = new LocString("powers", $"{name.ToUpper()}.smartDescription");
+        LocString locString = new LocString("static_hover_tips", $"{name.ToUpper()}.smartTitle");
+        LocString locString2 = new LocString("static_hover_tips", $"{name.ToUpper()}.smartDescription");
         locString.Add(card.DynamicVars[name]);
         locString2.Add(card.DynamicVars[name]);
         foreach(DynamicVar item in descriptionVars)

@@ -1,0 +1,10 @@
+{
+    "HYSTERESIS.title":"迟滞",
+    "HYSTERESIS.description":"有[gold]迟滞[/gold]的牌如果因打出进入弃牌堆，返回手牌并失去[blue]1[/blue]层[gold]迟滞[/gold]。",
+    "HYSTERESIS.smartTitle":"迟滞{Hysteresis}",
+    "HYSTERESIS.smartDescription":"下[blue]{Hysteresis}[/blue]次因打出进入弃牌堆时，返回手牌。",
+    "HASTE.title":"急促",
+    "HASTE.description":"有[gold]急促[/gold]的牌打出后，抽[blue]{HasteDrawingAmount}[/blue]张牌并失去[gold]急促[/gold]，抽到的牌获得[blue]失去层数-1[/blue]层[gold]急促[/gold]。",
+    "HASTE.smartTitle":"急促{Haste}",
+    "HASTE.smartDescription":"打出后，抽[blue]{HasteDrawingAmount}[/blue]张牌并失去[gold]急促[/gold]，抽到的牌获得[blue]{HastePassingAmount}[/blue]层[gold]急促[/gold]。"
+}

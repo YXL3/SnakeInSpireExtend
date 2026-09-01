@@ -37,5 +37,3 @@ public class TailToHand() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Com
         ..Helper.HasteHoverTipIfNeeded(this)
     ];
 }
-
-

@@ -2,3 +2,6 @@ root = true
 
 [*]
 charset = utf-8
+
+[*.cs]
+insert_final_newline = false

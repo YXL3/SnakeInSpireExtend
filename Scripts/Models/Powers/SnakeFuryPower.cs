@@ -6,19 +6,11 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
-using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Powers;
 
-[RegisterPower]
-public class SnakeFuryPower : ModPowerTemplate
-{
-    public override PowerAssetProfile AssetProfile => new(
-        IconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png",
-        BigIconPath: $"res://SnakeInSpireExtend/images/powers/{GetType().Name}.png"
-    );
-    
+public class SnakeFuryPower : SnakePowerTemplate
+{    
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
