@@ -24,33 +24,38 @@ public class Entry
     public static PlayerRunSavedData<PhantomCarryOverState> SneakyPhantomSavedData = null!;
     public static void Init()
     {
-        var assembly = Assembly.GetExecutingAssembly();
+        Assembly assembly = Assembly.GetExecutingAssembly();
         RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
         ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
+        GameplayContentRegister();
+        GameplayPatchRegister();
+        SnakeInSpireTelemetry.Register();
+    }
 
+    private static void GameplayContentRegister()
+    {
         RitsuLibFramework.RegisterArchaicToothTranscendenceMapping<FlashOfFang, Gleam>();
         RitsuLibFramework.RegisterTouchOfOrobasRefinementMapping<SnakeEye, CalamityEye>();
-
-        var patcher = RitsuLibFramework.CreatePatcher(ModId, "patches");
-        patcher.RegisterPatch<HysteresisFunctionPatch>();
-        patcher.RegisterPatch<GetDescriptionForPilePatch>();
-        patcher.RegisterPatch<HoverTipsPatch>();
-        patcher.RegisterPatch<KeywordsPatch>();
-        patcher.RegisterPatch<SnakeCardPortraitFilterPatch>();
-        patcher.RegisterPatch<NegativeVigorPatch>();
-        if (!patcher.PatchAll())
-            throw new InvalidOperationException("Critical patches failed.");
         SnakeModRewardRegister.TransformRegister();
-
         ModCardHandOutlineRegistry.Register<CardModel>(ModCardHandOutlineRules.Dynamic(
             card => !(card.ShouldGlowGold || card.ShouldGlowRed)
             &&(Helper.HasCustomDynamic(card, "Hysteresis") || Helper.HasCustomDynamic(card, "Haste")),
             card => Helper.HasCustomDynamic(card, "Hysteresis")?(Helper.HasCustomDynamic(card, "Haste")
             ? Godot.Colors.Snow : Godot.Colors.Purple): Godot.Colors.Green
         ));
-
         SneakyPhantomSavedData = RunSavedDataStore.For(ModId).RegisterPerPlayer<PhantomCarryOverState>(
-            SneakyPhantomSavedDataKey, () => new(), new() { WritePolicy = RunSavedDataWritePolicy.WhenNonDefault});
+            SneakyPhantomSavedDataKey, () => new(), new() {WritePolicy = RunSavedDataWritePolicy.WhenNonDefault});
+    }
 
+    private static void GameplayPatchRegister()
+    {
+        ModPatcher patcher = RitsuLibFramework.CreatePatcher(ModId, "patches");
+        patcher.RegisterPatch<HysteresisFunctionPatch>();
+        patcher.RegisterPatch<GetDescriptionForPilePatch>();
+        patcher.RegisterPatch<HoverTipsPatch>();
+        patcher.RegisterPatch<KeywordsPatch>();
+        patcher.RegisterPatch<SnakeCardPortraitFilterPatch>();
+        patcher.RegisterPatch<NegativeVigorPatch>();
+        if (!patcher.PatchAll()) throw new InvalidOperationException("Critical patches failed.");
     }
 }

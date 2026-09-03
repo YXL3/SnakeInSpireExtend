@@ -7,16 +7,11 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
 using SnakeInSpireExtend.Scripts.Extension;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 public class CursedSlug() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
 {
-    public override CardAssetProfile AssetProfile => new(
-        PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    );
-
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [

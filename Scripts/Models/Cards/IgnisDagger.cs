@@ -11,16 +11,11 @@ using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 public class IgnisDagger() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
-    public override CardAssetProfile AssetProfile => new(
-        PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    );
-
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [

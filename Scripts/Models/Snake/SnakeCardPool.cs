@@ -19,9 +19,8 @@ public class SnakeCardPool : TypeListCardPoolModel, IModColorfulPhilosophersCard
 
     public override Color EnergyOutlineColor => new(0f, 0f, 0f);
 
-    private static readonly Material? _poolFrameMaterial = MaterialUtils.CreateReplaceHueShaderMaterial(0.5f, 1f, 0f); // 如果你使用原版卡框，使用这个直接替换色调。
-    // private static readonly Material? _poolFrameMaterial = MaterialUtils.CreateRgbShaderMaterial(0.5f, 0.5f, 1f); // 使用原版卡框替换色调。除非你的版本没有CreateReplaceHueShaderMaterial函数，否则应使用上面那种
-    // private static readonly Material? _poolFrameMaterial = MaterialUtils.CreateUnmodulatedHsvShaderMaterial(); // 如果你是自定义卡框，使用这个
+    private static readonly Material? _poolFrameMaterial = MaterialUtils.CreateReplaceHueShaderMaterial(0.5f, 1f, 0f);
+
     public override Material? PoolFrameMaterial => _poolFrameMaterial;
 
     public override bool IsColorless => false;

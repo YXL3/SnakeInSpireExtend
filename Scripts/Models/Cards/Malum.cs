@@ -19,10 +19,6 @@ public class Malum() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Rare, Tar
         public Task OnChosen(PlayerChoiceContext choiceContext, CardPlay cardPlay);
     }
 
-    public override CardAssetProfile AssetProfile => new(
-        PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    );
-
     private static readonly IReadOnlyList<IChoosable> taboos = [ModelDb.Card<Blind>(), ModelDb.Card<Dread>()];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];

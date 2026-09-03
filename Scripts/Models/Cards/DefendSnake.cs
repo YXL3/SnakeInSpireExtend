@@ -4,17 +4,12 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 [RegisterCharacterStarterCard(typeof(Snake), 4, Order = 1)]
 public class DefendSnake() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
-    public override CardAssetProfile AssetProfile => new(
-        PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    );
-
     public override bool GainsBlock => true;
 
     protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Defend };

@@ -9,10 +9,10 @@ using SnakeInSpireExtend.Scripts.Extension;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class DropKick() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+public class DropKick() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(5m, ValueProp.Move),
+        new DamageVar(13m, ValueProp.Move),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -32,7 +32,7 @@ public class DropKick() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Rare,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.Damage.UpgradeValueBy(5m);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [..Helper.HasteHoverTipIfNeeded(this)];

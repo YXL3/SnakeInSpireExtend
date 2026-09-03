@@ -18,7 +18,7 @@ public class LastStand() : SnakeCardTemplate(1, CardType.Power, CardRarity.Uncom
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
+        EnergyCost.UpgradeBy(-1);
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [

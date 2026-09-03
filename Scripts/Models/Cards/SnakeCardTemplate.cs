@@ -14,4 +14,7 @@ public abstract class SnakeCardTemplate(
     bool shouldShowInCardLibrary = true)
     : ModCardTemplate(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
 {
+    public override CardAssetProfile AssetProfile => new(
+        PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
+    );
 }

@@ -1,6 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
-SnakeInSpireExtend/images
 *.uid
 *.import

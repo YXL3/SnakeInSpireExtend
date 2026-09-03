@@ -6,5 +6,9 @@
     "HASTE.title":"急促",
     "HASTE.description":"有[gold]急促[/gold]的牌打出后，抽[blue]{HasteDrawingAmount}[/blue]张牌并失去[gold]急促[/gold]，抽到的牌获得[blue]失去层数-1[/blue]层[gold]急促[/gold]。",
     "HASTE.smartTitle":"急促{Haste}",
-    "HASTE.smartDescription":"打出后，抽[blue]{HasteDrawingAmount}[/blue]张牌并失去[gold]急促[/gold]，抽到的牌获得[blue]{HastePassingAmount}[/blue]层[gold]急促[/gold]。"
+    "HASTE.smartDescription":"打出后，抽[blue]{HasteDrawingAmount}[/blue]张牌并失去[gold]急促[/gold]，抽到的牌获得[blue]{HastePassingAmount}[/blue]层[gold]急促[/gold]。",
+    "SNAKE_IN_SPIRE_TELEMETRY.displayNameText":"蛇mod",
+    "SNAKE_IN_SPIRE_TELEMETRY.requestBasicUsage":"会话启动时间、框架和游戏版本、构建渠道、平台、语言与匿名安装ID。",
+    "SNAKE_IN_SPIRE_TELEMETRY.requestRunHistoryFiltered":"角色为蛇且不以放弃结束的RunHistory数据。",
+    "SNAKE_IN_SPIRE_TELEMETRY.requestDiagnostics":"异常报告与框架运行时诊断信息。"
 }

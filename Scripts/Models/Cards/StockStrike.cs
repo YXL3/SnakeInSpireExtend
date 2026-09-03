@@ -4,7 +4,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
@@ -14,10 +13,6 @@ public class StockStrike() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Co
         new DamageVar(8m, ValueProp.Move),
         new PowerVar<DrawCardsNextTurnPower>(2m)
     ];
-
-    public override CardAssetProfile AssetProfile => new(
-        PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    );
 
     protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Strike };
 

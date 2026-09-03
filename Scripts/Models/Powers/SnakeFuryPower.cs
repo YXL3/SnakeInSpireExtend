@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace SnakeInSpireExtend.Scripts.Powers;
 
 public class SnakeFuryPower : SnakePowerTemplate
-{    
+{
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -33,8 +33,8 @@ public class SnakeFuryPower : SnakePowerTemplate
         if (cardPlay.Card.Owner == Owner.Player && _vigorAmountBeforeAttack > 0)
         {
             await PowerCmd.Apply<VigorPower>(choiceContext, Owner, _vigorAmountBeforeAttack, Owner, null);
-            await PowerCmd.Decrement(this);
             _vigorAmountBeforeAttack = 0;
+            await PowerCmd.Decrement(this);
         }
     }
 }

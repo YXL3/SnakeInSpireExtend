@@ -22,10 +22,17 @@ public class Weave() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Common, T
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        if (!Keywords.Contains(CardKeyword.Exhaust) && !ExhaustOnNextPlay)
+    }
+
+    protected override CardLocation GetResultLocationForCardPlay()
+    {
+        CardLocation resultLocationForCardPlay = base.GetResultLocationForCardPlay();
+        if (resultLocationForCardPlay.pileType == PileType.Discard)
         {
-            await CardPileCmd.Add(this, PileType.Draw, CardPilePosition.Bottom);
+            resultLocationForCardPlay.pileType = PileType.Draw;
+            resultLocationForCardPlay.position = CardPilePosition.Bottom;
         }
+        return resultLocationForCardPlay;
     }
 
     protected override void OnUpgrade()

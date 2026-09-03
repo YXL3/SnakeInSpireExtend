@@ -32,5 +32,10 @@
     "SNAKE_IN_SPIRE_EXTEND_POWER_GOOD_INSTINCTS_POWER.title":"优秀直觉",
     "SNAKE_IN_SPIRE_EXTEND_POWER_GOOD_INSTINCTS_POWER.description":"你打出有[gold]急促[/gold]的牌时，获得[blue]{Amount}[/blue]点[gold]格挡[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_NAGA_FORM_POWER.title":"那迦形态",
-    "SNAKE_IN_SPIRE_EXTEND_POWER_NAGA_FORM_POWER.description":"回合结束时，为[gold]抽牌堆[/gold]顶的牌附魔[purple]灾难[/purple]。"
+    "SNAKE_IN_SPIRE_EXTEND_POWER_NAGA_FORM_POWER.description":"回合结束时，为[gold]抽牌堆[/gold]顶的牌附魔[purple]灾难[/purple]。",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_ENDLESS_AGONY_POWER.title":"无尽苦痛",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_ENDLESS_AGONY_POWER.description":"回合开始时，将[gold]{Card}[/gold]从[gold]抽牌堆[/gold]或[gold]弃牌堆[/gold]放入[gold]手牌[/gold]。",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_ENDLESS_AGONY_POWER.smartDescription":"回合开始时，将[gold]{Card}[/gold]从[gold]抽牌堆[/gold]或[gold]弃牌堆[/gold]放入[gold]手牌[/gold]。",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_HOLD_FAST_POWER.title":"拿稳了！",
+    "SNAKE_IN_SPIRE_EXTEND_POWER_HOLD_FAST_POWER.description":"打出的下[blue]{Amount}[/blue]张攻击牌或技能牌放回[gold]手牌[/gold]，并添加[gold]保留[/gold]。"
 }

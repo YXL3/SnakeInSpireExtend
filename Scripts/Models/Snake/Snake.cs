@@ -13,11 +13,10 @@ namespace SnakeInSpireExtend.Scripts;
 [RegisterCharacter]
 public class Snake : ModCharacterTemplate<SnakeCardPool, SnakeRelicPool, SnakePotionPool>
 {
-    // 角色名称颜色
     public override Color NameColor => new(0.5f, 1f, 0f);
-    // 能量图标轮廓颜色
+
     public override Color EnergyLabelOutlineColor => new(0f, 0f, 0f);
-    // 地图绘制颜色
+
     public override Color MapDrawingColor => new(0.5f, 1f, 0f);
 
     public override CharacterGender Gender => CharacterGender.Neutral;

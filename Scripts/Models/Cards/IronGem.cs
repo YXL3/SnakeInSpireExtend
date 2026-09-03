@@ -6,16 +6,11 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Enchantments;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 public class IronGem() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
-    public override CardAssetProfile AssetProfile => new(
-        PortraitPath: $"res://SnakeInSpireExtend/images/cards/{GetType().Name}.png"
-    );
-
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DynamicVar("Adroit", 5m)
     ];
