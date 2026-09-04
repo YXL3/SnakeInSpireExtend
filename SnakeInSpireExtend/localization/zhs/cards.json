@@ -113,6 +113,8 @@
     "SNAKE_IN_SPIRE_EXTEND_CARD_SNAKE_FURY.title": "蛇之怒",
     "SNAKE_IN_SPIRE_EXTEND_CARD_SNEAKY_PHANTOM.description": "下场战斗开始时，获得当前{energyPrefix:energyIcons(1)}，将当前[gold]手牌[/gold]的复制品加入[gold]手牌[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_SNEAKY_PHANTOM.title": "潜行幻象",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_SNIPE.description": "造成{Damage:diff()}点伤害。\n回合结束时，如果这张牌在[gold]抽牌堆[/gold]中，将其打出。",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_SNIPE.title": "狙击",
     "SNAKE_IN_SPIRE_EXTEND_CARD_STOCK_STRIKE.description": "造成{Damage:diff()}点伤害。\n下一回合抽{DrawCardsNextTurnPower:diff()}张牌。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_STOCK_STRIKE.title": "枪托打击",
     "SNAKE_IN_SPIRE_EXTEND_CARD_STRANGE_OIL.description": "抽{Cards:diff()}张牌，将其[gold]升级[/gold]。",

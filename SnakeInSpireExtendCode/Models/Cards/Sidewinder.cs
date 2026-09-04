@@ -14,7 +14,7 @@ public class Sidewinder() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Comm
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new CardsVar(2),
         new DynamicVar("HysteresisVar", 1m),
-        new DynamicVar("HasteVar", 1m),
+        new DynamicVar("HasteVar", 0m),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -28,6 +28,11 @@ public class Sidewinder() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Comm
                 Helper.Haste(item, DynamicVars["HasteVar"].BaseValue);
             }
         }
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars["HasteVar"].UpgradeValueBy(1m);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => IsUpgraded

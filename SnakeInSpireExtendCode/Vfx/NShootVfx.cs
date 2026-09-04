@@ -1,121 +1,101 @@
-// using Godot;
-// using MegaCrit.Sts2.Core.Assets;
-// using MegaCrit.Sts2.Core.Entities.Creatures;
-// using MegaCrit.Sts2.Core.Helpers;
-// using MegaCrit.Sts2.Core.Nodes.Combat;
-// using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
-// using MegaCrit.Sts2.Core.Nodes.Rooms;
-// using MegaCrit.Sts2.Core.Nodes.Vfx;
-// using MegaCrit.Sts2.Core.Random;
-// using MegaCrit.Sts2.Core.TestSupport;
+using Godot;
+using MegaCrit.Sts2.Core.Assets;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
+using MegaCrit.Sts2.Core.Random;
 
-// namespace SnakeInSpireExtend.Scripts.Vfx;
+namespace SnakeInSpireExtend.Scripts.Vfx;
 
-// [ScriptPath("res://Scripts/Vfx/NStabVfx.cs")]
-// public partial class NShootVfx : Node2D
-// {
-//     private const string _scenePath = "res://scenes/vfx/stab_vfx.tscn";
+public partial class NShootVfx : Node2D
+{
+    private Node2D _primaryVfx;
 
-//     private Node2D _primaryVfx;
+    private Vector2 _creatureCenter;
 
-//     private Node2D _secondaryVfx;
+    private VfxColor _vfxColor;
 
-//     private Vector2 _creatureCenter;
+    private Tween? _tween;
 
-//     private VfxColor _vfxColor;
+    public static NShootVfx? Create(Creature? target, VfxColor vfxColor = VfxColor.Red, bool center = false)
+    {
+        if (NCombatRoom.Instance == null)
+        {
+            return null;
+        }
+        NCreature? creatureNode = NCombatRoom.Instance.GetCreatureNode(target);
+        if (creatureNode == null)
+        {
+            return null;
+        }
+        Vector2 vfxSpawnPosition = creatureNode.VfxSpawnPosition;
+        NShootVfx nShootVfx = PreloadManager.Cache.GetScene("res://SnakeInSpireExtend/scenes/shoot_vfx.tscn").Instantiate<NShootVfx>(PackedScene.GenEditState.Disabled);
+        nShootVfx._vfxColor = vfxColor;
+        Vector2 vector = center ? new Vector2(0f, 0f) : new Vector2(Rng.Chaotic.NextFloat(-50f, 50f), Rng.Chaotic.NextFloat(-50f, 50f));
+        nShootVfx._creatureCenter = vfxSpawnPosition + vector;
+        return nShootVfx;
+    }
 
-//     private bool _facingEnemies;
+    public override void _Ready()
+    {
+        _primaryVfx = GetNode<Node2D>("Primary");
+        _primaryVfx.GlobalPosition = GenerateSpawnPosition();
+        SetColor();
+        TaskHelper.RunSafely(Animate());
+    }
 
-//     private Tween? _tween;
+    private void SetColor()
+    {
+        switch (_vfxColor)
+        {
+            case VfxColor.Green:
+                _primaryVfx.SelfModulate = new Color("00A52F");
+                break;
+            case VfxColor.Blue:
+                _primaryVfx.SelfModulate = new Color("007BDD");
+                break;
+            case VfxColor.Purple:
+                _primaryVfx.SelfModulate = new Color("A803FF");
+                break;
+            case VfxColor.White:
+                _primaryVfx.SelfModulate = new Color("808080");
+                break;
+            case VfxColor.Cyan:
+                _primaryVfx.SelfModulate = new Color("009599");
+                break;
+            case VfxColor.Gold:
+                _primaryVfx.SelfModulate = new Color("EBA800");
+                break;
+            default:
+                _primaryVfx.SelfModulate = new Color("FF0000");
+                break;
+            case VfxColor.Black:
+                break;
+        }
+    }
 
-//     public static NShootVfx? Create(Creature? target, bool facingEnemies = false, VfxColor vfxColor = VfxColor.Red)
-//     {
-//         if (TestMode.IsOn)
-//         {
-//             return null;
-//         }
+    private Vector2 GenerateSpawnPosition()
+    {
+        Vector2 vector = new Vector2(Rng.Chaotic.NextFloat(-12f, 12f), Rng.Chaotic.NextFloat(-32f, 32f));
+        Vector2 vector2 = new Vector2(-300f, 0f);
+        return _creatureCenter + vector + vector2;
+    }
 
-//         NCreature creatureNode = NCombatRoom.Instance.GetCreatureNode(target);
-//         if (creatureNode == null)
-//         {
-//             return null;
-//         }
+    public override void _ExitTree()
+    {
+        _tween?.Kill();
+    }
 
-//         Vector2 vfxSpawnPosition = creatureNode.VfxSpawnPosition;
-//         NShootVfx nShootVfx = PreloadManager.Cache.GetScene("res://scenes/vfx/stab_vfx.tscn").Instantiate<NShootVfx>(PackedScene.GenEditState.Disabled);
-//         nShootVfx._vfxColor = vfxColor;
-//         nShootVfx._facingEnemies = facingEnemies;
-//         Vector2 vector = new Vector2(facingEnemies ? Rng.Chaotic.NextFloat(0f, 48f) : Rng.Chaotic.NextFloat(-48f, 0f), Rng.Chaotic.NextFloat(-50f, 50f));
-//         nShootVfx._creatureCenter = vfxSpawnPosition + vector;
-//         return nShootVfx;
-//     }
-
-//     public override void _Ready()
-//     {
-//         _primaryVfx = GetNode<Node2D>("Primary");
-//         _secondaryVfx = GetNode<Node2D>("%Secondary");
-//         _primaryVfx.GlobalPosition = GenerateSpawnPosition();
-//         _primaryVfx.Rotation = MathHelper.GetAngle(_primaryVfx.GlobalPosition - _creatureCenter) + (float)Math.PI / 2f;
-//         SetColor();
-//         TaskHelper.RunSafely(Animate());
-//     }
-
-//     private void SetColor()
-//     {
-//         switch (_vfxColor)
-//         {
-//             case VfxColor.Green:
-//                 _primaryVfx.SelfModulate = new Color("00A52F");
-//                 _secondaryVfx.SelfModulate = new Color("FFCB2D");
-//                 break;
-//             case VfxColor.Blue:
-//                 _primaryVfx.SelfModulate = new Color("007BDD");
-//                 _secondaryVfx.SelfModulate = new Color("00EFF6");
-//                 break;
-//             case VfxColor.Purple:
-//                 _primaryVfx.SelfModulate = new Color("A803FF");
-//                 _secondaryVfx.SelfModulate = new Color("00EFF3");
-//                 break;
-//             case VfxColor.White:
-//                 _primaryVfx.SelfModulate = new Color("808080");
-//                 _secondaryVfx.SelfModulate = new Color("FFFFFF");
-//                 break;
-//             case VfxColor.Cyan:
-//                 _primaryVfx.SelfModulate = new Color("009599");
-//                 _secondaryVfx.SelfModulate = new Color("5CDCFF");
-//                 break;
-//             case VfxColor.Gold:
-//                 _primaryVfx.SelfModulate = new Color("EBA800");
-//                 _secondaryVfx.SelfModulate = new Color("FFE39C");
-//                 break;
-//             default:
-//                 _primaryVfx.SelfModulate = new Color("FF0000");
-//                 _secondaryVfx.SelfModulate = new Color("FFCB2D");
-//                 break;
-//             case VfxColor.Black:
-//                 break;
-//         }
-//     }
-
-//     private Vector2 GenerateSpawnPosition()
-//     {
-//         Vector2 vector = new Vector2(Rng.Chaotic.NextFloat(-12f, 12f), Rng.Chaotic.NextFloat(-64f, 64f));
-//         Vector2 vector2 = new Vector2(_facingEnemies ? (-200f) : 200f, 0f);
-//         return _creatureCenter + vector + vector2;
-//     }
-
-//     public override void _ExitTree()
-//     {
-//         _tween?.Kill();
-//     }
-
-//     private async Task Animate()
-//     {
-//         _tween = CreateTween().SetParallel();
-//         _tween.TweenProperty(this, "modulate:a", 1f, 0.25);
-//         _tween.TweenProperty(_primaryVfx, "position", _creatureCenter, 0.5).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);
-//         _tween.TweenProperty(this, "modulate:a", 0f, 0.25).SetDelay(0.25);
-//         await _tween.AwaitFinished(this);
-//         this.QueueFreeSafely();
-//     }
-// }
+    private async Task Animate()
+    {
+        _tween = CreateTween().SetParallel();
+        _tween.TweenProperty(this, "modulate:a", 1f, 0.2);
+        _tween.TweenProperty(_primaryVfx, "position", _creatureCenter, 0.2).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Back);
+        _tween.TweenProperty(this, "modulate:a", 0f, 0.25).SetDelay(0.25);
+        await _tween.AwaitFinished(this);
+        this.QueueFreeSafely();
+    }
+}

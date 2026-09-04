@@ -28,7 +28,7 @@ public class BounceBack() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Unco
     protected override CardLocation GetResultLocationForCardPlay()
     {
         CardLocation resultLocationForCardPlay = base.GetResultLocationForCardPlay();
-        if (resultLocationForCardPlay.pileType == PileType.Discard)
+        if (resultLocationForCardPlay.pileType == PileType.Discard || resultLocationForCardPlay.pileType == PileType.Hand)
         {
             resultLocationForCardPlay.pileType = PileType.Draw;
             resultLocationForCardPlay.position = CardPilePosition.Bottom;

@@ -27,12 +27,12 @@ public class SixthSense() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Unco
             Helper.Hysteresis(card, DynamicVars["HysteresisVar"].BaseValue);
         }
     }
-    
+
     protected override void OnUpgrade()
     {
         DynamicVars.Cards.UpgradeValueBy(1m);
     }
-    
+
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
         ..Helper.HysteresisHoverTipIfNeeded(this)
     ];
