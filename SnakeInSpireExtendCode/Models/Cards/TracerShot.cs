@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
+using SnakeInSpireExtend.Scripts.Vfx;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
@@ -23,7 +24,7 @@ public class TracerShot() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Unc
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target)
-            .WithHitVfxNode(t => NStabVfx.Create(t, true, VfxColor.Cyan))
+            .WithHitVfxNode(t => NShootVfx.Create(t, true, VfxColor.Cyan))
             .WithHitFx(null, null, "blunt_attack.mp3")
             .Execute(choiceContext);
         await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);

@@ -13,7 +13,7 @@ namespace SnakeInSpireExtend.Scripts.Cards;
 public class SharpClaws() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(4, ValueProp.Move),
+        new DamageVar(4m, ValueProp.Move),
         new RepeatVar(2),
         new CardsVar(2)
     ];
