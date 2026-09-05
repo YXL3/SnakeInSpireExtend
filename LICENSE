@@ -7,8 +7,7 @@ Please read carefully before using, modifying, or distributing any part of this 
 
 All source code are licensed under the **MIT License**.
 
-Full text of the MIT License is provided in the file [`LICENSE-MIT`](./licenses/LICENSE-MIT) or at  
-[https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT).
+Full text of the MIT License is provided in the file ./licenses/LICENSE-MIT or at https://opensource.org/licenses/MIT.
 
 ## 2. Assets (located in the `SnakeInSpireExtend/` directory)
 
@@ -25,5 +24,4 @@ All assets, including but not limited to images, textures, and graphical designs
 - **NonCommercial** — You may not use the material for commercial purposes.
 - **ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
 
-Full legal code of this license is provided in the file [`LICENSE-CC-BY-NC-SA`](./licenses/LICENSE-CC-BY-NC-SA) or at  
-[https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
+Full legal code of this license is provided in the file ./licenses/LICENSE-CC-BY-NC-SA or at https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.
