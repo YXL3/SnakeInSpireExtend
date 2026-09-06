@@ -18,6 +18,7 @@ public class HoldFast() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Uncomm
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<HoldFastPower>(choiceContext, cardPlay.Target, DynamicVars["HoldFastPower"].BaseValue, Owner.Creature, this);
     }
 

@@ -21,7 +21,7 @@ public class Serpentian() : SnakeCardTemplate(3, CardType.Skill, CardRarity.Rare
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if(CombatState == null) return;
-        // await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<IntangiblePower>(choiceContext, Owner.Creature, DynamicVars["IntangiblePower"].BaseValue, Owner.Creature, this);
         IEnumerable<Player> players = CombatState.GetTeammatesOf(Owner.Creature).Where(c => c != null && c.IsAlive && c.Player != null && c != Owner.Creature).Select(c => c.Player!);
         foreach (Player player in players)

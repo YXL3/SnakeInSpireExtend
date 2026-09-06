@@ -12,7 +12,7 @@ namespace SnakeInSpireExtend.Scripts.Vfx;
 
 public partial class NAimVfx : Node2D
 {
-    private Node2D _primaryVfx;
+    private Node2D _primaryVfx = null!;
 
     private Vector2 _creatureCenter;
 

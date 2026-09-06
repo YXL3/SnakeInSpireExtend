@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using SnakeInSpireExtend.Scripts.Rewards;
+using SnakeInSpireExtend.Scripts.Vfx;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 public class Contagion() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
@@ -31,7 +32,7 @@ public class Contagion() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Rare
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             bool shouldTriggerFatal = cardPlay.Target.Powers.All((PowerModel p) => p.ShouldOwnerDeathTriggerFatal());
             AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target)
-                .WithHitVfxNode(t => NStabVfx.Create(t, true, VfxColor.Gold))
+                .WithHitVfxNode(t => NShootVfx.Create(t, VfxColor.Gold))
                 .WithHitFx(null, null, "blunt_attack.mp3")
                 .Execute(choiceContext);
             if (shouldTriggerFatal && attackCommand.Results.SelectMany((List<DamageResult> r) => r).Any((DamageResult r) => r.WasTargetKilled))

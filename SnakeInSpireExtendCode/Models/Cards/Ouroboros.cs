@@ -12,6 +12,7 @@ public class Ouroboros() : SnakeCardTemplate(2, CardType.Power, CardRarity.Rare,
 {
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
         await PowerCmd.Apply<OuroborosPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }
 

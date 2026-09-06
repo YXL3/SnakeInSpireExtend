@@ -14,6 +14,7 @@ public class GoodInstincts() : SnakeCardTemplate(1, CardType.Power, CardRarity.U
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
         await PowerCmd.Apply<GoodInstinctsPower>(choiceContext, Owner.Creature, DynamicVars["GoodInstinctsPower"].BaseValue, Owner.Creature, this);
     }
 

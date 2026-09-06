@@ -78,6 +78,8 @@
     "SNAKE_IN_SPIRE_EXTEND_CARD_OUROBOROS.title": "衔尾蛇",
     "SNAKE_IN_SPIRE_EXTEND_CARD_OVERWHELM.description": "造成{Damage:diff()}点伤害{Repeat:diff()}次。\n每当你抽到这张牌时，为其添加[gold]急促[/gold]{HasteVar:diff()}。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_OVERWHELM.title": "击溃",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_POLE_VAULT.description": "造成{Damage:diff()}点伤害。\n获得{Block:diff()}点[gold]格挡[/gold]。",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_POLE_VAULT.title": "撑杆跳",
     "SNAKE_IN_SPIRE_EXTEND_CARD_PRIME.description": "获得{VigorPower:diff()}点[gold]活力[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_PRIME.title": "上膛",
     "SNAKE_IN_SPIRE_EXTEND_CARD_PSYCHOKINESIS.description": "你因[gold]急促[/gold]抽牌时，多抽{PsychokinesisPower:diff()}张。",

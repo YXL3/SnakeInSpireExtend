@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using SnakeInSpireExtend.Scripts.Extension;
 using SnakeInSpireExtend.Scripts.Powers;
 
@@ -12,7 +13,7 @@ public class LastStand() : SnakeCardTemplate(1, CardType.Power, CardRarity.Uncom
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        NPowerUpVfx.CreateNormal(Owner.Creature);
         await PowerCmd.Apply<LastStandPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 

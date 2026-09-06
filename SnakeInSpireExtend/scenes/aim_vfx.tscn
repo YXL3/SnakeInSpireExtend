@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbiquxy18c5eq"]
+[gd_scene load_steps=5 format=3 uid="uid://p5kj9m2tw4n7q"]
 
 [ext_resource type="Script" uid="uid://c3mygm54aopj4" path="res://SnakeInSpireExtendCode/Vfx/NAimVfx.cs" id="1_3gi4h"]
 [ext_resource type="Texture2D" uid="uid://dmh3bilnwb17o" path="res://SnakeInSpireExtend/images/vfx/aim.png" id="3_n2ujd"]

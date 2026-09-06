@@ -35,7 +35,10 @@ public class Snake : ModCharacterTemplate<SnakeCardPool, SnakeRelicPool, SnakePo
             ),
             Scenes: new(
                 EnergyCounterPath: "res://SnakeInSpireExtend/scenes/snake_energy_counter.tscn"
-            )
+            ),
+            VanillaRelicVisualOverrides: [
+                new(CharacterOwnedVanillaRelicModelId.YummyCookie, new("res://SnakeInSpireExtend/images/relics/YummyCookie.png"))
+            ]
         )
     );
     // 攻击和施法动画延迟，以对齐动画

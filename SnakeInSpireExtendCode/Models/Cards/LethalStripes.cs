@@ -11,7 +11,7 @@ public class LethalStripes() : SnakeCardTemplate(1, CardType.Power, CardRarity.R
 {
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
         await PowerCmd.Apply<LethalStripesPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }
 

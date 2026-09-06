@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using SnakeInSpireExtend.Scripts.Extension;
 using SnakeInSpireExtend.Scripts.Powers;
 
@@ -10,10 +11,6 @@ namespace SnakeInSpireExtend.Scripts.Cards;
 
 public class SneakyPhantom() : SnakeCardTemplate(1, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [
-        CardKeyword.Retain
-    ];
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         SneakyPhantomPower? power = await PowerCmd.Apply<SneakyPhantomPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
@@ -21,9 +18,9 @@ public class SneakyPhantom() : SnakeCardTemplate(1, CardType.Power, CardRarity.R
         {
             return;
         }
+        NPowerUpVfx.CreateNormal(Owner.Creature);
         List<CardModel> handCards = PileType.Hand.GetPile(Owner).Cards.ToList();
         power.SetProperty(handCards, Owner.PlayerCombatState.Energy);
-
         PhantomCarryOverState carryOver = new PhantomCarryOverState
         {
             Cards = handCards.Select(c => new PhantomCardEntry
@@ -41,11 +38,10 @@ public class SneakyPhantom() : SnakeCardTemplate(1, CardType.Power, CardRarity.R
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        AddKeyword(CardKeyword.Retain);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        HoverTipFactory.Static(StaticHoverTip.Block),
         EnergyHoverTip
     ];
 }

@@ -17,7 +17,7 @@ public class GreedySnake() : SnakeCardTemplate(1, CardType.Power, CardRarity.Unc
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
         await PowerCmd.Apply<GreedySnakePower>(choiceContext, Owner.Creature, DynamicVars["GreedySnakePower"].BaseValue, Owner.Creature, this);
     }
 

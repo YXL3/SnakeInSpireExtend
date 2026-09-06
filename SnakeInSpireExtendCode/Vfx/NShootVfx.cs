@@ -12,7 +12,7 @@ namespace SnakeInSpireExtend.Scripts.Vfx;
 
 public partial class NShootVfx : Node2D
 {
-    private Node2D _primaryVfx;
+    private Node2D _primaryVfx = null!;
 
     private Vector2 _creatureCenter;
 
@@ -20,7 +20,7 @@ public partial class NShootVfx : Node2D
 
     private Tween? _tween;
 
-    public static NShootVfx? Create(Creature? target, VfxColor vfxColor = VfxColor.Red, bool center = false)
+    public static NShootVfx? Create(Creature? target, VfxColor vfxColor = VfxColor.Gold, bool center = false)
     {
         if (NCombatRoom.Instance == null)
         {
@@ -47,34 +47,21 @@ public partial class NShootVfx : Node2D
         TaskHelper.RunSafely(Animate());
     }
 
+    private static readonly Dictionary<VfxColor, Color> ColorMap = new()
+    {
+        { VfxColor.Green, new Color("00A52F") },
+        { VfxColor.Blue,  new Color("007BDD") },
+        { VfxColor.Purple, new Color("A803FF") },
+        { VfxColor.White, new Color("808080") },
+        { VfxColor.Cyan,  new Color("009599") },
+        { VfxColor.Gold,  new Color("EBA800") },
+        { VfxColor.Red,  new Color("FF0000") },
+    };
+
     private void SetColor()
     {
-        switch (_vfxColor)
-        {
-            case VfxColor.Green:
-                _primaryVfx.SelfModulate = new Color("00A52F");
-                break;
-            case VfxColor.Blue:
-                _primaryVfx.SelfModulate = new Color("007BDD");
-                break;
-            case VfxColor.Purple:
-                _primaryVfx.SelfModulate = new Color("A803FF");
-                break;
-            case VfxColor.White:
-                _primaryVfx.SelfModulate = new Color("808080");
-                break;
-            case VfxColor.Cyan:
-                _primaryVfx.SelfModulate = new Color("009599");
-                break;
-            case VfxColor.Gold:
-                _primaryVfx.SelfModulate = new Color("EBA800");
-                break;
-            default:
-                _primaryVfx.SelfModulate = new Color("FF0000");
-                break;
-            case VfxColor.Black:
-                break;
-        }
+        if (_vfxColor == VfxColor.Black) return;
+        _primaryVfx.SelfModulate = ColorMap.GetValueOrDefault(_vfxColor, new Color("FF0000"));
     }
 
     private Vector2 GenerateSpawnPosition()
@@ -92,9 +79,8 @@ public partial class NShootVfx : Node2D
     private async Task Animate()
     {
         _tween = CreateTween().SetParallel();
-        _tween.TweenProperty(this, "modulate:a", 1f, 0.2);
         _tween.TweenProperty(_primaryVfx, "position", _creatureCenter, 0.2).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Back);
-        _tween.TweenProperty(this, "modulate:a", 0f, 0.25).SetDelay(0.25);
+        _tween.TweenProperty(this, "modulate:a", 0f, 0.3).SetDelay(0.2);
         await _tween.AwaitFinished(this);
         this.QueueFreeSafely();
     }

@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
 using SnakeInSpireExtend.Scripts.Extension;
 using SnakeInSpireExtend.Scripts.Models;
+using SnakeInSpireExtend.Scripts.Vfx;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
@@ -26,7 +27,7 @@ public class Overwhelm() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Unco
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target)
             .WithHitCount(DynamicVars.Repeat.IntValue)
-            .WithHitVfxNode(t => NStabVfx.Create(t, true, VfxColor.Gold))
+            .WithHitVfxNode(t => NShootVfx.Create(t, VfxColor.Gold))
             .WithHitFx(null, null, "blunt_attack.mp3")
             .Execute(choiceContext);
     }

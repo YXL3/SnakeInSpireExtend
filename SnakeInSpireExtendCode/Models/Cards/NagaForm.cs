@@ -13,6 +13,7 @@ public class NagaForm() : SnakeCardTemplate(3, CardType.Power, CardRarity.Rare, 
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
         await PowerCmd.Apply<NagaFormPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }
 

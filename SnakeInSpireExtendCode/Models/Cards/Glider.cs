@@ -11,6 +11,7 @@ public class Glider() : SnakeCardTemplate(2, CardType.Power, CardRarity.Uncommon
 {
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
         await PowerCmd.Apply<GliderPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
         if (IsUpgraded)
         {

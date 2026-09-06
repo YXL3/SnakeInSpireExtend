@@ -16,6 +16,7 @@ public class StrangeOil() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Rare
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         CardCmd.Upgrade(await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner), CardPreviewStyle.None);
     }
 
