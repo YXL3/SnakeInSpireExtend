@@ -1,0 +1,12 @@
+{
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_SNAKE_EYE.title": "Snake Eye",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_SNAKE_EYE.description": "The first time you draw due to [gold]Haste[/gold] each combat, draw [blue]{HasteDrawingAmount:diff()}[/blue] additional {HasteDrawingAmount:plural:card|cards}.",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_SNAKE_EYE.flavor": "Snake's instinct can see the next threat... or victim.",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_CALAMITY_EYE.title": "Calamity Eye",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_CALAMITY_EYE.description": "The first time you draw due to [gold]Haste[/gold] each combat, draw [blue]{HasteDrawingAmount:diff()}[/blue] additional {HasteDrawingAmount:plural:card|cards} and gain {Energy:energyIcons()}.",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_CALAMITY_EYE.flavor": "Seen all trace you've left upon the Spire.",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_BOTTLED_TIDE.title": "Bottled Tide",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_BOTTLED_TIDE.description": "The first time you fill your [gold]Hand[/gold] each combat, gain {Energy:energyIcons()}.",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_BOTTLED_TIDE.flavor": "The cork of this bottle is gently bumped from time to time.",
+    "SEA_GLASS.SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.title": "Scale Glass"
+}

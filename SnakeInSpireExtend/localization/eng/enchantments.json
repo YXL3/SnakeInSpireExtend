@@ -1,0 +1,5 @@
+{
+  "SNAKE_IN_SPIRE_EXTEND_ENCHANTMENT_CATACLYSM.description": "When played, [gold]Exhaust[/gold], then play all cards of the same type in your [gold]Hand[/gold].",
+  "SNAKE_IN_SPIRE_EXTEND_ENCHANTMENT_CATACLYSM.extraCardText": "Play all {Type} cards in your Hand.",
+  "SNAKE_IN_SPIRE_EXTEND_ENCHANTMENT_CATACLYSM.title": "Cataclysm"
+}

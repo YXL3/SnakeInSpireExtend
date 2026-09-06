@@ -9,8 +9,6 @@
     "SNAKE_IN_SPIRE_EXTEND_POWER_SNEAKY_PHANTOM_POWER.title":"潜行幻象",
     "SNAKE_IN_SPIRE_EXTEND_POWER_SNEAKY_PHANTOM_POWER.description":"下场战斗开始时，获得{Energy:energyIcons()}，将[gold]{Cards}[/gold]的复制品加入[gold]手牌[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_SNEAKY_PHANTOM_POWER.smartDescription":"下场战斗开始时，获得{Energy:energyIcons()}，将[gold]{Cards}[/gold]的复制品加入[gold]手牌[/gold]。",
-    "SNAKE_IN_SPIRE_EXTEND_POWER_TRACER_SHOT_POWER.title":"曳光弹",
-    "SNAKE_IN_SPIRE_EXTEND_POWER_TRACER_SHOT_POWER.description":"下一次将[gold]手牌[/gold]抽满时，获得{Amount:energyIcons()}。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_LAST_STAND_POWER.title":"背水一战",
     "SNAKE_IN_SPIRE_EXTEND_POWER_LAST_STAND_POWER.description":"回合结束时，打出你[gold]手牌[/gold]中[gold]迟滞[/gold]层数最多的一张牌其[gold]迟滞[/gold]层数次，并将其[gold]消耗[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_POWER_SNAKE_FURY_POWER.title":"蛇之怒",

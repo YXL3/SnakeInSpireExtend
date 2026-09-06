@@ -1,5 +1,5 @@
 {
-    "SNAKE_IN_SPIRE_EXTEND_RELIC_SNAKE_EYE.title": "真蛇之眼",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_SNAKE_EYE.title": "蛇之眼",
     "SNAKE_IN_SPIRE_EXTEND_RELIC_SNAKE_EYE.description": "每场战斗第一次因[gold]急促[/gold]抽牌时，多抽[blue]{HasteDrawingAmount:diff()}[/blue]张。",
     "SNAKE_IN_SPIRE_EXTEND_RELIC_SNAKE_EYE.flavor": "蛇的直觉能看到下一个威胁...或者牺牲品。",
     "SNAKE_IN_SPIRE_EXTEND_RELIC_CALAMITY_EYE.title": "灾殃之眼",

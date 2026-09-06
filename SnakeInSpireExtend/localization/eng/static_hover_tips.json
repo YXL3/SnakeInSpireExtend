@@ -1,0 +1,14 @@
+{
+    "HYSTERESIS.title":"Hysteresis",
+    "HYSTERESIS.description":"If a card with [gold]Hysteresis[/gold] enters your Discard Pile by being played, it returns to your Hand and loses [blue]1[/blue] [gold]Hysteresis[/gold].",
+    "HYSTERESIS.smartTitle":"Hysteresis {Hysteresis}",
+    "HYSTERESIS.smartDescription":"The next [blue]{Hysteresis}[/blue] {Hysteresis:plural:time|times} it enters your Discard Pile by being played, return it to your Hand.",
+    "HASTE.title":"Haste",
+    "HASTE.description":"After a card with [gold]Haste[/gold] is played, draw [blue]{HasteDrawingAmount}[/blue] {HasteDrawingAmount:plural:card|cards} and lose [gold]Haste[/gold]. The drawn cards gain [blue]the stacks lost - 1[/blue] [gold]Haste[/gold].",
+    "HASTE.smartTitle":"Haste {Haste}",
+    "HASTE.smartDescription":"After being played, draw [blue]{HasteDrawingAmount}[/blue] {HasteDrawingAmount:plural:card|cards} and lose [gold]Haste[/gold]. The drawn cards gain [blue]{HastePassingAmount}[/blue] [gold]Haste[/gold].",
+    "SNAKE_IN_SPIRE_TELEMETRY.displayNameText":"Snake mod",
+    "SNAKE_IN_SPIRE_TELEMETRY.requestBasicUsage":"Session start time, framework and game version, build channel, platform, language, and anonymous install ID.",
+    "SNAKE_IN_SPIRE_TELEMETRY.requestRunHistoryFiltered":"RunHistory data for runs played as the Snake that did not end in Abandon.",
+    "SNAKE_IN_SPIRE_TELEMETRY.requestDiagnostics":"Exception reports and framework runtime diagnostics."
+}

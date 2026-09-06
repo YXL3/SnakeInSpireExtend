@@ -1,0 +1,16 @@
+{
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.aromaPrinciple": "[sine][green]Freedom... and her share of it.[/green][/sine]",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.banter.alive.endTurnPing": "You'd better be looping.",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.banter.dead.endTurnPing": "...Did I deserve this?",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.cardsModifierDescription": "Snake cards will now appear in rewards and shops.",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.cardsModifierTitle": "Snake Cards",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.description": "[gold]The Silent[/gold]'s snake, unwilling to be reduced to the Snake on XuanWu, climbs the Spire alone.",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.eventDeathPrevention": "Loyalty to your friends VS filial piety to savior of your Deck, right?",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.goldMonologue": "[sine]Could buy 4 Footworks for [green]friend[/green]... what am I thinking...[/sine]",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.possessiveAdjective": "its",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.pronounObject": "it",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.pronounPossessive": "its",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.pronounSubject": "it",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.title": "Snake",
+  "SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.titleObject": "Snake"
+}
