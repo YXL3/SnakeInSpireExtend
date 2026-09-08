@@ -99,7 +99,7 @@
     "SNAKE_IN_SPIRE_EXTEND_CARD_SHARP_CLAWS.title": "利爪",
     "SNAKE_IN_SPIRE_EXTEND_CARD_SHAVE_THE_GROUND.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n如果这张牌有[gold]急促[/gold]，返回[gold]手牌[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_SHAVE_THE_GROUND.title": "贴地速滑",
-    "SNAKE_IN_SPIRE_EXTEND_CARD_SHED.description": "[gold]可无限升级[/gold]。\n获得{DexterityPower:diff()}点[gold]敏捷[/gold]。\n每当你[gold]休息[/gold]时，[gold]升级[/gold]这张牌。",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_SHED.description": "可无限[gold]升级[/gold]。\n获得{DexterityPower:diff()}点[gold]敏捷[/gold]。\n每当你[gold]休息[/gold]时，[gold]升级[/gold]这张牌。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_SHED.title": "蜕皮",
     "SNAKE_IN_SPIRE_EXTEND_CARD_SHELTER.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n这张牌的[gold]急促[/gold]多抽{HasteDrawingAmount:diff()}张牌。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_SHELTER.title": "掩蔽",

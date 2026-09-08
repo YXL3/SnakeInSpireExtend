@@ -1,10 +1,8 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
-using SnakeInSpireExtend.Scripts.Extension;
 using SnakeInSpireExtend.Scripts.Models;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
@@ -33,6 +31,4 @@ public class SwiftStrike() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Co
     {
         DynamicVars.Damage.UpgradeValueBy(3m);
     }
-
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [..Helper.HasteHoverTipIfNeeded(this)];
 }

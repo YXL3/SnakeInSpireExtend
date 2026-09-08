@@ -18,7 +18,7 @@ public static class SnakeModRewardRegister
 
     public static void TransformRegister()
     {
-        var definition = ModRewardRegistry.For("SnakeInSpireExtend")
+        ModRewardDefinition definition = ModRewardRegistry.For("SnakeInSpireExtend")
             .RegisterOwned("card_transform", (SerializableReward save, Player player, string? json) =>
             {
                 CardModel? targetCard = null;

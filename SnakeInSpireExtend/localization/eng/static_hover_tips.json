@@ -4,7 +4,7 @@
     "HYSTERESIS.smartTitle":"Hysteresis {Hysteresis}",
     "HYSTERESIS.smartDescription":"The next [blue]{Hysteresis}[/blue] {Hysteresis:plural:time|times} it enters your Discard Pile by being played, return it to your Hand.",
     "HASTE.title":"Haste",
-    "HASTE.description":"After a card with [gold]Haste[/gold] is played, draw [blue]{HasteDrawingAmount}[/blue] {HasteDrawingAmount:plural:card|cards} and lose [gold]Haste[/gold]. The drawn cards gain [blue]the stacks lost - 1[/blue] [gold]Haste[/gold].",
+    "HASTE.description":"After a card with [gold]Haste[/gold] is played, draw [blue]{HasteDrawingAmount}[/blue] {HasteDrawingAmount:plural:card|cards} and lose [gold]Haste[/gold]. The drawn cards gain [gold]Haste[/gold] [blue]lost Haste - 1[/blue] .",
     "HASTE.smartTitle":"Haste {Haste}",
     "HASTE.smartDescription":"After being played, draw [blue]{HasteDrawingAmount}[/blue] {HasteDrawingAmount:plural:card|cards} and lose [gold]Haste[/gold]. The drawn cards gain [blue]{HastePassingAmount}[/blue] [gold]Haste[/gold].",
     "SNAKE_IN_SPIRE_TELEMETRY.displayNameText":"Snake mod",

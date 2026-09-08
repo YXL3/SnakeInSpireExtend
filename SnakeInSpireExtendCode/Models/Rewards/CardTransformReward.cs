@@ -9,7 +9,6 @@ using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using STS2RitsuLib.Combat.Rewards;
 
-
 namespace SnakeInSpireExtend.Scripts.Rewards;
 
 public class CardTransformReward : ModCustomReward
@@ -56,25 +55,24 @@ public class CardTransformReward : ModCustomReward
 
     protected override async Task<bool> OnSelect()
     {
+        CardSelectorPrefs prefs = new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, 1)
+        {
+            Cancelable = true,
+            RequireManualConfirmation = true
+        };
         if (_targetCard != null)
         {
-            CardSelectorPrefs cardSelectorPrefs = new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, 1)
-            {
-                Cancelable = true,
-                RequireManualConfirmation = true
-            };
             if(_targetCard.Owner == null)
             {
                 _targetCard.Owner = Player;
             }
-            List<CardTransformation> transformations = (await CardSelectCmd.FromDeckForTransformation(Player, cardSelectorPrefs,
-            (CardModel c) => new CardTransformation(c, _targetCard)))
-            .Select((CardModel original) => new CardTransformation(original, _targetCard)).ToList();
-            await CardCmd.Transform(transformations, Player.PlayerRng.Transformations);
+            List<CardTransformation> transformations = (await CardSelectCmd.FromDeckForTransformation(Player, prefs, c => new CardTransformation(c, _targetCard)))
+            .Select(c => new CardTransformation(c, _targetCard)).ToList();
+            await CardCmd.Transform(transformations, null);
         }
         else
         {
-            CardModel? card = (await CardSelectCmd.FromDeckForTransformation(Player, new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, 1))).FirstOrDefault();
+            CardModel? card = (await CardSelectCmd.FromDeckForTransformation(Player, prefs)).FirstOrDefault();
             if (card == null)
             {
                 return false;
@@ -83,6 +81,7 @@ public class CardTransformReward : ModCustomReward
         }
         return true;
     }
+
     public override SerializableReward ToSerializable()
     {
         var result = ModRewardSerialization.CreateSerializable(this);
@@ -93,17 +92,11 @@ public class CardTransformReward : ModCustomReward
         return result;
     }
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips {
+    protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
         get
         {
-            if(_targetCard != null)
-            {
-                return [HoverTipFactory.FromCard(_targetCard)];
-            }
-            else
-            {
-                return Array.Empty<IHoverTip>();
-            }
+            if (_targetCard != null) yield return HoverTipFactory.FromCard(_targetCard);
         }
     }
 }

@@ -6,14 +6,10 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
-using SnakeInSpireExtend.Scripts.PotionPools;
-using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Potions;
 
-[RegisterPotion(typeof(SnakePotionPool))]
-public class MonsterBlood : ModPotionTemplate
+public class MonsterBlood : SnakePotionTemplate
 {
     public override PotionRarity Rarity => PotionRarity.Common;
 
@@ -24,11 +20,6 @@ public class MonsterBlood : ModPotionTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VigorPower>(12m)];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<VigorPower>()];
-
-    public override PotionAssetProfile AssetProfile => new(
-        ImagePath: $"res://SnakeInSpireExtend/images/potions/{GetType().Name}.png",
-        OutlinePath: $"res://SnakeInSpireExtend/images/potions/{GetType().Name}.png"
-    );
 
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
     {

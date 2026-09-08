@@ -3,28 +3,14 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Relics;
 using MegaCrit.Sts2.Core.Rooms;
 using SnakeInSpireExtend.Scripts.Extension;
-using SnakeInSpireExtend.Scripts.RelicPools;
-using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace SnakeInSpireExtend.Scripts.Relics;
 
-[RegisterRelic(typeof(SnakeRelicPool))]
-public class CalamityEye : ModRelicTemplate, IHasteModifier
+public class CalamityEye : SnakeRelicTemplate, IHasteModifier
 {
     public override RelicRarity Rarity => RelicRarity.Starter;
-
-    public override RelicAssetProfile AssetProfile => new(
-        // 小图标（原版85x85）
-        IconPath: $"res://SnakeInSpireExtend/images/relics/{GetType().Name}.png",
-        // 轮廓图标（原版85x85）
-        IconOutlinePath: $"res://SnakeInSpireExtend/images/relics/{GetType().Name}.png",
-        // 大图标（原版256x256）
-        BigIconPath: $"res://SnakeInSpireExtend/images/relics/{GetType().Name}.png"
-    );
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DynamicVar("HasteDrawingAmount", 2m),
@@ -49,9 +35,16 @@ public class CalamityEye : ModRelicTemplate, IHasteModifier
         }
     }
 
-    public override Task AfterCombatEnd(CombatRoom _)
+    public override Task BeforeCombatStart()
     {
         UsedThisCombat = false;
+        Status = RelicStatus.Active;
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterCombatEnd(CombatRoom _)
+    {
+        Status = RelicStatus.Normal;
         return Task.CompletedTask;
     }
 
@@ -74,6 +67,7 @@ public class CalamityEye : ModRelicTemplate, IHasteModifier
         {
             Flash();
             UsedThisCombat = true;
+            Status = RelicStatus.Normal;
             await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
             return DynamicVars["HasteDrawingAmount"].BaseValue;
         }

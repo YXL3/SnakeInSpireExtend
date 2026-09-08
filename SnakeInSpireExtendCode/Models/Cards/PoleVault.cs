@@ -11,8 +11,8 @@ public class PoleVault() : SnakeCardTemplate(3, CardType.Attack, CardRarity.Comm
     public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(14m, ValueProp.Move),
-        new BlockVar(14m, ValueProp.Move),
+        new DamageVar(15m, ValueProp.Move),
+        new BlockVar(15m, ValueProp.Move),
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
@@ -30,7 +30,7 @@ public class PoleVault() : SnakeCardTemplate(3, CardType.Attack, CardRarity.Comm
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4m);
-        DynamicVars.Block.UpgradeValueBy(4m);
+        DynamicVars.Damage.UpgradeValueBy(5m);
+        DynamicVars.Block.UpgradeValueBy(5m);
     }
 }

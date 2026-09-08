@@ -37,7 +37,7 @@ public class Contagion() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Rare
                 .Execute(choiceContext);
             if (shouldTriggerFatal && attackCommand.Results.SelectMany((List<DamageResult> r) => r).Any((DamageResult r) => r.WasTargetKilled))
             {
-                CardModel cardModel = CombatState.CreateCard<Contagion>(Owner);
+                CardModel cardModel = Owner.RunState.CreateCard<Contagion>(Owner);
                 if (IsUpgraded)
                 {
                     CardCmd.Upgrade(cardModel);
