@@ -15,8 +15,6 @@ public class BounceBack() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Unco
         new DynamicVar("HysteresisVar", 1m)
     ];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         foreach (CardModel item in await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(SelectionScreenPrompt, 1), null, this))
@@ -38,7 +36,7 @@ public class BounceBack() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Unco
 
     protected override void OnUpgrade()
     {
-        DynamicVars["HysteresisVar"].UpgradeValueBy(1m);
+        AddKeyword(CardKeyword.Retain);
     }
     
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [

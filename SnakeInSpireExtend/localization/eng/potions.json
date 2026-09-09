@@ -1,6 +1,8 @@
 {
     "SNAKE_IN_SPIRE_EXTEND_POTION_MONSTER_BLOOD.title": "Monster Blood",
     "SNAKE_IN_SPIRE_EXTEND_POTION_MONSTER_BLOOD.description": "Gain [blue]{VigorPower}[/blue] [gold]Vigor[/gold].",
+    "SNAKE_IN_SPIRE_EXTEND_POTION_PURE_POTION.title": "Pure Potion",
+    "SNAKE_IN_SPIRE_EXTEND_POTION_PURE_POTION.description": "Enchant all cards in your [gold]Draw Pile[/gold] with [purple]Adroit[/purple] {Adroit:diff()}",
     "SNAKE_IN_SPIRE_EXTEND_POTION_SNAKE_DEW.title": "Snake Dew",
     "SNAKE_IN_SPIRE_EXTEND_POTION_SNAKE_DEW.description": "Choose a card in your [gold]Hand[/gold], Add [blue]{Cards}[/blue] {Cards:plural:copy|copies} of it to your [gold]Hand[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_POTION_SNAKE_DEW.selectionScreenPrompt": "Choose a card."

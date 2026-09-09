@@ -19,9 +19,7 @@ public class IronGem() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Common,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        CardSelectorPrefs prefs = new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1);
-        Adroit canonicalEnchantment = ModelDb.Enchantment<Adroit>();
-        foreach (CardModel card in await CardSelectCmd.FromHand(choiceContext, Owner, prefs,
+        foreach (CardModel card in await CardSelectCmd.FromHand(choiceContext, Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1),
          c => c.Type == CardType.Attack && ModelDb.Enchantment<Adroit>().CanEnchant(c), this))
         {
             CardCmd.Enchant<Adroit>(card, DynamicVars["Adroit"].BaseValue);

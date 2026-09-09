@@ -1,5 +1,5 @@
 {
-  "THE_ARCHITECT.talk.SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.0-0r.ancient": "A ravenous beast?",
+  "THE_ARCHITECT.talk.SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.0-0r.ancient": "A ravenous animal?",
   "THE_ARCHITECT.talk.SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.0-0r.next": "Respond",
   "THE_ARCHITECT.talk.SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.0-1r.char": "There is someone who desires you more than I do.",
   "THE_ARCHITECT.talk.SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.0-1r.next": "Continue",
@@ -10,7 +10,7 @@
   "THE_ARCHITECT.talk.SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.1-0r.next": "Respond",
   "THE_ARCHITECT.talk.SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.1-1r.char": "Neither of us needs to feign ignorance.",
   "THE_ARCHITECT.talk.SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.1-1r.next": "Continue",
-  "THE_ARCHITECT.talk.SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.1-2r.ancient": "I know, you [green]prey[/green].",
+  "THE_ARCHITECT.talk.SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.1-2r.ancient": "I know, [green]prey[/green].",
   "THE_ARCHITECT.talk.SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.1-attack": "Both",
 
   "THE_ARCHITECT.talk.SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.2-0r.ancient": "Neow's doing, was it? Killing her serves your purpose.",
