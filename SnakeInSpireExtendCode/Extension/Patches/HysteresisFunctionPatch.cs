@@ -10,7 +10,7 @@ public class HysteresisFunctionPatch : IPatchMethod
 
     public static string Description => "Hysteresis function";
 
-    public static bool IsCritical => false;
+    public static bool IsCritical => true;
 
     public static ModPatchTarget[] GetTargets()
     {

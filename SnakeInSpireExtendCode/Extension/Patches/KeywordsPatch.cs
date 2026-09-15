@@ -13,7 +13,7 @@ public class KeywordsPatch : IPatchMethod
 
     public static string Description => "Keywords for Keen.";
 
-    public static bool IsCritical => false;
+    public static bool IsCritical => true;
 
     public static ModPatchTarget[] GetTargets()
     {

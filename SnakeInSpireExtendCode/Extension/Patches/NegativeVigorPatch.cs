@@ -11,7 +11,7 @@ public class NegativeVigorPatch : IPatchMethod
 
     public static string Description => "Patch that override VigorPower's AllowNegative to true.";
 
-    public static bool IsCritical => false;
+    public static bool IsCritical => true;
 
     public static ModPatchTarget[] GetTargets()
     {

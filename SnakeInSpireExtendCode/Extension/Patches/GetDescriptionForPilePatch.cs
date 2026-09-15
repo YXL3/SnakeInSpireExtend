@@ -13,7 +13,7 @@ public class GetDescriptionForPilePatch : IPatchMethod
 
     public static string Description => "GetDescriptionForPile for Hysteresis and Haste.";
 
-    public static bool IsCritical => false;
+    public static bool IsCritical => true;
 
     public static ModPatchTarget[] GetTargets()
     {

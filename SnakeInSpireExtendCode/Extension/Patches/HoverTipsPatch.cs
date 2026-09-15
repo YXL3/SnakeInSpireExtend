@@ -12,7 +12,7 @@ public class HoverTipsPatch : IPatchMethod
 
     public static string Description => "HoverTips for Hysteresis and Haste.";
 
-    public static bool IsCritical => false;
+    public static bool IsCritical => true;
 
     public static ModPatchTarget[] GetTargets()
     {

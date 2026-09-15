@@ -80,6 +80,8 @@
     "SNAKE_IN_SPIRE_EXTEND_CARD_OVERWHELM.title": "Overwhelm",
     "SNAKE_IN_SPIRE_EXTEND_CARD_POLE_VAULT.description": "Deal {Damage:diff()} damage.\nGain {Block:diff()} [gold]Block[/gold].",
     "SNAKE_IN_SPIRE_EXTEND_CARD_POLE_VAULT.title": "Pole Vault",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_PREDATE.description": "Deal {Damage:diff()} damage.\nApply {WeakPower:diff()} [gold]Weak[/gold].",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_PREDATE.title": "Predate",
     "SNAKE_IN_SPIRE_EXTEND_CARD_PRIME.description": "Gain {VigorPower:diff()} [gold]Vigor[/gold].",
     "SNAKE_IN_SPIRE_EXTEND_CARD_PRIME.title": "Prime",
     "SNAKE_IN_SPIRE_EXTEND_CARD_PSYCHOKINESIS.description": "Whenever you draw due to [gold]Haste[/gold], draw {PsychokinesisPower:diff()} additional {PsychokinesisPower:plural:card|cards}.",

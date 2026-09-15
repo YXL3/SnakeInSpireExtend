@@ -12,7 +12,7 @@ using SnakeInSpireExtend.Scripts.Extension;
 namespace SnakeInSpireExtend.Scripts.Cards;
 
 public class TailWhip() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
-{    
+{
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(10m, ValueProp.Move),
         new PowerVar<VulnerablePower>(2m),

@@ -13,7 +13,7 @@ public class SnakeCardPortraitFilterPatch : IPatchMethod
 
     public static string Description => "Sets nearest-neighbor texture filtering on portrait nodes for Snake card inheritors.";
 
-    public static bool IsCritical => false;
+    public static bool IsCritical => true;
 
     public static ModPatchTarget[] GetTargets()
     {

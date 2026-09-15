@@ -48,7 +48,6 @@ public class SnakeEye : SnakeRelicTemplate, IHasteModifier
         return Task.CompletedTask;
     }
 
-
     public decimal ReadHasteModifier(CardModel card, decimal currentValue)
     {
         if (!UsedThisCombat)

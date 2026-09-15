@@ -16,7 +16,7 @@ public class SnakeDew : SnakePotionTemplate
 
     public override PotionUsage Usage => PotionUsage.CombatOnly;
 
-    public override TargetType TargetType => TargetType.Self;
+    public override TargetType TargetType => TargetType.AnyPlayer;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
 
@@ -32,7 +32,7 @@ public class SnakeDew : SnakePotionTemplate
             {
                 CardModel copy = card.CreateClone();
                 CardCmd.ClearAffliction(copy);
-                await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, Owner);
+                await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, player);
             }
         }
     }

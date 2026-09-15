@@ -18,14 +18,32 @@
       <Private>false</Private>
     </Reference>
 
-    <Reference Include="STS2-RitsuLib">
-      <HintPath>$(RitsuLibDir)</HintPath>
+    <Reference Include="STS2-RitsuLib-compat">
+      <HintPath>$(RitsuLibCompat)</HintPath>
       <Private>false</Private>
     </Reference>
-  <!-- NuGet获取，注意版本是否一致，不一致手动更改Version -->
+
+    <Reference Include="STS2-RitsuLib-compat-runtime">
+      <HintPath>$(RitsuLibCompatRuntime)</HintPath>
+      <Private>false</Private>
+    </Reference>
+  
+    <Reference Include="STS2-RitsuLib-shared">
+      <HintPath>$(RitsuLibShared)</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <Reference Include="STS2-RitsuLib-settings">
+      <HintPath>$(RitsuLibSettings)</HintPath>
+      <Private>false</Private>
+    </Reference>
+  
+    <Reference Include="STS2-RitsuLib-ui">
+      <HintPath>$(RitsuLibUi)</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 
-  <!-- 自动复制dll和json -->
   <Target Name="Copy Mod" AfterTargets="PostBuildEvent">
     <Message Text="Copying mod to Slay the Spire 2 mods folder..." Importance="high" />
     <MakeDir Directories="$(Sts2Dir)\mods\" />

@@ -8,5 +8,11 @@
     "SNAKE_IN_SPIRE_EXTEND_RELIC_BOTTLED_TIDE.title": "Bottled Tide",
     "SNAKE_IN_SPIRE_EXTEND_RELIC_BOTTLED_TIDE.description": "The first time you fill your [gold]Hand[/gold] each combat, gain {Energy:energyIcons()}.",
     "SNAKE_IN_SPIRE_EXTEND_RELIC_BOTTLED_TIDE.flavor": "The cork of this bottle is gently bumped from time to time.",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_PRIMING_FLASK.title": "Primimg Flask",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_PRIMING_FLASK.description": "The first time you gain [gold]Vigor[/gold] each combat, triple the amount gained.",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_PRIMING_FLASK.flavor": "Explosive, careful when carrying.",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_PLANT_SAC.title": "Plant Sac",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_PLANT_SAC.description": "At the start of your turn, Add a [gold]Predact[/gold] into your [gold]Hand[/gold].",
+    "SNAKE_IN_SPIRE_EXTEND_RELIC_PLANT_SAC.flavor": "Smooth, seamless pink sphere.",
     "SEA_GLASS.SNAKE_IN_SPIRE_EXTEND_CHARACTER_SNAKE.title": "Scale Glass"
 }
