@@ -17,11 +17,15 @@ namespace SnakeInSpireExtend.Scripts;
 
 [ModInitializer(nameof(Init))]
 public class Entry
-{ 
+{
     public const string ModId = "SnakeInSpireExtend";
+
     public static readonly Logger Logger = RitsuLibFramework.CreateLogger(ModId);
+
     private const string SneakyPhantomSavedDataKey = "sneaky_phantom_carry_over";
+
     public static PlayerRunSavedData<PhantomCarryOverState> SneakyPhantomSavedData = null!;
+
     public static void Init()
     {
         Assembly assembly = Assembly.GetExecutingAssembly();

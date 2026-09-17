@@ -6,7 +6,6 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
-using SnakeInSpireExtend.Scripts.Extension;
 using SnakeInSpireExtend.Scripts.Vfx;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
@@ -52,7 +51,6 @@ public class CursedSlug() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Rar
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        HoverTipFactory.FromCard<MegaCrit.Sts2.Core.Models.Cards.Void>(),
-        ..Helper.HasteHoverTipIfNeeded(this)
+        HoverTipFactory.FromCard<MegaCrit.Sts2.Core.Models.Cards.Void>()
     ];
 }
