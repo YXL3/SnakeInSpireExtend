@@ -1,0 +1,80 @@
+<Project>
+  <PropertyGroup>
+    <SnakeArtifactsDir Condition="'$(SnakeArtifactsDir)' == ''">$(MSBuildProjectDirectory)\artifacts</SnakeArtifactsDir>
+    <SnakeVariantWorkDir Condition="'$(SnakeVariantWorkDir)' == ''">$(SnakeArtifactsDir)\variant-build</SnakeVariantWorkDir>
+    <SnakeStageRoot Condition="'$(SnakeStageRoot)' == ''">$(SnakeArtifactsDir)\variant-pack</SnakeStageRoot>
+    <SnakeStageDir Condition="'$(SnakeStageDir)' == ''">$(SnakeStageRoot)\$(MSBuildProjectName)</SnakeStageDir>
+    <SnakeCopyToGame Condition="'$(SnakeCopyToGame)' == ''">true</SnakeCopyToGame>
+    <SnakeModsDir Condition="'$(SnakeModsDir)' == ''">$(Sts2Dir)\mods\$(MSBuildProjectName)</SnakeModsDir>
+  </PropertyGroup>
+
+  <Target Name="BuildSnakeVariantPack"
+          AfterTargets="Build"
+          Condition="'$(SnakeVariantBuild)' != 'true' and '$(SnakeSkipVariantPack)' != 'true' and '$(DesignTimeBuild)' != 'true'">
+    <Message Text="Building SnakeInSpireExtend variant pack..." Importance="high" />
+
+    <RemoveDir Directories="$(SnakeStageDir)" />
+    <RemoveDir Directories="$(SnakeVariantWorkDir)" />
+
+    <MakeDir Directories="$(SnakeStageDir)\compat\0.107.1;$(SnakeStageDir)\compat\0.111.0;$(SnakeStageDir)\shared" />
+
+    <!-- Build both actual mod variants with isolated output directories. -->
+    <MSBuild Projects="$(MSBuildProjectFullPath)"
+             Targets="Build"
+             BuildInParallel="false"
+             Properties="Configuration=$(Configuration);Sts2ApiCompat=0.107.1;SnakeVariantBuild=true;SnakeVariantWorkDir=$(SnakeVariantWorkDir)" />
+
+    <MSBuild Projects="$(MSBuildProjectFullPath)"
+             Targets="Build"
+             BuildInParallel="false"
+             Properties="Configuration=$(Configuration);Sts2ApiCompat=0.111.0;SnakeVariantBuild=true;SnakeVariantWorkDir=$(SnakeVariantWorkDir)" />
+
+    <!-- Loader is compiled once against the oldest supported API. -->
+    <MSBuild Projects="$(MSBuildProjectDirectory)\SnakeInSpireExtend.Loader\SnakeInSpireExtend.Loader.csproj"
+             Targets="Restore;Build"
+             BuildInParallel="false"
+             Properties="Configuration=$(Configuration);Sts2ApiCompat=0.107.1;SnakeVariantWorkDir=$(SnakeVariantWorkDir)" />
+
+    <Copy SourceFiles="$(SnakeVariantWorkDir)\0.107.1\bin\$(Configuration)\$(MSBuildProjectName).dll"
+          DestinationFolder="$(SnakeStageDir)\compat\0.107.1" />
+    <Copy SourceFiles="$(SnakeVariantWorkDir)\0.111.0\bin\$(Configuration)\$(MSBuildProjectName).dll"
+          DestinationFolder="$(SnakeStageDir)\compat\0.111.0" />
+
+    <!-- Root file is the loader renamed to the manifest assembly name. -->
+    <Copy SourceFiles="$(SnakeVariantWorkDir)\loader\bin\$(Configuration)\net9.0\SnakeInSpireExtend.Loader.dll"
+          DestinationFiles="$(SnakeStageDir)\$(MSBuildProjectName).dll" />
+
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(MSBuildProjectName).json"
+          DestinationFolder="$(SnakeStageDir)" />
+
+    <!-- Variant manifest read by the loader. -->
+    <ItemGroup>
+      <SnakeVariantManifestLine Include="{" />
+      <SnakeVariantManifestLine Include='  "schema": 2,' />
+      <SnakeVariantManifestLine Include='  "shared": [],' />
+      <SnakeVariantManifestLine Include='  "variants": [' />
+      <SnakeVariantManifestLine Include='    { "compatTarget": "0.107.1", "files": [ { "assembly": "SnakeInSpireExtend" } ] },' />
+      <SnakeVariantManifestLine Include='    { "compatTarget": "0.111.0", "files": [ { "assembly": "SnakeInSpireExtend" } ] }' />
+      <SnakeVariantManifestLine Include='  ]' />
+      <SnakeVariantManifestLine Include='}' />
+    </ItemGroup>
+    <WriteLinesToFile File="$(SnakeStageDir)\snake-in-spire-extend.variants.json"
+                      Lines="@(SnakeVariantManifestLine)"
+                      Overwrite="true"
+                      Encoding="UTF-8" />
+
+    <!-- Export one PCK for both variants. The outer build already produced the primary assembly. -->
+    <Exec Command="&quot;$(GodotExe)&quot; --headless --export-pack &quot;Windows Desktop&quot; &quot;$(SnakeStageDir)\$(MSBuildProjectName).pck&quot;"
+          EnvironmentVariables="IsInnerGodotExport=true;MSBUILDDISABLENODEREUSE=1;SnakeSkipVariantPack=true" />
+
+    <!-- Copy the whole staged mod folder into the game's mods directory. -->
+    <MakeDir Directories="$(SnakeModsDir)" Condition="'$(SnakeCopyToGame)' == 'true'" />
+    <ItemGroup Condition="'$(SnakeCopyToGame)' == 'true'">
+      <SnakeStageFiles Include="$(SnakeStageDir)\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(SnakeStageFiles)"
+          DestinationFiles="@(SnakeStageFiles->'$(SnakeModsDir)\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true"
+          Condition="'$(SnakeCopyToGame)' == 'true'" />
+  </Target>
+</Project>

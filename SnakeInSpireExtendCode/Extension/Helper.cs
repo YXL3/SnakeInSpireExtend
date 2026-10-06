@@ -48,7 +48,7 @@ public static class Helper
         return true;
     }
 
-    public static HoverTip StaticHoverTipFromPowers(string name, params DynamicVar[] descriptionVars)
+    public static HoverTip StaticHoverTip(string name, params DynamicVar[] descriptionVars)
     {
         LocString locString = new LocString("static_hover_tips", name + ".title");
         LocString locString2 = new LocString("static_hover_tips", name + ".description");
@@ -59,7 +59,7 @@ public static class Helper
         return new HoverTip(locString, locString2);
     }
 
-    public static HoverTip SmartHoverTipFromPowers(CardModel card, string name, params DynamicVar[] descriptionVars)
+    public static HoverTip SmartStaticHoverTip(CardModel card, string name, params DynamicVar[] descriptionVars)
     {
         LocString locString = new LocString("static_hover_tips", $"{name.ToUpper()}.smartTitle");
         LocString locString2 = new LocString("static_hover_tips", $"{name.ToUpper()}.smartDescription");
@@ -74,12 +74,12 @@ public static class Helper
 
     private static HoverTip HysteresisHoverTip()
     {
-        return StaticHoverTipFromPowers("HYSTERESIS");
+        return StaticHoverTip("HYSTERESIS");
     }
 
     private static HoverTip HasteHoverTip(CardModel card)
     {
-        return StaticHoverTipFromPowers("HASTE", new DynamicVar("HasteDrawingAmount", 1m + GetOwnerPowerAmount<PsychokinesisPower>(card)));
+        return StaticHoverTip("HASTE", new DynamicVar("HasteDrawingAmount", 1m + GetOwnerPowerAmount<PsychokinesisPower>(card)));
     }
 
     public static IEnumerable<IHoverTip> ConditionalHoverTip(CardModel card, string name, Func<HoverTip> tipFactory)
@@ -93,7 +93,7 @@ public static class Helper
 
     public static HoverTip HasteHoverTip(RelicModel relic)
     {
-        return StaticHoverTipFromPowers("HASTE", new DynamicVar("HasteDrawingAmount", 1m + GetOwnerPowerAmount<PsychokinesisPower>(relic)));
+        return StaticHoverTip("HASTE", new DynamicVar("HasteDrawingAmount", 1m + GetOwnerPowerAmount<PsychokinesisPower>(relic)));
     }
 
     public static bool HasCustomDynamic(CardModel card, string name)

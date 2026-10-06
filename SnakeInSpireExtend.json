@@ -1,10 +1,11 @@
 {
   "id": "SnakeInSpireExtend",
+  "pck_name": "SnakeInSpireExtend",
   "name": "蛇mod",
   "author": "CDlight",
   "description": "Snake character mod.",
   "version": "0.2.0",
-  "min_game_version": "0.111.0",
+  "min_game_version": "0.107.1",
   "has_pck": true,
   "has_dll": true,
   "dependencies": [

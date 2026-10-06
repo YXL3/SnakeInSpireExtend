@@ -20,7 +20,12 @@ public class Defender() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Commo
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if(CombatState == null) return;
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+#if STS2_AT_LEAST_0_111_0
+            .FromCard(this, cardPlay)
+#else
+            .FromCard(this)
+#endif
             .TargetingAllOpponents(CombatState)
             .WithHitCount(DynamicVars.Repeat.IntValue)
             .WithHitFx("vfx/vfx_attack_blunt")

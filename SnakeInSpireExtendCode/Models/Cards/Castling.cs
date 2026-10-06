@@ -30,6 +30,6 @@ public class Castling() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Uncomm
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(4m);
+        DynamicVars.Block.UpgradeValueBy(3m);
     }
 }

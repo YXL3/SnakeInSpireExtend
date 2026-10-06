@@ -25,7 +25,13 @@ public class CursedSlug() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Rar
     {
         if(CombatState == null) return;
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+#if STS2_AT_LEAST_0_111_0
+            .FromCard(this, cardPlay)
+#else
+            .FromCard(this)
+#endif
+            .Targeting(cardPlay.Target)
             .WithHitCount(DynamicVars.Repeat.IntValue)
             .WithHitVfxNode(t => NShootVfx.Create(t, VfxColor.Purple))
             .WithHitFx(null, null, "blunt_attack.mp3")

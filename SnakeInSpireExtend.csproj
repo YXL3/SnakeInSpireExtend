@@ -1,61 +1,65 @@
 <Project Sdk="Godot.NET.Sdk/4.5.1">
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>true</ImplicitUsings>
     <LangVersion>12.0</LangVersion>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>SnakeInSpireExtend</AssemblyName>
+    <RootNamespace>SnakeInSpireExtend</RootNamespace>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Default used by VSCode/IntelliSense when no command-line property is supplied. -->
+    <Sts2ApiCompat Condition="'$(Sts2ApiCompat)' == ''">0.107.1</Sts2ApiCompat>
+    <SnakeCompatTargets Condition="'$(SnakeCompatTargets)' == ''">0.107.1;0.111.0</SnakeCompatTargets>
+
+    <!-- Select the game reference assembly for this variant. -->
+    <Sts2DllPath Condition="'$(Sts2ApiCompat)' == '0.107.1'">$(Sts2_0_107_1_Sts2Dll)</Sts2DllPath>
+    <Sts2DllPath Condition="'$(Sts2ApiCompat)' != '0.107.1'">$(Sts2_0_111_0_Dir)\sts2.dll</Sts2DllPath>
+
+    <!-- RitsuLib reference assemblies are selected by API version too. -->
+    <RitsuLibReferenceTarget>$(Sts2ApiCompat)</RitsuLibReferenceTarget>
+
+    <!-- Version-conditional code symbols. -->
+    <DefineConstants Condition="$([MSBuild]::VersionGreaterThanOrEquals('$(Sts2ApiCompat)', '0.107.1'))">$(DefineConstants);STS2_AT_LEAST_0_107_1</DefineConstants>
+    <DefineConstants Condition="$([MSBuild]::VersionGreaterThanOrEquals('$(Sts2ApiCompat)', '0.111.0'))">$(DefineConstants);STS2_AT_LEAST_0_111_0</DefineConstants>
+  </PropertyGroup>
+
+  <!-- Recursive variant builds must not share output/obj directories. -->
+  <PropertyGroup Condition="'$(SnakeVariantBuild)' == 'true'">
+    <IntermediateOutputPath>$(SnakeVariantWorkDir)\$(Sts2ApiCompat)\obj\$(Configuration)\</IntermediateOutputPath>
+    <OutputPath>$(SnakeVariantWorkDir)\$(Sts2ApiCompat)\bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="sts2">
-      <HintPath>$(Sts2DataDir)\sts2.dll</HintPath>
+      <HintPath>$(Sts2DllPath)</HintPath>
       <Private>false</Private>
     </Reference>
 
     <Reference Include="0Harmony">
-      <HintPath>$(Sts2DataDir)\0Harmony.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-
-    <Reference Include="STS2-RitsuLib-compat">
-      <HintPath>$(RitsuLibCompat)</HintPath>
-      <Private>false</Private>
-    </Reference>
-
-    <Reference Include="STS2-RitsuLib-compat-runtime">
-      <HintPath>$(RitsuLibCompatRuntime)</HintPath>
-      <Private>false</Private>
-    </Reference>
-  
-    <Reference Include="STS2-RitsuLib-shared">
-      <HintPath>$(RitsuLibShared)</HintPath>
-      <Private>false</Private>
-    </Reference>
-
-    <Reference Include="STS2-RitsuLib-settings">
-      <HintPath>$(RitsuLibSettings)</HintPath>
-      <Private>false</Private>
-    </Reference>
-  
-    <Reference Include="STS2-RitsuLib-ui">
-      <HintPath>$(RitsuLibUi)</HintPath>
+      <HintPath>$(HarmonyDllPath)</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
+  <!-- Exclude generated variant-pack and Godot intermediate sources from the SDK globs. -->
+  <ItemGroup>
+    <Compile Remove="artifacts\**" />
+    <None Remove="artifacts\**" />
+    <Content Remove="artifacts\**" />
+    <EmbeddedResource Remove="artifacts\**" />
 
-  <Target Name="Copy Mod" AfterTargets="PostBuildEvent">
-    <Message Text="Copying mod to Slay the Spire 2 mods folder..." Importance="high" />
-    <MakeDir Directories="$(Sts2Dir)\mods\" />
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(Sts2Dir)\mods\$(MSBuildProjectName)\" />
-    <Copy SourceFiles="$(MSBuildProjectName).json" DestinationFolder="$(Sts2Dir)/mods/$(MSBuildProjectName)/" />
-  </Target>
+    <Compile Remove=".godot\mono\temp\obj\**" />
+    <None Remove=".godot\mono\temp\obj\**" />
+    <Content Remove=".godot\mono\temp\obj\**" />
+    <EmbeddedResource Remove=".godot\mono\temp\obj\**" />
+  </ItemGroup>
 
-  <Target Name="ExportPck" AfterTargets="Copy Mod">
-    <Message Text="Copying PCK to Slay the Spire 2 mods folder..." Importance="high" />
-    <Exec Command="&quot;$(GodotExe)&quot; --headless --export-pack &quot;Windows Desktop&quot; &quot;$(Sts2Dir)/mods/$(MSBuildProjectName)/$(MSBuildProjectName).pck&quot;"
-      EnvironmentVariables="IsInnerGodotExport=true;MSBUILDDISABLENODEREUSE=1"
-      ContinueOnError="WarnAndContinue" />
-  </Target>
+  <!-- RitsuLib.References.props selects compat/<RitsuLibReferenceTarget>/... and shared/... -->
+  <Import Project="$(RitsuLibDir)\RitsuLib.References.props" />
 
+  <!-- Builds compat/0.107.1, compat/0.111.0, the root loader, and the single PCK. -->
+  <Import Project="$(MSBuildProjectDirectory)\build\SnakeInSpireExtend.VariantPack.targets" />
 </Project>

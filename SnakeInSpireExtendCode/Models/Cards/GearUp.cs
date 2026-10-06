@@ -19,7 +19,7 @@ public class GearUp() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Common, 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        foreach (CardModel card in PileType.Draw.GetPile(Owner).Cards.Take(DynamicVars.Cards.IntValue))
+        foreach (CardModel card in PileType.Draw.GetPile(Owner).Cards.Take(DynamicVars.Cards.IntValue).Where(c => c.IsUpgradable))
         {
             CardCmd.Upgrade(card);
             CardCmd.Preview(card);

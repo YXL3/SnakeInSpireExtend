@@ -31,7 +31,13 @@ public class Contagion() : SnakeCardTemplate(0, CardType.Attack, CardRarity.Rare
         {
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             bool shouldTriggerFatal = cardPlay.Target.Powers.All((PowerModel p) => p.ShouldOwnerDeathTriggerFatal());
-            AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target)
+            AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+#if STS2_AT_LEAST_0_111_0
+            .FromCard(this, cardPlay)
+#else
+            .FromCard(this)
+#endif
+            .Targeting(cardPlay.Target)
                 .WithHitVfxNode(t => NShootVfx.Create(t, VfxColor.Gold))
                 .WithHitFx(null, null, "blunt_attack.mp3")
                 .Execute(choiceContext);

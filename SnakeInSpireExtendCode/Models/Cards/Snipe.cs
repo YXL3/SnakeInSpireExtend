@@ -22,7 +22,13 @@ public class Snipe() : SnakeCardTemplate(3, CardType.Attack, CardRarity.Uncommon
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NAimVfx.Create(cardPlay.Target));
         await Cmd.Wait(0.75f);
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+#if STS2_AT_LEAST_0_111_0
+            .FromCard(this, cardPlay)
+#else
+            .FromCard(this)
+#endif
+            .Targeting(cardPlay.Target)
             .WithHitVfxNode(t => NShootVfx.Create(t, VfxColor.White, true))
             .WithHitFx(null, null, "blunt_attack.mp3")
             .Execute(choiceContext);

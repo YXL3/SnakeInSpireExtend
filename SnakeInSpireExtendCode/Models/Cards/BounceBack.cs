@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.CardSelection;
+﻿using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -21,8 +21,16 @@ public class BounceBack() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Unco
         {
             Helper.Hysteresis(item, DynamicVars["HysteresisVar"].BaseValue);
         }
+
+#if !STS2_AT_LEAST_0_111_0
+        if (!Keywords.Contains(CardKeyword.Exhaust) && !ExhaustOnNextPlay)
+        {
+            await CardPileCmd.Add(this, PileType.Draw, CardPilePosition.Bottom);
+        }
+#endif
     }
 
+#if STS2_AT_LEAST_0_111_0
     protected override CardLocation GetResultLocationForCardPlay()
     {
         CardLocation resultLocationForCardPlay = base.GetResultLocationForCardPlay();
@@ -31,14 +39,16 @@ public class BounceBack() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Unco
             resultLocationForCardPlay.pileType = PileType.Draw;
             resultLocationForCardPlay.position = CardPilePosition.Bottom;
         }
+
         return resultLocationForCardPlay;
     }
+#endif
 
     protected override void OnUpgrade()
     {
         AddKeyword(CardKeyword.Retain);
     }
-    
+
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
         ..Helper.HysteresisHoverTipIfNeeded(this)
     ];

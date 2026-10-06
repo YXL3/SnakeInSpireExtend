@@ -3,3 +3,5 @@
 /android/
 *.uid
 *.import
+# Local variant-pack build output
+artifacts/

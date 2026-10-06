@@ -18,7 +18,13 @@ public class Torsion() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Uncomm
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-        decimal vigorLoss = (await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target)
+        decimal vigorLoss = (await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+#if STS2_AT_LEAST_0_111_0
+            .FromCard(this, cardPlay)
+#else
+            .FromCard(this)
+#endif
+            .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_scratch")
             .Execute(choiceContext))
             .Results.SelectMany((List<DamageResult> r) => r).Sum((DamageResult r) => r.TotalDamage);

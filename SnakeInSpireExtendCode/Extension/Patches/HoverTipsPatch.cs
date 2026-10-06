@@ -34,13 +34,13 @@ public class HoverTipsPatch : IPatchMethod
         List<IHoverTip> list = __result.ToList();
         if(name == "Haste")
         {
-            list.Add(Helper.SmartHoverTipFromPowers(__instance, name,
+            list.Add(Helper.SmartStaticHoverTip(__instance, name,
             new DynamicVar("HasteDrawingAmount", Helper.ReadHasteDrawingAmount(__instance)),
             new DynamicVar("HastePassingAmount", Helper.HastePassingAmount(__instance))));
         }
         else
         {
-            list.Add(Helper.SmartHoverTipFromPowers(__instance, name));
+            list.Add(Helper.SmartStaticHoverTip(__instance, name));
         }
         __result = list;
     }
