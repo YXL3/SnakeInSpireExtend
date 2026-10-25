@@ -10,5 +10,6 @@
     "SNAKE_IN_SPIRE_TELEMETRY.displayNameText":"Snake mod",
     "SNAKE_IN_SPIRE_TELEMETRY.requestBasicUsage":"Session start time, framework and game version, build channel, platform, language, and anonymous install ID.",
     "SNAKE_IN_SPIRE_TELEMETRY.requestRunHistoryFiltered":"RunHistory data for runs played as the Snake that did not end in Abandon.",
-    "SNAKE_IN_SPIRE_TELEMETRY.requestDiagnostics":"Exception reports and framework runtime diagnostics."
+    "SNAKE_IN_SPIRE_TELEMETRY.requestDiagnostics":"Exception reports and framework runtime diagnostics.",
+    "SNAKE_FUNNY_FOCUS_POWER.description":"Increases the effectiveness of Orbs. So where are your Orbs?"
 }

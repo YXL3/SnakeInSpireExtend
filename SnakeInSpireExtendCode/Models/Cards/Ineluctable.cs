@@ -7,41 +7,34 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes;
-using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Nodes.Vfx.Cards;
 using SnakeInSpireExtend.Scripts.Powers;
 
 namespace SnakeInSpireExtend.Scripts.Cards;
 
-public class Ineluctable() : SnakeCardTemplate(1, CardType.Power, CardRarity.Rare, TargetType.Self)
+public class Ineluctable() : SnakeCardTemplate(2, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new PowerVar<StrengthPower>(2m),
-        new PowerVar<DexterityPower>(2m),
+        new PowerVar<IntangiblePower>(1m),
         new PowerVar<IneluctablePower>(1m)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         if (LocalContext.IsMe(Owner) && NGame.Instance != null && NGame.Instance.CurrentRunNode != null)
         {
             NGame.Instance.CurrentRunNode.GlobalUi.AddChildSafely(NNightmareHandsVfx.Create());
         }
-        NPowerUpVfx.CreateNormal(Owner.Creature);
-        await PowerCmd.Apply<StrengthPower>(choiceContext, Owner.Creature, DynamicVars["StrengthPower"].BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<DexterityPower>(choiceContext, Owner.Creature, DynamicVars["DexterityPower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<IntangiblePower>(choiceContext, Owner.Creature, DynamicVars["IntangiblePower"].BaseValue, Owner.Creature, this);
         await PowerCmd.Apply<IneluctablePower>(choiceContext, Owner.Creature, DynamicVars["IneluctablePower"].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["StrengthPower"].UpgradeValueBy(1m);
-        DynamicVars["DexterityPower"].UpgradeValueBy(1m);
+        EnergyCost.UpgradeBy(-1);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
-        HoverTipFactory.FromPower<StrengthPower>(),
-        HoverTipFactory.FromPower<DexterityPower>()
+        HoverTipFactory.FromPower<IntangiblePower>(),
     ];
 }

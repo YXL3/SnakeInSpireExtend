@@ -1,4 +1,4 @@
-<Project Sdk="Godot.NET.Sdk/4.5.1">
+﻿<Project Sdk="Godot.NET.Sdk/4.5.1">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>true</ImplicitUsings>
@@ -33,6 +33,13 @@
     <OutputPath>$(SnakeVariantWorkDir)\$(Sts2ApiCompat)\bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
 
+  <!-- SnakeInSpireExtend.Loader is a separate project. Without this exclusion,
+       the main project's recursive **/*.cs glob would also compile Loader sources
+       and Loader/obj/**/*.cs, causing duplicate assembly attributes (CS0579). -->
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);SnakeInSpireExtend.Loader\**</DefaultItemExcludes>
+  </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="sts2">
       <HintPath>$(Sts2DllPath)</HintPath>
@@ -63,3 +70,4 @@
   <!-- Builds compat/0.107.1, compat/0.111.0, the root loader, and the single PCK. -->
   <Import Project="$(MSBuildProjectDirectory)\build\SnakeInSpireExtend.VariantPack.targets" />
 </Project>
+

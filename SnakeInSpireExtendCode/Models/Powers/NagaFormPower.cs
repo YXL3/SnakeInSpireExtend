@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using SnakeInSpireExtend.Scripts.Enchantment;
 
@@ -27,4 +28,6 @@ public class NagaFormPower : SnakePowerTemplate
             CardCmd.Enchant<Cataclysm>(card, 1m);
         }
     }
+
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => HoverTipFactory.FromEnchantment<Cataclysm>();
 }

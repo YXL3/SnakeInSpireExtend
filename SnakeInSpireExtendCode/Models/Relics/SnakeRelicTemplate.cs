@@ -8,8 +8,8 @@ namespace SnakeInSpireExtend.Scripts.Relics;
 public abstract class SnakeRelicTemplate : ModRelicTemplate
 {
     public override RelicAssetProfile AssetProfile => new(
-        IconPath: $"res://SnakeInSpireExtend/images/relics/{GetType().Name}.png",
-        IconOutlinePath: $"res://SnakeInSpireExtend/images/relics/{GetType().Name}.png",
-        BigIconPath: $"res://SnakeInSpireExtend/images/relics/{GetType().Name}.png"
+        IconPath: $"res://SnakeInSpireExtend/images/relics/icon/{GetType().Name}.png",
+        IconOutlinePath: $"res://SnakeInSpireExtend/images/relics/outline/{GetType().Name}.png",
+        BigIconPath: $"res://SnakeInSpireExtend/images/relics/big/{GetType().Name}.png"
     );
 }

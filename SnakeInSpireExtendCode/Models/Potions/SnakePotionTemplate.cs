@@ -8,7 +8,7 @@ namespace SnakeInSpireExtend.Scripts.Potions;
 public abstract class SnakePotionTemplate : ModPotionTemplate
 {
     public override PotionAssetProfile AssetProfile => new(
-        ImagePath: $"res://SnakeInSpireExtend/images/potions/{GetType().Name}.png",
-        OutlinePath: $"res://SnakeInSpireExtend/images/potions/{GetType().Name}.png"
+        ImagePath: $"res://SnakeInSpireExtend/images/potions/icon/{GetType().Name}.png",
+        OutlinePath: $"res://SnakeInSpireExtend/images/potions/outline/{GetType().Name}.png"
     );
 }

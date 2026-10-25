@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Text.Json;
@@ -12,6 +13,7 @@ public static class Bootstrap
     private const string CompatDirectoryName = "compat";
     private const string SharedDirectoryName = "shared";
     private const string VariantAssemblyName = "SnakeInSpireExtend";
+    private const string ModId = "SnakeInSpireExtend";
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -19,6 +21,8 @@ public static class Bootstrap
     };
 
     private static bool _initialized;
+    private static bool _modDetectedBridgeInstalled;
+    private static Assembly? _implementationAssembly;
 
     public static void Initialize()
     {
@@ -118,6 +122,9 @@ public static class Bootstrap
                 return;
             }
 
+            _implementationAssembly = mainAssembly;
+            InstallModDetectedBridge();
+            TryAssociateAssemblyWithMod(mainAssembly);
             InvokeModInitializer(mainAssembly);
         }
         catch (Exception ex)
@@ -125,6 +132,96 @@ public static class Bootstrap
             LogError(ex.ToString());
         }
     }
+
+    private static void InstallModDetectedBridge()
+    {
+        if (_modDetectedBridgeInstalled)
+            return;
+
+        var eventInfo = typeof(ModManager).GetEvent(
+            "OnModDetected",
+            BindingFlags.Static | BindingFlags.Public);
+
+        if (eventInfo?.EventHandlerType != typeof(Action<Mod>))
+            return;
+
+        eventInfo.AddEventHandler(null, new Action<Mod>(OnModDetected));
+        _modDetectedBridgeInstalled = true;
+    }
+
+    private static void OnModDetected(Mod mod)
+    {
+        if (_implementationAssembly is null)
+            return;
+
+        if (!string.Equals(ReadManifestId(mod), ModId, StringComparison.Ordinal))
+            return;
+
+        if (IsAssemblyAssociatedWithMod(mod, _implementationAssembly))
+            return;
+
+        if (!TryGetMutableAssembliesList(mod, out var assemblies))
+            return;
+
+        assemblies.Add(_implementationAssembly);
+    }
+
+    private static void TryAssociateAssemblyWithMod(Assembly implementation)
+    {
+        try
+        {
+            var method = typeof(ModManager).GetMethod(
+                "AssociateAssemblyWithMod",
+                BindingFlags.Static | BindingFlags.Public,
+                null,
+                new[] { typeof(string), typeof(Assembly) },
+                null);
+
+            method?.Invoke(null, new object[] { ModId, implementation });
+        }
+        catch (Exception ex)
+        {
+            LogError($"Failed to associate variant assembly: {ex.Message}");
+        }
+    }
+
+    private static bool IsAssemblyAssociatedWithMod(Mod mod, Assembly assembly)
+    {
+        return TryGetMutableAssembliesList(mod, out var assemblies)
+               && ContainsAssembly(assemblies, assembly);
+    }
+
+    private static string? ReadManifestId(Mod mod)
+    {
+        var manifest = typeof(Mod)
+            .GetField("manifest", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+            ?.GetValue(mod);
+
+        return manifest?.GetType()
+            .GetField("id", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+            ?.GetValue(manifest) as string;
+    }
+
+    private static bool TryGetMutableAssembliesList(Mod mod, out IList assemblies)
+    {
+        assemblies = null!;
+
+        var value = typeof(Mod)
+            .GetField("assemblies", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+            ?.GetValue(mod);
+
+        if (value is not IList list)
+            return false;
+
+        assemblies = list;
+        return true;
+    }
+
+    private static bool ContainsAssembly(IEnumerable assemblies, Assembly assembly)
+    {
+        return assemblies.Cast<object?>().Any(item => ReferenceEquals(item, assembly));
+    }
+
 
     private static VariantEntry? SelectVariant(
         IReadOnlyList<VariantEntry> variants,
