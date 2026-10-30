@@ -17,10 +17,6 @@ public class Coil() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Rare, Targ
         new PowerVar<FocusPower>(1m)
     ];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [
-        CardKeyword.Ethereal
-    ];
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<StrengthPower>(choiceContext, Owner.Creature, DynamicVars["StrengthPower"].BaseValue, Owner.Creature, this);
@@ -30,7 +26,7 @@ public class Coil() : SnakeCardTemplate(1, CardType.Skill, CardRarity.Rare, Targ
 
     protected override void OnUpgrade()
     {
-        RemoveKeyword(CardKeyword.Ethereal);
+        AddKeyword(CardKeyword.Retain);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [

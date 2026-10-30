@@ -12,7 +12,7 @@
 
   <PropertyGroup>
     <!-- Default used by VSCode/IntelliSense when no command-line property is supplied. -->
-    <Sts2ApiCompat Condition="'$(Sts2ApiCompat)' == ''">0.107.1</Sts2ApiCompat>
+    <Sts2ApiCompat Condition="'$(Sts2ApiCompat)' == ''">0.111.0</Sts2ApiCompat>
     <SnakeCompatTargets Condition="'$(SnakeCompatTargets)' == ''">0.107.1;0.111.0</SnakeCompatTargets>
 
     <!-- Select the game reference assembly for this variant. -->

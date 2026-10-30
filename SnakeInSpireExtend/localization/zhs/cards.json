@@ -146,5 +146,7 @@
     "SNAKE_IN_SPIRE_EXTEND_CARD_UNLOAD.description": "[gold]消耗[/gold][gold]手牌[/gold]中{IfUpgraded:show:所有|一张}攻击牌。\n下X回合开始时，打出这些牌的一张0{energyPrefix:energyIcons(1)}复制品。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_UNLOAD.title": "迸发",
     "SNAKE_IN_SPIRE_EXTEND_CARD_WEAVE.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将这张牌放到[gold]抽牌堆[/gold]底。",
-    "SNAKE_IN_SPIRE_EXTEND_CARD_WEAVE.title": "穿行"
+    "SNAKE_IN_SPIRE_EXTEND_CARD_WEAVE.title": "穿行",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_WHIP_SWORD.description": "给予{VulnerablePower:diff()}层[gold]易伤[/gold]。\n获得{Block:diff()}点[gold]格挡[/gold]。",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_WHIP_SWORD.title": "蛇腹剑"
 }

@@ -146,5 +146,7 @@
     "SNAKE_IN_SPIRE_EXTEND_CARD_UNLOAD.description": "[gold]Exhaust[/gold] {IfUpgraded:show:all Attacks|an Attack} in your [gold]Hand[/gold].\nAt the start of the next X turns, play a 0{energyPrefix:energyIcons(1)} copy of these cards.",
     "SNAKE_IN_SPIRE_EXTEND_CARD_UNLOAD.title": "Unload",
     "SNAKE_IN_SPIRE_EXTEND_CARD_WEAVE.description": "Gain {Block:diff()} [gold]Block[/gold].\nPut this card on the bottom of your [gold]Draw Pile[/gold].",
-    "SNAKE_IN_SPIRE_EXTEND_CARD_WEAVE.title": "Weave"
+    "SNAKE_IN_SPIRE_EXTEND_CARD_WEAVE.title": "Weave",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_WHIP_SWORD.description": "Apply {VulnerablePower:diff()} [gold]Vulnerable[/gold].\nGain {Block:diff()} [gold]Block[/gold].",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_WHIP_SWORD.title": "Whip Sword"
 }
