@@ -21,7 +21,7 @@ public class SneakyPhantomSingleton() : HookedSingletonModel(HookType.Combat)
 
     public static void StoreCarryOver(Player player, PhantomCarryOverState state)
     {
-        if (ModelDb.Singleton<SneakyPhantomSingleton>() is not { } self) return;
+        if (ModelDb.RunModel<SneakyPhantomSingleton>() is not { } self) return;
         if (player.RunState is not RunState runState) return;
         self._pendingCarryOver = state;
         SavedData.Set(runState, player.NetId, state);

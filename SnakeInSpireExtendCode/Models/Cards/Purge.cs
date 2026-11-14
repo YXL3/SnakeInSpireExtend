@@ -24,11 +24,7 @@ public class Purge() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Rare, Ta
     {
         if(CombatState == null) return;
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-#if STS2_AT_LEAST_0_111_0
             .FromCard(this, cardPlay)
-#else
-            .FromCard(this)
-#endif
             .TargetingAllOpponents(CombatState)
             .WithHitFx("vfx/vfx_attack_blunt", null, "heavy_attack.mp3")
             .Execute(choiceContext);

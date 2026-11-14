@@ -80,6 +80,8 @@
     "SNAKE_IN_SPIRE_EXTEND_CARD_OUROBOROS.title": "衔尾蛇",
     "SNAKE_IN_SPIRE_EXTEND_CARD_OVERWHELM.description": "造成{Damage:diff()}点伤害{Repeat:diff()}次。\n每当你抽到这张牌时，为其添加[gold]急促[/gold]{HasteVar:diff()}。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_OVERWHELM.title": "击溃",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_POLARIS.description": "造成{Damage:diff()}点伤害。\n你打出攻击牌时，如果这张牌在你的[gold]手牌[/gold]中，其造成的伤害改为增加这张牌的伤害。",
+    "SNAKE_IN_SPIRE_EXTEND_CARD_POLARIS.title": "北极星",
     "SNAKE_IN_SPIRE_EXTEND_CARD_POLE_VAULT.description": "造成{Damage:diff()}点伤害。\n获得{Block:diff()}点[gold]格挡[/gold]。",
     "SNAKE_IN_SPIRE_EXTEND_CARD_POLE_VAULT.title": "撑杆跳",
     "SNAKE_IN_SPIRE_EXTEND_CARD_PREDATE.description": "造成{Damage:diff()}点伤害{Repeat:diff()}次。",

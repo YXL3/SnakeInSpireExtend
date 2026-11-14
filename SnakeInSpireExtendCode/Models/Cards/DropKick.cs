@@ -19,11 +19,7 @@ public class DropKick() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Rare,
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-#if STS2_AT_LEAST_0_111_0
             .FromCard(this, cardPlay)
-#else
-            .FromCard(this)
-#endif
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(choiceContext);

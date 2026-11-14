@@ -19,11 +19,7 @@ public class Torsion() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Uncomm
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         decimal vigorLoss = (await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-#if STS2_AT_LEAST_0_111_0
             .FromCard(this, cardPlay)
-#else
-            .FromCard(this)
-#endif
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_scratch")
             .Execute(choiceContext))

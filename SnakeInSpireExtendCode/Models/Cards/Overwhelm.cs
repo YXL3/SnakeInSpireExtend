@@ -26,11 +26,7 @@ public class Overwhelm() : SnakeCardTemplate(2, CardType.Attack, CardRarity.Unco
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-#if STS2_AT_LEAST_0_111_0
             .FromCard(this, cardPlay)
-#else
-            .FromCard(this)
-#endif
             .Targeting(cardPlay.Target)
             .WithHitCount(DynamicVars.Repeat.IntValue)
             .WithHitVfxNode(t => NShootVfx.Create(t, VfxColor.Gold))

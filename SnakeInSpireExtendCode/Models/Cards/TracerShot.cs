@@ -24,11 +24,7 @@ public class TracerShot() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Unc
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-#if STS2_AT_LEAST_0_111_0
             .FromCard(this, cardPlay)
-#else
-            .FromCard(this)
-#endif
             .Targeting(cardPlay.Target)
             .WithHitVfxNode(t => NShootVfx.Create(t, VfxColor.Cyan))
             .WithHitFx(null, null, "blunt_attack.mp3")

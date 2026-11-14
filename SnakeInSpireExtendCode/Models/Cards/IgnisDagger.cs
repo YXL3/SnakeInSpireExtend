@@ -1,4 +1,3 @@
-#if STS2_AT_LEAST_0_111_0
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -31,11 +30,7 @@ public class IgnisDagger() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Un
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NGroundFireVfx.Create(cardPlay.Target));
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-#if STS2_AT_LEAST_0_111_0
             .FromCard(this, cardPlay)
-#else
-            .FromCard(this)
-#endif
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
@@ -77,4 +72,3 @@ public class IgnisDagger() : SnakeCardTemplate(1, CardType.Attack, CardRarity.Un
         HoverTipFactory.FromCard<Burn>()
     ];
 }
-#endif

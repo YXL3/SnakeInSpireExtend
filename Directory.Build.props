@@ -1,26 +1,20 @@
 ﻿<Project>
   <PropertyGroup>
-    <!-- Slay the Spire 2 install used for the 0.111.0 reference set. -->
+    <!-- Slay the Spire 2 install used for the current reference set. -->
     <Sts2Dir>D:\SteamLibrary\steamapps\common\Slay the Spire 2</Sts2Dir>
     <Sts2DataDir Condition="'$(Sts2DataDir)' == ''">$(Sts2Dir)\data_sts2_windows_x86_64</Sts2DataDir>
 
-    <!-- Installed RitsuLib bundle (schema 2: compat/<api>/ + shared/). -->
+    <!-- Installed RitsuLib bundle. -->
     <RitsuLibDir>D:\SteamLibrary\steamapps\workshop\content\2868840\3747602295</RitsuLibDir>
 
-    <!-- Godot executable used for the single PCK export. -->
+    <!-- Godot executable used for the mod PCK export. -->
     <GodotExe>D:\Godot_v4.5.1-stable_mono_win64\Godot_v4.5.1-stable_mono_win64.exe</GodotExe>
 
-    <!-- 0.107.1 sts2.dll lives in the workspace-level Resources/Requirements folder. -->
-    <SnakeApiRefsDir Condition="'$(SnakeApiRefsDir)' == ''">$(MSBuildThisFileDirectory)..\Resources\Requirements</SnakeApiRefsDir>
-
-    <!-- Usually overridden by the pack orchestrator. -->
-    <SnakeCompatTargets Condition="'$(SnakeCompatTargets)' == ''">0.107.1;0.111.0</SnakeCompatTargets>
-
-    <!-- Per-variant reference locations. Override these if your install layout differs. -->
-    <Sts2_0_107_1_Sts2Dll Condition="'$(Sts2_0_107_1_Sts2Dll)' == ''">$(SnakeApiRefsDir)\sts2.dll</Sts2_0_107_1_Sts2Dll>
-    <Sts2_0_111_0_Dir Condition="'$(Sts2_0_111_0_Dir)' == ''">$(Sts2DataDir)</Sts2_0_111_0_Dir>
-
-    <!-- 0Harmony is shared by both targets; the game install supplies it. -->
+    <!-- Game assembly references. -->
+    <Sts2DllPath Condition="'$(Sts2DllPath)' == ''">$(Sts2DataDir)\sts2.dll</Sts2DllPath>
     <HarmonyDllPath Condition="'$(HarmonyDllPath)' == ''">$(Sts2DataDir)\0Harmony.dll</HarmonyDllPath>
+
+    <!-- RitsuLib ships versioned reference sets; select the one matching sts2.dll. -->
+    <RitsuLibReferenceTarget Condition="'$(RitsuLibReferenceTarget)' == ''">0.113.0</RitsuLibReferenceTarget>
   </PropertyGroup>
 </Project>

@@ -12,7 +12,6 @@ public class HysteresisFunctionPatch : IPatchMethod
 
     public static bool IsCritical => true;
 
-#if STS2_AT_LEAST_0_111_0
     public static ModPatchTarget[] GetTargets()
     {
         return [new(typeof(CardModel), "GetResultLocationForCardPlay")];
@@ -24,17 +23,4 @@ public class HysteresisFunctionPatch : IPatchMethod
             __result = new CardLocation(__instance.Owner, PileType.Hand, CardPilePosition.Bottom);
         }
     }
-#else
-    public static ModPatchTarget[] GetTargets()
-    {
-        return [new(typeof(CardModel), "GetResultPileTypeForCardPlay")];
-    }
-
-    public static void Postfix(CardModel __instance, ref PileType __result)
-    {
-        if (__result == PileType.Discard && Helper.HasCustomDynamic(__instance, "Hysteresis")){
-            __result = PileType.Hand;
-        }
-    }
-#endif
 }

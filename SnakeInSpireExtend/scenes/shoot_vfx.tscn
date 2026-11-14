@@ -9,6 +9,15 @@ script = ExtResource("1_3gi4h")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
+[node name="Secondary" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.5)
+material = ExtResource("shared_additive_mat")
+rotation = -1.5708
+scale = Vector2(3, 3.3)
+texture = ExtResource("3_n2ujd")
+offset = Vector2(0, -90)
+
 [node name="Primary" type="Sprite2D" parent="."]
 material = ExtResource("shared_additive_mat")
 rotation = -1.5708

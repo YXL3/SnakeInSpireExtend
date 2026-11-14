@@ -58,7 +58,6 @@ public class Entry
         patcher.RegisterPatch<GetDescriptionForPilePatch>();
         patcher.RegisterPatch<HoverTipsPatch>();
         patcher.RegisterPatch<KeywordsPatch>();
-        patcher.RegisterPatch<SnakeCardPortraitFilterPatch>();
         patcher.RegisterPatch<CyclingCardHoverTipPatch>();
         patcher.RegisterPatch<NegativeVigorPatch>();
         if (!patcher.PatchAll()) throw new InvalidOperationException("Critical patches failed.");

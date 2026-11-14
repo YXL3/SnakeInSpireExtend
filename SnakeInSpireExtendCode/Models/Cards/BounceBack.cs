@@ -21,16 +21,8 @@ public class BounceBack() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Unco
         {
             Helper.Hysteresis(item, DynamicVars["HysteresisVar"].BaseValue);
         }
-
-#if !STS2_AT_LEAST_0_111_0
-        if (!Keywords.Contains(CardKeyword.Exhaust) && !ExhaustOnNextPlay)
-        {
-            await CardPileCmd.Add(this, PileType.Draw, CardPilePosition.Bottom);
-        }
-#endif
     }
 
-#if STS2_AT_LEAST_0_111_0
     protected override CardLocation GetResultLocationForCardPlay()
     {
         CardLocation resultLocationForCardPlay = base.GetResultLocationForCardPlay();
@@ -42,7 +34,6 @@ public class BounceBack() : SnakeCardTemplate(0, CardType.Skill, CardRarity.Unco
 
         return resultLocationForCardPlay;
     }
-#endif
 
     protected override void OnUpgrade()
     {

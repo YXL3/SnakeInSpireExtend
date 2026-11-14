@@ -26,20 +26,12 @@ public class ShaveTheGround() : SnakeCardTemplate(0, CardType.Skill, CardRarity.
         DynamicVars.Block.UpgradeValueBy(3m);
     }
 
-#if STS2_AT_LEAST_0_111_0
     protected override CardLocation GetResultLocationForCardPlay()
     {
         CardLocation result = base.GetResultLocationForCardPlay();
         return (result.pileType == PileType.None || !Helper.HasCustomDynamic(this, "Haste"))?
         result : new CardLocation(Owner, PileType.Hand, CardPilePosition.Bottom);
     }
-#else
-    protected override PileType GetResultPileTypeForCardPlay()
-    {
-        PileType result = base.GetResultPileTypeForCardPlay();
-        return (result == PileType.None || !Helper.HasCustomDynamic(this, "Haste"))? result : PileType.Hand;
-    }
-#endif
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
         ..Helper.HasteHoverTipIfNeeded(this)

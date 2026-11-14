@@ -1,0 +1,40 @@
+﻿<Project>
+  <PropertyGroup>
+    <SnakeArtifactsDir Condition="'$(SnakeArtifactsDir)' == ''">$(MSBuildProjectDirectory)\artifacts</SnakeArtifactsDir>
+    <SnakeStageRoot Condition="'$(SnakeStageRoot)' == ''">$(SnakeArtifactsDir)\package</SnakeStageRoot>
+    <SnakeStageDir Condition="'$(SnakeStageDir)' == ''">$(SnakeStageRoot)\$(MSBuildProjectName)</SnakeStageDir>
+    <SnakeCopyToGame Condition="'$(SnakeCopyToGame)' == ''">true</SnakeCopyToGame>
+    <SnakeModsDir Condition="'$(SnakeModsDir)' == ''">$(Sts2Dir)\mods\$(MSBuildProjectName)</SnakeModsDir>
+  </PropertyGroup>
+
+  <Target Name="BuildSnakeModPackage"
+          AfterTargets="Build"
+          Condition="'$(SnakeSkipPack)' != 'true' and '$(DesignTimeBuild)' != 'true'">
+    <Message Text="Staging SnakeInSpireExtend mod package..." Importance="high" />
+
+    <RemoveDir Directories="$(SnakeStageDir)" />
+    <MakeDir Directories="$(SnakeStageDir)" />
+
+    <Copy SourceFiles="$(TargetPath)"
+          DestinationFiles="$(SnakeStageDir)\$(MSBuildProjectName).dll"
+          SkipUnchangedFiles="true" />
+
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(MSBuildProjectName).json"
+          DestinationFolder="$(SnakeStageDir)"
+          SkipUnchangedFiles="true" />
+
+    <!-- Export one PCK for the current game API. The inner Godot build must not
+         recursively run this packaging target again. -->
+    <Exec Command="&quot;$(GodotExe)&quot; --headless --path &quot;$(MSBuildProjectDirectory)&quot; --export-pack &quot;Windows Desktop&quot; &quot;$(SnakeStageDir)\$(MSBuildProjectName).pck&quot;"
+          EnvironmentVariables="MSBUILDDISABLENODEREUSE=1;SnakeSkipPack=true" />
+
+    <MakeDir Directories="$(SnakeModsDir)" Condition="'$(SnakeCopyToGame)' == 'true'" />
+    <ItemGroup Condition="'$(SnakeCopyToGame)' == 'true'">
+      <SnakeStageFiles Include="$(SnakeStageDir)\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(SnakeStageFiles)"
+          DestinationFiles="@(SnakeStageFiles->'$(SnakeModsDir)\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true"
+          Condition="'$(SnakeCopyToGame)' == 'true'" />
+  </Target>
+</Project>
